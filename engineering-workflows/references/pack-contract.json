@@ -1,0 +1,121 @@
+{
+  "schema_version": 3,
+  "version": "2.1.0",
+  "expected_skill_count": 7,
+  "skills": [
+    {
+      "name": "engineering-workflows",
+      "role": "owner",
+      "disable_model_invocation": false,
+      "auto_calls": [
+        "engineering-check",
+        "engineering-verify",
+        "engineering-measure",
+        "engineering-arena"
+      ],
+      "required_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "LICENSE"
+      ],
+      "user_request_required": false
+    },
+    {
+      "name": "engineering-check",
+      "role": "specialist",
+      "disable_model_invocation": false,
+      "auto_calls": [
+        "engineering-verify",
+        "engineering-measure"
+      ],
+      "required_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "LICENSE"
+      ],
+      "user_request_required": false
+    },
+    {
+      "name": "engineering-verify",
+      "role": "specialist",
+      "disable_model_invocation": false,
+      "auto_calls": [],
+      "required_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "LICENSE"
+      ],
+      "user_request_required": false
+    },
+    {
+      "name": "engineering-measure",
+      "role": "specialist",
+      "disable_model_invocation": false,
+      "auto_calls": [],
+      "required_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "LICENSE"
+      ],
+      "user_request_required": false
+    },
+    {
+      "name": "engineering-arena",
+      "role": "specialist",
+      "disable_model_invocation": false,
+      "auto_calls": [
+        "engineering-verify",
+        "engineering-measure"
+      ],
+      "required_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "LICENSE"
+      ],
+      "user_request_required": false
+    },
+    {
+      "name": "engineering-campaign",
+      "role": "user-request-extension",
+      "disable_model_invocation": false,
+      "auto_calls": [
+        "engineering-workflows",
+        "engineering-check",
+        "engineering-verify",
+        "engineering-measure",
+        "engineering-arena"
+      ],
+      "required_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "LICENSE"
+      ],
+      "user_request_required": true
+    },
+    {
+      "name": "engineering-configure",
+      "role": "user-request-extension",
+      "disable_model_invocation": false,
+      "auto_calls": [
+        "engineering-check",
+        "engineering-arena",
+        "engineering-verify",
+        "engineering-measure"
+      ],
+      "required_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "LICENSE"
+      ],
+      "user_request_required": true
+    }
+  ],
+  "shared_references": [
+    "references/contract.md",
+    "references/coordination.md",
+    "references/delivery.md",
+    "references/methods.md",
+    "references/notes.md"
+  ],
+  "review_policy": "Task-level proportional scrutiny; explicit stricter conditions remain binding. See references/contract.md."
+}

@@ -1,0 +1,14 @@
+interface:
+  display_name: Engineering Configure
+  short_description: Inspect and update requested engineering pack settings
+  default_prompt: Use $engineering-configure to inspect capabilities and apply the
+    requested engineering pack changes.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

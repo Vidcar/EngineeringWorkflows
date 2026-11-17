@@ -1,0 +1,14 @@
+interface:
+  display_name: Engineering Verify
+  short_description: Verify behavior and maintain meaningful checks
+  default_prompt: Use $engineering-verify to check the specified behavior and report
+    evidence.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

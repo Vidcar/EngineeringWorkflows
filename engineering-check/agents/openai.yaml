@@ -1,0 +1,14 @@
+interface:
+  display_name: Engineering Check
+  short_description: Assess changes and report supported findings
+  default_prompt: Use $engineering-check to assess this change and report supported
+    findings.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

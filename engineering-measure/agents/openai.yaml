@@ -1,0 +1,13 @@
+interface:
+  display_name: Engineering Measure
+  short_description: Measure performance and evaluate comparisons
+  default_prompt: Use $engineering-measure to assess this claim with credible measurements.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
