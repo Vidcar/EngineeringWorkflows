@@ -1,5 +1,10 @@
 # Engineering skills for CodeDen dark factory
 
+**Installing agent?** Start with the repository's
+[agent installation instructions](../README.md) to choose between the original
+EngineeringWorkflows pack and this factory adaptation, then follow the matching
+setup and verification steps.
+
 A reusable project skill pack derived from **EngineeringWorkflows 2.1.0**.
 CodeDen runs the factory; these skills improve the engineering judgment inside
 its assignments.
@@ -211,9 +216,13 @@ review returns, and explicit rebuild/post-revert branches.
 
 ## Validate or maintain the pack
 
+Run these commands from the source repository root, one directory above
+`codeden-dark-factory`. The validator creates a disposable project under the
+current working directory, which must be writable and outside the pack itself.
+
 ```bash
-python3 -B scripts/validate.py
-python3 -B scripts/test_install.py
+python3 -B codeden-dark-factory/scripts/validate.py
+python3 -B codeden-dark-factory/scripts/test_install.py
 ```
 
 Static validation establishes structure and routing consistency, not model
