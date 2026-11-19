@@ -1,0 +1,4 @@
+interface:
+  display_name: "CodeDen Investigate"
+  short_description: "Substantiate the assigned analysis or reproduction"
+  default_prompt: "Use $codeden-investigate for the current factory investigation step."

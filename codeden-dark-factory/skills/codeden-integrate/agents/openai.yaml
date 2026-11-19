@@ -1,0 +1,4 @@
+interface:
+  display_name: "CodeDen Integrate"
+  short_description: "Resolve an assigned integration or recovery task"
+  default_prompt: "Use $codeden-integrate for this assigned factory recovery action."
