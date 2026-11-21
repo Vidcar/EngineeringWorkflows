@@ -1,41 +1,46 @@
-# Program state, control and recovery
+# Track and resume a program
 
-Read before dispatching units or resuming a program. Keep one coordinator-written
-record linking separately owned outputs; use existing storage, not new workflow
-infrastructure. Record only what coordination needs:
+## Keep one record
 
-- User outcome, exclusions, authority, finish and resource/stop bounds.
-- Unit dependencies, current states, owner, allowed writes and active resources.
-- Exact input/output identities, dirty/new content and relevant environment.
+Use the project's existing storage. The coordinator maintains a record linking
+each worker's output. Include only what is needed to coordinate the work:
+
+- Goal, exclusions, permission, requested finish and resource limits.
+- Units, dependencies, status, owner, allowed writes and active resources.
+- Exact inputs and outputs, including uncommitted or new files and the environment.
 - Acceptance evidence, findings, stale checks, unresolved decisions and next work.
 
-Distinguish planned, running, blocked, review-pending, verified, handed-off,
-delivered, paused and cancelled. Queued work is not delivery. A unit awaiting its
-input or the coordinator needs that dependency resolved, not automatic replacement.
-Use supported event notifications where available; otherwise use bounded
-active-session polling. Create schedules only when explicitly requested.
+Distinguish planned, running, blocked, awaiting review, verified, handed off,
+delivered, paused and cancelled work. Queued work has not been delivered. Resolve
+missing inputs or coordinator decisions before replacing a waiting worker.
 
-Choose sequential or parallel work by dependency and actual host capacity. One
-integrator owns the assembly. A representative first unit tests the dispatch,
-verification and authorized finish before repeating the pattern at scale.
+Use supported event notifications or limited polling during the active session.
+Create a schedule only when requested. Choose sequential or parallel work from
+the dependencies and actual host capacity. One integrator assembles the result.
+Use the first representative unit to check dispatch, verification and delivery.
 
-For each writer, name its resource ownership and starting content. Before
-replacement, observe stop acknowledgment or termination, inspect saved work and
-live resource state, then assign a fresh ownership generation. Silence, timeout
-and stale status are insufficient. If stop is unconfirmed, hold that unit's
-writes and continue separately isolated work. Late output goes to the current
-owner for inspection, never directly over current state.
+## Replace writers safely
 
-Use shared coordination.md for source transfer and isolation details. Receivers
-acknowledge accessible inputs, exact versions and owned outputs before writing.
-A changed dependency makes affected downstream evidence stale; recheck after
-integration rather than forwarding branch-level passes.
+Record each writer's starting content and owned resources. Before replacement,
+observe a stop acknowledgement or termination, inspect saved work and live
+resources, then record the replacement's assignment ID and ownership. Silence,
+a timeout or an old status message does not establish that writing has stopped.
 
-On interruption, checkpoint decisions, actual artifacts/evidence, active workers,
-owned resources and operations with uncertain effects. Resume by inspecting live
-state and confirming no old writer retains ownership. Reconcile uncertain external
-effects before retrying. Preserve useful evidence before task-owned cleanup.
+If stopping is unconfirmed, hold writes to those resources and continue other,
+isolated work. Send late output to the current owner for inspection; do not let it
+overwrite current work.
 
-Bound retries by their diagnosed purpose and remaining resources. Replan when
-repeated attempts add no evidence. Report exhausted or unavailable units explicitly;
-a successful subset does not certify the whole program.
+Follow Workflows' `references/coordination.md` for isolation and source transfer.
+Receivers confirm accessible inputs, exact versions and owned outputs before
+writing. When a dependency changes, rerun affected checks after integration.
+
+## Recover and finish
+
+On interruption, save decisions, actual outputs and evidence, active workers,
+owned resources and operations whose effects are uncertain. On resume, inspect
+live state and confirm who still owns each resource. Check uncertain external
+effects before retrying. Preserve useful evidence before removing temporary work.
+
+Tie retries to a diagnosis and the remaining budget. Replan when attempts stop
+producing useful evidence. Report exhausted or unavailable units explicitly; a
+successful subset does not establish that the whole program succeeded.

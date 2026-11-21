@@ -1,8 +1,8 @@
 # Engineering Workflows
 
-Seven agent skills for carrying software work from a clear goal to a verified result.
-The pack is based on [v2.1.0 at `e8ae675`](https://github.com/Vidcar/EngineeringWorkflows/commit/e8ae675031320195b0ef3a827adfd05b782909f0),
-with directory-symlink support in the skill resolver.
+Engineering Workflows **2.2.0** provides seven agent skills for carrying software
+work from a clear goal to a verified result. See the [review notes](REVIEW.md)
+for the changes and verification results.
 
 ## Skills and routing
 
@@ -19,7 +19,7 @@ with directory-symlink support in the skill resolver.
 Install all seven folders together. The specialist skills resolve
 `engineering-workflows` by its exact skill name and share its
 [operating contract](engineering-workflows/references/contract.md).
-One lead owns the outcome; specialists receive bounded assignments.
+One lead is responsible for the result; specialists receive specific assignments.
 
 Campaign and Configure require direct user intent, including an ordinary
 natural-language request. Task size or routine capability discovery alone does
@@ -29,16 +29,24 @@ not select them.
 
 ### 1. Get the pack and validation tools
 
-You need an agent host that supports skill folders, Git with access to this
-repository, and Python 3.9 or newer. The validator and pack tests also require
+You need an agent host that supports skill folders, Git for the helper tests,
+and Python 3.9 or newer. The validator and pack tests also require
 PyYAML. The skills use the models, tools, credentials, and delegation capabilities
 already available in the host.
 
 The commands below use a POSIX shell, such as Bash on Linux, macOS, or WSL.
 
+Clone the repository to get the pack:
+
 ```bash
 git clone https://github.com/Vidcar/EngineeringWorkflows.git
 cd EngineeringWorkflows
+```
+
+If you have a ZIP, extract it and open a shell in the EngineeringWorkflows folder.
+From the pack root, run:
+
+```bash
 ENGINEERING_PACK_SRC="$(pwd)"
 
 python3 -m venv ../engineering-workflows-venv
@@ -48,8 +56,8 @@ python -m pip install PyYAML
 python engineering-workflows/scripts/validate_pack.py --root .
 ```
 
-Keep the checkout in a stable location if you choose a linked installation.
-The virtual environment lives beside the checkout so it stays out of the pack.
+Keep the checkout or extracted pack in a stable location for a linked installation.
+The virtual environment lives beside it.
 
 ### 2. Choose the host and installation scope
 
@@ -150,7 +158,7 @@ ENGINEERING_PACK_TEST_ROOT="$ENGINEERING_SKILLS_DIR" \
 ```
 
 A successful validation reports `"valid": true`, `"skill_count": 7`,
-`"version": "2.1.0"`, and an empty `errors` list. These checks cover files,
+`"version": "2.2.0"`, and an empty `errors` list. These checks cover files,
 schemas, references, and declared routing. Host registration and live agent
 behavior need the separate check below.
 
@@ -201,7 +209,10 @@ python -m unittest discover -s engineering-workflows/scripts -p 'test_*.py' -v
 The tests exercise the resolver, Git snapshot helper, pack structure, and
 rejection of invalid declarations. For changes to routing or execution policy,
 also exercise the affected task in the real host; passing structural checks
-does not establish behavioral correctness.
+does not establish behavioral correctness. The [evaluation kit](evals/README.md)
+prepares isolated tasks and checks their results. Keep evaluator expectations
+out of the runner workspace. The kit stays at repository level and is not part
+of the seven installed skill folders.
 
 If you install the pack into this checkout's own host directory, use links.
 Copied skills nested inside the source tree create duplicate active skill names
@@ -209,10 +220,11 @@ when validating the source root.
 
 ## Updating and troubleshooting
 
-For a linked installation, review local edits, update the checkout with
-`git pull --ff-only`, and rerun validation against `ENGINEERING_SKILLS_DIR`.
-Links expose local edits immediately; use a stable checkout for everyday work.
-If you move or delete the checkout, recreate the links at the new location.
+For a linked installation, review the new pack before replacing the linked
+source, then rerun validation against `ENGINEERING_SKILLS_DIR`. Links expose
+local edits immediately, so use a stable copy for everyday work. If the source
+is a Git checkout, keep local changes safe when updating it. If you move or
+delete the source folder, recreate the links at the new location.
 
 For a copied installation, keep a backup outside all active skill roots, replace
 only this pack's seven folders with complete copies, and rerun validation and
@@ -221,7 +233,7 @@ destinations instead of merging versions.
 
 | Symptom | Check |
 | --- | --- |
-| Repository cannot be cloned | Confirm your Git credentials can access `Vidcar/EngineeringWorkflows`. |
+| Pack cannot be found | Open the checkout or extracted pack and set `ENGINEERING_PACK_SRC` to the directory containing all seven skill folders. |
 | `Pack validation needs PyYAML` | Activate the virtual environment and install PyYAML using that environment's `python -m pip`. |
 | Resolver reports `found 0` | Confirm the selected root, the complete skill directory, and any link target exist and are readable. Link directories, not individual `SKILL.md` files. |
 | Resolver reports `found 2` or more | Inspect active roots for distinct copies with the same frontmatter name; move retired copies outside active roots. |

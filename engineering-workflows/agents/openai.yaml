@@ -1,14 +1,13 @@
 interface:
-  display_name: Engineering Workflows
-  short_description: Own software changes from goal to verified result
-  default_prompt: Use $engineering-workflows to carry this software task to its requested
-    finish.
-  icon_small: assets/icon.svg
-  icon_large: assets/icon.svg
+  display_name: "Engineering Workflows"
+  short_description: "Carry software changes from goal to tested result"
+  default_prompt: "Use $engineering-workflows to complete this software task and check the result."
+  icon_small: "assets/icon.svg"
+  icon_large: "assets/icon.svg"
 policy:
   allow_implicit_invocation: true
   products:
-  - chatgpt
-  - codex
-  - api
-  - atlas
+    - "chatgpt"
+    - "codex"
+    - "api"
+    - "atlas"

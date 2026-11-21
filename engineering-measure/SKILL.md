@@ -1,14 +1,33 @@
 ---
 name: engineering-measure
-description: Design or assess benchmarks, performance comparisons, and quantitative engineering or model evaluations. Use for credible measured results; requests to measure and improve software stay with engineering-workflows, with measurement as bounded support.
+description: Design or assess benchmarks, performance comparisons and quantitative engineering or model evaluations. Use for measured results. When the request also includes improving software, engineering-workflows owns the change and Measure supplies measurements.
 ---
 
-# Engineering Measure
+# Measure the result
 
-Own a measurement-only request. For a new mixed request that includes implementation or improvement, engineering-workflows owns the final outcome and Measure supplies bounded evidence. An existing owner retains the task. Carry the assigned question, scope, authorized effects, review depth, and budget through the work. Return measurements and limits without restarting a lifecycle or invoking other engineering skills.
+Own measurement-only requests. When a new request includes implementation or
+improvement, Workflows owns the result. For an existing assignment, keep the lead,
+question, scope, review requirements and budget. Return measurements and limits
+without calling other engineering skills.
 
-Resolve `engineering-workflows` by exact catalog name and read its `references/contract.md` once per task; reading is not invocation. If unavailable, continue safe useful measurement and report the precise limitation. Preserve scope and user work; measurement does not authorize production effects or spending beyond existing authority.
+Resolve `engineering-workflows` by exact catalog name and read its
+`references/contract.md` once per task. Reading it does not call that skill. Report
+missing guidance and continue useful measurement within the agreed scope.
+Measurement adds no permission for production effects or spending.
 
-Define the decision, metric, units, workload, correctness criteria, baseline, candidate, and relevant environment before measuring. Verify actual revisions and configuration, that each run executes the intended work and produces correct results, and that the load generator is not the bottleneck. Compare under equivalent conditions with realistic configuration, warmup, repetitions, and representative inputs; control or disclose caching, contention, and changes between runs. Use safe isolated resources and inspect claimed dry-run behavior.
+1. Define the decision, metrics, units, workload, correctness criteria, baseline,
+   candidate and environment before running comparisons. Read
+   [measurement.md](references/measurement.md) for performance or agent evaluation.
+2. Confirm the actual revisions and configuration. Check that runs execute the
+   intended work, finish and produce correct results. Check that the load generator
+   can supply the intended load.
+3. Compare under equivalent, realistic conditions. Choose appropriate warmup,
+   repetitions and representative inputs. Control or disclose caching, contention
+   and changes between runs. Isolate mutable resources and inspect what a claimed
+   dry run actually does.
+4. Keep failures and invalid runs visible. Explain exclusions. Report observations
+   or useful summaries, sample size, variability, conditions and material limits.
 
-Keep failures and invalid runs visible with reasons for exclusion. Report raw observations or useful summaries, variability, sample size, conditions, and material limitations; distinguish measured results from causal inference. Avoid claiming a general speedup or winner beyond the measured scope. Use [measurement.md](references/measurement.md) for performance or model-evaluation details.
+Separate measured results from explanations of their cause. Limit speedup or
+winner claims to the workloads and conditions actually measured. Return enough
+evidence for the lead or user to assess the comparison.

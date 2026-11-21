@@ -1,9 +1,30 @@
-# Verification methods
+# Other verification methods
 
-For behavioral tests, assert through the public interface or observable state. Include error paths and absence of duplicate or forbidden effects when material. Use an independent example or established contract for the oracle; for a consequential oracle, show in isolation that a representative defect makes the check fail. Preserve existing meaningful coverage.
+## Application checks
 
-For real application checks, identify the process, revision, account, configuration, and data as applicable; observe the action and resulting persisted state. A dry-run label does not prove the absence of writes or messages. Use disposable fixtures and do not infer authorization for external effects.
+Identify the process, revision, account, configuration and data being exercised.
+Observe both the action and its important persisted or external effects. Use
+disposable fixtures where possible. A command labelled dry-run still needs its
+effects checked; the label grants no permission to write or send messages.
 
-For visual parity, capture the independent reference and compare the actual rendered result at matching viewport and state, including responsive and interaction states when relevant. Record meaningful differences rather than relying on a build or one screenshot.
+## Visual checks
 
-For formal or generated-input checks, specify the property, assumptions, boundaries, and relation between model and implementation. Confirm intended initial/reachable states are nonempty, the intended property is registered, and its check actually completed. Check representative counterexamples, report uncovered states and bounds, and do not claim a bounded model proves the whole application. For maintained verification assets, document setup, inputs, expected observation, cleanup and environmental limits.
+Capture the independent reference and compare the rendered result at matching
+viewport and state. Check relevant responsive layouts and interactions. Describe
+visible differences precisely. A successful build or one screenshot cannot
+establish behaviour in states that were not observed.
+
+## Formal and generated-input checks
+
+State the property, input domain, assumptions and bounds. Explain how the checked
+model or function relates to the implementation. Confirm that valid starting
+states and generated cases exist, filters have not discarded the useful domain,
+the intended property is registered, and its check completed.
+
+Use representative counterexamples or isolated faults to establish that a
+consequential property rejects relevant bad behaviour. Keep errors, timeouts and
+incomplete checks visible. Report uncovered states and assumptions; a result for
+a bounded model supports claims within that model and bound.
+
+For checks that others will maintain, keep setup, inputs, expected observations,
+cleanup and environmental limits beside the check or in the existing test guide.

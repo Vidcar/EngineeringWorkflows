@@ -1,36 +1,35 @@
 ---
 name: engineering-arena
-description: Generate independent alternatives, judge them against one rubric and verify a coherent synthesis. Use for competing designs, implementations, prototypes, bakeoffs or a requested Arena; keep implementation and delivery under an existing owner.
+description: Develop and compare independent designs, implementations or prototypes. Use for competing approaches, bakeoffs or a requested Arena. When the request includes implementation or delivery, engineering-workflows keeps responsibility for the result.
 ---
 
-# Compare independent alternatives
+# Compare alternatives
 
-Resolve engineering-workflows by exact name in the active catalog and read its
-references/contract.md once per task; reading does not invoke it. Preserve an
-existing owner, assignment, authority, review depth and budget. For a new mixed
-request requiring implementation or delivery, use Workflows once as owner and
-Arena as bounded support. If shared resources are missing, continue safe useful
-work and report the limitation without relaxing scope or preservation.
+Resolve `engineering-workflows` by exact catalog name and read its
+`references/contract.md` once per task. Reading a reference does not call another
+skill. Keep the current lead, assignment and budget; use Workflows to own a new
+request that includes implementation or delivery. Report missing shared guidance
+and continue useful work within the agreed scope.
 
-1. Define the decision, common inputs, hard acceptance gates and comparative
-   criteria before generation. Freeze actual content, including dirty/new files.
-   Default to two independent candidates and one fresh judging pass; explicit
-   requested depth overrides defaults. Expand only for a named unresolved risk.
-2. Before delegation, read [comparison.md](references/comparison.md). Give each
-   candidate the same neutral brief and isolated writable resources. Withhold
-   other proposals and preferred answers. Candidates produce only their assigned
-   artifact and evidence; they do not restart the lifecycle.
-3. Freeze outputs after writers stop. Have a fresh nonauthor judge inspect neutral
-   candidate labels against the rubric. Inspect artifacts yourself. Preserve
-   supported minority findings; resolve disagreement through evidence or an
-   explicit tradeoff, never votes or model reputation.
-4. Choose one coherent base and graft only compatible strengths. The synthesis is
-   a new artifact: verify its decisive assumptions, acceptance behavior and
-   affected checks. Use bounded Verify or Measure support when needed; return
-   other needs to the owner. Agreement and candidate passes do not prove synthesis.
+1. Define the decision, common inputs, requirements and comparison criteria before
+   generating alternatives. Identify the actual source, including uncommitted and
+   new files. Start with two independent candidates and one fresh review unless
+   the user requests a different depth. Expand only to resolve a specific risk.
+2. Read [comparison.md](references/comparison.md) before assigning work. Give each
+   candidate the same neutral brief and separate writable resources. Keep other
+   proposals and preferred answers out of their context. Ask for the assigned
+   output and supporting evidence.
+3. Wait for writers to stop, then freeze the outputs. Have someone who did not
+   author them review neutrally labelled candidates against the same criteria.
+   Inspect the outputs yourself. Resolve disagreements with evidence or an
+   explained tradeoff; retain supported findings even if others disagree.
+4. Choose a coherent starting point and combine only compatible improvements.
+   Verify the resulting design or implementation, including affected checks.
+   Candidate passes do not establish that the combined result works. Use Verify
+   or Measure for specific evidence; return other work to the lead.
 
-Report the selection, consequential grafts, rejected tradeoffs, actual independence,
-verification and gaps. Stop when the decision is supported or bounds are exhausted;
-revise for material findings, not to manufacture consensus. If independent runners
-or judging are unavailable, make useful comparisons and disclose reduced assurance;
-explicit required review conditions remain unmet.
+Report the choice, significant changes, rejected tradeoffs, independence of the
+review, checks and remaining gaps. Stop when the decision is supported or the
+agreed limits are reached. If independent candidates or review are unavailable,
+make the useful comparison you can and say what assurance is missing. Explicit
+review requirements still apply.

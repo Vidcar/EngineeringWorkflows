@@ -1,47 +1,47 @@
 # Delegate, hand off and resume
 
-Keep one lead and integration owner. Use one compact task record when coordination
-or resumption needs it: goal/authority, owners, workspace/branch/base, dependencies,
-state, evidence and next action. The lead updates this record; workers return
-separate artifacts. Conversations provide context, not authoritative current state.
+Keep one lead responsible for integration. When coordination needs a record, keep
+one short record of the goal, permissions, owners, source and base, dependencies,
+current state, evidence and next action. The lead updates it; workers return their
+own results. Check actual state when resuming rather than relying on chat history.
 
-## Assign useful work
+## Assign work that can be checked
 
-Give each worker its outcome, acceptance examples, exact inputs, owned writes,
-dependencies, checks, return artifact and stopping condition. Use bounded reads
-and accessible pointers. A reviewer gets a frozen target and neutral brief, with
-target edits prohibited. Workers do not start another coordination lifecycle.
+Give each worker a result to produce, acceptance examples, exact inputs, files and
+resources it may change, dependencies, checks and a stopping condition. Provide
+accessible references. Give reviewers a fixed target and a neutral brief, with
+target edits prohibited. Workers stay within their assignment.
 
-Distinguish partitioned work, where every required part must finish, from competing
-attempts, where a declared selection rule chooses an output. Do not silently turn
-missing coverage into a first-result race. Respect actual concurrency capacity.
+Decide whether workers cover separate required parts or produce alternatives for
+selection. Every required part must be covered; do not turn unfinished work into
+a race to accept the first answer. Respect the available concurrency.
 
-Concurrent writers default to separate worktrees/checkouts, task branches and
-mutable runtime resources such as ports, databases and output folders. Different
-branches in one folder do not isolate files. If workers must share a folder,
-they only patch assigned files; the coordinator owns every Git operation there.
+Use separate worktrees or checkouts and separate mutable resources for concurrent
+writers. Different branches in one folder do not isolate files. If workers share
+a folder, assign disjoint files and let the coordinator perform all Git operations.
+Isolate ports, databases and output folders where they could collide.
 
-## Cross-host transfer
+## Hand off actual inputs
 
-Identify repository, exact base and input content, including relevant dirty/new
-files; use an accessible commit, patch or content bundle. Include required setup,
-data/configuration assumptions, owned resources and the return location. Never
-put secrets in a brief. The receiver acknowledges the actual source and inputs
-before writing; missing local bytes are a blocked handoff, not permission to guess.
-Computer access and code synchronisation are separate capabilities.
+Identify the repository, base and exact content, including relevant dirty and new
+files. Supply an accessible commit, patch or bundle, setup instructions, data and
+configuration assumptions, resource ownership and a return location. Keep secrets
+out of briefs. The receiver must confirm the inputs it has before writing; missing
+bytes block that handoff. Code transfer does not establish computer access.
 
-Inspect returned changes and evidence. Integrate accepted work one change at a
-time, account for the new base, and verify interactions on the combined artifact.
-Only unlock dependent work when its required output is actually available.
+Inspect returned changes and evidence. Integrate accepted changes one at a time,
+account for the new base, and check interactions in the combined result. Start
+dependent work only after its required inputs are available.
 
-## Interruption and cleanup
+## Stop and resume safely
 
-Before replacement, stop the previous writer and observe acknowledgment or
-termination. Timeout alone does not release ownership. Preserve partial work;
-if termination is uncertain, hold those resources and continue independent tasks.
-On STOP, stop new effects and propagate it to workers. Record live processes and
-unfinished operations. Resume by checking actual source, ownership and evidence
-freshness before continuing; do not restart valid completed discovery.
+Before replacing a writer, stop it and observe acknowledgement or termination.
+A timeout does not release its files or resources. Preserve partial work. If its
+state is uncertain, hold those resources and continue independent tasks.
 
-Remove only task-owned resources after checking for active owners, dirty/new work,
-unshared required commits and dependent runtimes. Preserve evidence first.
+On STOP, halt new effects, pass the stop to workers and record any live processes
+or unfinished operations. On resumption, check source, ownership and whether the
+evidence is still current. Reuse valid completed work.
+
+Before cleanup, check for active owners, dirty or new work, unshared commits and
+dependent processes. Preserve needed evidence and remove only resources you own.

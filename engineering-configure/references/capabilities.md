@@ -1,22 +1,24 @@
-# Supported role and capability changes
+# Check available capabilities
 
 Read when inspecting or changing model-role preferences.
 
-Inspect only exposed tool schemas and relevant existing settings. Executable
-presence, authentication, callable identity and successful execution are different
-facts. Use supported read-only discovery first; a bounded harmless smoke run can
-settle an operational question within existing authority and resource limits.
-Never infer capability from a subscription or remembered model name.
+Inspect exposed tool schemas and relevant settings first. Distinguish an
+executable being present, authentication being available, a model being callable
+and a run succeeding. A small harmless run can settle an operational question
+within the existing permission and budget. A subscription or remembered model
+name does not establish availability.
 
-Reuse authorized preferences unless the request changes them. Map roles only to
-supported actual choices, including host-specific effort/speed options. Prefer
-available model diversity for independent work; fresh contexts on the same model
-still count as routine independent review, not distinct models/providers. Unknown
-identity alone does not block ordinary work. Explicit required identities or
-diversity remain unmet if unavailable; disclose the gap instead of inventing them.
+Reuse the user's preferences unless the request changes them. Map roles to
+supported choices, including host-specific effort or speed settings. Prefer
+available model diversity for independent work. Fresh contexts on one model can
+provide independent review, but do not count as different models or providers.
+Unknown identity alone does not block ordinary work. Report unavailable explicit
+identity or diversity requirements as unmet.
 
-Record the requested versus available mapping and concrete fallback. Make at most
-one supported fallback probe per rejected runner, then report the specific limit.
-A saved role mapping does not prove a role ran. State whether a choice is session-only,
-persisted or exercised, and when it takes effect only if observed or documented.
-Preserve unrelated values and never store secrets in configuration evidence.
+Record the requested mapping, available choices and practical fallback. After a
+runner is rejected, make at most one supported fallback probe, then report the
+specific limit. Preserve unrelated settings and keep secrets out of evidence.
+
+Say whether a choice applies to this session, was saved or was actually exercised.
+A saved mapping does not show that a role ran. State when it takes effect only
+when that has been observed or documented.

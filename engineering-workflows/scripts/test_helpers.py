@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Behavioral checks for read-only Git identity and exact skill resolution."""
 import os
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -36,6 +37,28 @@ class SnapshotTests(unittest.TestCase):
 
     def test_unchanged_snapshot_is_stable(self):
         self.assertEqual(capture(self.repo), self.start)
+
+    def assert_repository_path_preserves_suffix(self, suffix):
+        spaced = self.repo.with_name(self.repo.name + suffix)
+        if spaced.exists():
+            self.skipTest("The filesystem aliases this path to the trimmed name")
+        self.repo.rename(spaced)
+        self.assertFalse(self.repo.exists())
+        self.assertIn(spaced.name, [entry.name for entry in self.root.iterdir()])
+        current = capture(spaced)
+        self.assertEqual(current["repository"], str(spaced.resolve()))
+        self.assertEqual(current["snapshot_id"], self.start["snapshot_id"])
+
+        shutil.copytree(spaced, self.repo)
+        (self.repo / "app.txt").write_text("different repository\n")
+        self.assertNotEqual(capture(self.repo)["snapshot_id"], current["snapshot_id"])
+        self.assertEqual(capture(spaced), current)
+
+    def test_repository_path_preserves_trailing_ascii_space(self):
+        self.assert_repository_path_preserves_suffix(" ")
+
+    def test_repository_path_preserves_trailing_nonbreaking_space(self):
+        self.assert_repository_path_preserves_suffix("\u00a0")
 
     def test_named_comparison_base_moving_changes_identity(self):
         command(self.repo, "branch", "comparison")
@@ -85,9 +108,21 @@ class SnapshotTests(unittest.TestCase):
         new_base = capture(self.repo, "HEAD")
         self.assertNotEqual(old_base["snapshot_id"], new_base["snapshot_id"])
 
-    def test_executable_mode_is_part_of_snapshot(self):
-        os.chmod(self.repo / "app.txt", 0o755)
-        self.assertNotEqual(capture(self.repo)["snapshot_id"], self.start["snapshot_id"])
+    def test_worktree_executable_mode_is_part_of_snapshot(self):
+        app = self.repo / "app.txt"
+        app.chmod(0o755)
+        if not app.stat().st_mode & 0o111:
+            self.skipTest("The filesystem does not expose a working-tree executable bit")
+        current = capture(self.repo)
+        self.assertNotEqual(current["content_sha256"], self.start["content_sha256"])
+        self.assertNotEqual(current["snapshot_id"], self.start["snapshot_id"])
+
+    def test_index_executable_mode_is_part_of_snapshot(self):
+        command(self.repo, "update-index", "--chmod=+x", "app.txt")
+        current = capture(self.repo)
+        self.assertEqual(current["content_sha256"], self.start["content_sha256"])
+        self.assertNotEqual(current["index_sha256"], self.start["index_sha256"])
+        self.assertNotEqual(current["snapshot_id"], self.start["snapshot_id"])
 
     def test_symlink_is_hashed_without_following_target(self):
         outside = self.root / "outside.txt"

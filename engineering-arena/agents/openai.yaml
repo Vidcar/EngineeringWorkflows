@@ -1,14 +1,13 @@
 interface:
-  display_name: Engineering Arena
-  short_description: Compare independent alternatives and verify synthesis
-  default_prompt: Use $engineering-arena to compare independent approaches and verify
-    one coherent result.
-  icon_small: assets/icon.svg
-  icon_large: assets/icon.svg
+  display_name: "Engineering Arena"
+  short_description: "Compare alternatives and check the final result"
+  default_prompt: "Use $engineering-arena to compare independent approaches and check the chosen result."
+  icon_small: "assets/icon.svg"
+  icon_large: "assets/icon.svg"
 policy:
   allow_implicit_invocation: true
   products:
-  - chatgpt
-  - codex
-  - api
-  - atlas
+    - "chatgpt"
+    - "codex"
+    - "api"
+    - "atlas"

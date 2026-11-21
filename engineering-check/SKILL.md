@@ -1,16 +1,36 @@
 ---
 name: engineering-check
-description: Assess a change, design, issue, or readiness and report evidence-backed findings. Use for review, triage, adversarial scrutiny, or a bounded independent view; execution and verification assets belong to engineering-verify.
+description: Review a change, design, issue or readiness claim and report supported findings. Use for triage, design review or an independent assessment. Running checks and maintaining test assets belong to engineering-verify.
 ---
 
-# Engineering Check
+# Review the change
 
-Own a judgment, findings, or readiness request; keep the target read-only unless the user authorizes changes. For a mixed request whose final outcome requires implementation, use engineering-workflows as owner once and provide bounded review. An existing owner never changes. A support assignment inherits its owner, scope, authorized effects, review depth, and budget; return findings without restarting a lifecycle.
+Resolve `engineering-workflows` by exact catalog name and read its
+`references/contract.md` once per task. If it is unavailable, report the gap and
+continue useful review within the agreed scope.
 
-Resolve `engineering-workflows` by exact name in the active catalog and read its `references/contract.md` once per task. Reading is not invocation. If unavailable, continue safe useful review and report the precise limitation; do not expand authority or claim missing evidence.
+Keep a review-only target unchanged. Workflows leads requests that also require
+implementation. Keep the same accountable lead when the user changes the
+requested outcome, following the shared contract. A supporting reviewer stays
+within the assignment and does not delegate further unless allowed.
 
-Identify the requested decision, acceptance criteria, actual comparison base, changed and relevant untracked files, and environment. Examine the concrete artifact and callers, failure paths, compatibility, and maintainability. Distinguish inherited failures from regressions, and hypotheses from reproduced defects. Use a clean independent lens where appropriate, following the shared contract; a bounded reviewer does not redelegate unless its assignment explicitly permits it.
+1. Establish the decision to be made, acceptance conditions, comparison base,
+   actual changed and relevant untracked files, and environment.
+2. Inspect the change and its callers. Consider relevant failure paths,
+   compatibility and maintenance costs. Separate inherited failures from
+   regressions, and suspected defects from reproduced ones.
+3. Review material changes to tests, snapshots, fixtures, mocks, generators,
+   selected checks and gates against the requirements. Distinguish a justified
+   expectation update from reduced coverage or an expected result changed to
+   match a defect. For test quality, resolve `engineering-verify` by exact name
+   and read `references/testing.md`; reading it does not transfer ownership.
+4. Gather evidence that can settle material questions. Use Verify or Measure for
+   a specific check when needed. Respect the assignment's allowed effects;
+   review alone does not authorise fixes, publication or deployment.
+5. Report actionable findings with the location, trigger, consequence and
+   evidence. State uncertainty, checks not run and remaining risk. A review with
+   no findings applies only to the inspected scope. Settle disagreements with
+   evidence or an explained tradeoff.
 
-Gather discriminating evidence, using engineering-verify or engineering-measure as bounded support when needed. Standalone review does not authorize fixes, publication, or deployment. Report actionable findings with location, trigger, consequence, and supporting evidence; state uncertainty, remaining risk, and checks not run. A no-findings result is limited to the inspected scope. Resolve material disagreement using source evidence or a safe probe, not votes.
-
-For design or adversarial review, read [critical-review.md](references/critical-review.md).
+For design or adversarial review, read
+[critical-review.md](references/critical-review.md).

@@ -1,5 +1,25 @@
 # Measurement details
 
-For performance, separate uninstrumented comparison from profiling, which can add overhead. Confirm successful work and resource use before interpreting latency or throughput; inspect saturation and the load generator. Choose a workload and concurrency that match the decision, record hardware, runtime, versions, tuning and dataset, and include variance or uncertainty rather than a single best run. A profile can suggest a cause but does not alone establish a speedup.
+## Performance
 
-For model or agent evaluation, freeze task inputs, acceptance criteria and scoring before comparing; apply equivalent resources and tool access. Inspect completed outputs, errors and incomplete attempts, not just aggregate scores or agreement. Isolate candidate work, prevent leakage between attempts, and report actual exposed identities and missing data without guessing. Avoid treating a prompt, judge agreement, or a structural validator as proof of task success.
+Compare normal runs separately from profiling, which can add overhead. Confirm
+successful work and resource use before interpreting latency or throughput.
+Inspect saturation and whether the load generator is limiting the result.
+
+Choose workloads and concurrency that match the decision. Record relevant
+hardware, runtime, versions, tuning and data. Include variation or uncertainty;
+one best run is insufficient. A profile can suggest a cause, but a speedup needs
+a measured comparison.
+
+## Models and agents
+
+Fix the task inputs, acceptance criteria and scoring before comparing candidates.
+Use equivalent resources and tool access. Identify the actual loaded instructions,
+catalog and exposed model identities. Keep attempts isolated and expected answers
+out of runner context.
+
+Inspect completed outputs, errors and incomplete attempts as well as aggregate
+scores. Preserve failures and explain missing data. Score observed behaviour and
+effects; a proposed plan, judge agreement or structural validator does not show
+that the task succeeded. Report the conditions needed to interpret or repeat the
+comparison.

@@ -1,39 +1,37 @@
 ---
 name: engineering-configure
-description: Inspect, configure, evaluate or change the engineering skill pack when directly requested, including supported role preferences. Ordinary capability discovery and product work do not need this administration.
+description: Inspect, revise, evaluate or package the engineering skills when the user directly requests it, including supported model-role preferences. Ordinary engineering work and capability discovery do not need Configure.
 ---
 
-# Change only the requested administration
+# Maintain the engineering skills
 
-Select only when the user directly requests pack administration; natural language
-is sufficient. Never start it as an unsolicited setup/support step. A requested
-component retains the existing lead. Resolve engineering-workflows
-by exact catalog name and read its references/contract.md once per task without
-invoking it. If unavailable, continue safe scoped work and identify the limitation.
-Separate inspection, session preferences, persistent settings, evaluation and
-promotion: permission for one does not imply all. Reuse existing authorization;
-do not require a setup interview or automatically invoke Campaign.
+Use Configure only for a direct request to work on the pack or its settings.
+Keep the existing lead when this is part of a larger request. Resolve
+`engineering-workflows` by exact catalog name and read its
+`references/contract.md` once per task. Reading it does not call that skill. Report
+missing guidance and continue useful work within the agreed scope.
 
-Inspect exposed tools, supported values and relevant current configuration.
-Distinguish advertised, configured and actually exercised capabilities. Do not
-invent model identifiers, probe credentials or alter accounts to force availability.
-For model-role changes read [capabilities.md](references/capabilities.md).
+1. Establish what the user requested: inspection, a review package, evaluation,
+   session preferences, saved settings or installation. Reuse existing permission.
+   A request to review or export a candidate leaves the active installation
+   unchanged. Keep routine capability discovery within the original task.
+2. Inspect the relevant source, exposed tools and supported settings. Distinguish
+   available, configured and successfully exercised capabilities. For model-role
+   changes, read [capabilities.md](references/capabilities.md). Do not guess model
+   identities, probe credentials or alter accounts to force availability.
+3. Edit the requested source and preserve unrelated work. For installation or
+   persistent personal-skill changes, follow the host's official skill-authoring
+   process and supported locations. Do not edit bundled/system skills or claim
+   installation from a draft. If saving is unavailable, retain the candidate and
+   explain the limit.
+4. For evaluation or saving, read
+   [evaluate-and-promote.md](references/evaluate-and-promote.md). Use
+   [routing cases](references/routing-cases.md) when selection or scope changes.
+   Check, Arena, Verify or Measure may answer specific questions within this
+   assignment; they cannot expand it or authorise installation.
 
-For persistent skill edits or promotion, resolve and read the host's official
-skill-authoring guidance and use its supported personal-skill ownership, location,
-validation and saving process. Never edit bundled/system skills or substitute a
-guessed cache path, global instruction file or ordinary scratch copy. Use supported
-configuration surfaces for settings; if persistence is unavailable, prepare the
-concrete change and report that limit.
-
-For evaluations read [evaluate-and-promote.md](references/evaluate-and-promote.md).
-Use bounded Check, Arena, Verify or Measure support only within the requested
-administration. Their assignments inherit scope, authority, depth and budget;
-they cannot restart the task or authorize installation.
-
-Preserve unrelated settings and retain a scoped rollback where supported. Validate
-the exact changed artifact and references, exercise the relevant capability, save
-when authorized and read back the actual saved state. Evaluation-only returns its
-result without promotion. Do not create schedules or expand permissions as a
-side effect. Report what changed, where it applies, configured versus observed
-behavior, and precise remaining gaps.
+Validate the complete candidate, including references and metadata. Keep a way to
+undo persistent changes where supported, save only the requested changes, and
+confirm the resulting state. Report what changed, what was checked, what was
+saved or packaged, and remaining gaps. Do not add schedules, permissions or a
+Campaign as a side effect.

@@ -17,7 +17,8 @@ def digest(value):
 
 
 def capture(repo, base="HEAD"):
-    repo = Path(git(repo, "rev-parse", "--show-toplevel").decode().strip()).resolve()
+    # Remove Git's line terminator, preserving whitespace in the actual path.
+    repo = Path(os.fsdecode(git(repo, "rev-parse", "--show-toplevel").removesuffix(b"\n"))).resolve()
     head = git(repo, "rev-parse", "--verify", "HEAD^{commit}").decode().strip()
     base_sha = git(repo, "rev-parse", "--verify", base + "^{commit}").decode().strip()
     paths = set(git(repo, "ls-files", "-z", "--cached", "--others", "--exclude-standard").split(b"\0")) - {b""}

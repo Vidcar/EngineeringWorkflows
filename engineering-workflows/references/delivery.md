@@ -1,18 +1,19 @@
-# Reach the authorised delivery state
+# Finish at the requested destination
 
-Use the requested endpoint and existing permission: local result, shared branch,
-draft PR, readiness, merge or deployment. Prepare the concrete result before any
-genuinely necessary final approval. A ready change is not automatically released.
+Use the requested finish and existing permission: local changes, a shared branch,
+draft PR, readiness assessment, merge or deployment. Prepare the concrete result
+before any necessary final approval. Readiness alone does not authorise release.
 
-Resolve supported review findings and required CI on the actual current change.
-Distinguish product failures from baseline or infrastructure problems. Retry a
-transient failure with a reason and limit; never weaken coverage to obtain green.
+Resolve supported review findings and required CI checks on the current change.
+Separate product defects from existing failures and infrastructure problems.
+Retry a transient failure for a stated reason and with a limit. Keep useful checks
+intact.
 
-Before an external effect, confirm destination, current revision, required checks
-and authority. Use expected-revision safeguards where supported. For dependent
-changes, deliver only the verified prefix. If an action's outcome is uncertain,
-read remote state before retrying. Read back the actual merged, published or
-deployed version; queued or requested is not completed.
+Before an external action, confirm the destination, revision, required checks and
+permission. Use expected-revision safeguards where available. Deliver dependent
+changes in order, only as far as the verified work permits. If an action's result
+is uncertain, inspect remote state before retrying. Read back the actual merged,
+published or deployed version; a queued action is still pending.
 
-Do not send unrelated notifications. Preserve the implementation and evidence if
-delivery is blocked, and state the exact missing decision or capability.
+Send only requested or already authorised notifications. If delivery is blocked,
+preserve the work and evidence and state the exact missing decision or capability.

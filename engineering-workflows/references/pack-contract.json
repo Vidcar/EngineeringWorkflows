@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "version": "2.1.0",
+  "version": "2.2.0",
   "expected_skill_count": 7,
   "skills": [
     {
@@ -43,7 +43,8 @@
       "required_files": [
         "SKILL.md",
         "agents/openai.yaml",
-        "LICENSE"
+        "LICENSE",
+        "references/testing.md"
       ],
       "user_request_required": false
     },

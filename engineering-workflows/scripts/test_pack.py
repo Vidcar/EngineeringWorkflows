@@ -130,6 +130,15 @@ class PackFixtureTests(unittest.TestCase):
         file.write_text(file.read_text().replace("allow_implicit_invocation: true", "allow_implicit_invocation: 'true'"))
         self.assert_rejected("native invocation policy mismatch")
 
+    def test_verify_without_testing_guide_is_rejected(self):
+        verify = self.paths["engineering-verify"]
+        entrypoint = verify / "SKILL.md"
+        _, frontmatter, _ = entrypoint.read_text(encoding="utf-8").split("---\n", 2)
+        # An older Verify entrypoint has no link to the new cross-skill dependency.
+        entrypoint.write_text(f"---\n{frontmatter}---\n\n# Engineering Verify\n", encoding="utf-8")
+        (verify / "references/testing.md").unlink()
+        self.assert_rejected("engineering-verify: required file missing/unsafe: references/testing.md")
+
     def test_missing_reference_is_rejected(self):
         (self.core / "references/contract.md").unlink()
         self.assert_rejected("contract.md")
