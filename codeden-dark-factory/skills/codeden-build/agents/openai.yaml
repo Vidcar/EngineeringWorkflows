@@ -1,4 +1,0 @@
-interface:
-  display_name: "CodeDen Build"
-  short_description: "Implement an assigned factory change with evidence"
-  default_prompt: "Use $codeden-build to complete this assigned factory implementation."

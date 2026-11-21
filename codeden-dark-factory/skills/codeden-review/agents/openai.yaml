@@ -1,4 +1,0 @@
-interface:
-  display_name: "CodeDen Review"
-  short_description: "Review the assigned change and submit a verdict"
-  default_prompt: "Use $codeden-review for the independent review in this factory brief."

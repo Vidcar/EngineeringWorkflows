@@ -1,4 +1,0 @@
-interface:
-  display_name: "CodeDen Measure"
-  short_description: "Measure a bounded performance or quality claim"
-  default_prompt: "Use $codeden-measure to evaluate this claim within the assigned budget."

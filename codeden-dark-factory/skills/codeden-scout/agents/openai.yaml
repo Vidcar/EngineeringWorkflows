@@ -1,4 +1,0 @@
-interface:
-  display_name: "CodeDen Scout"
-  short_description: "Find worthwhile work in a factory round"
-  default_prompt: "Use $codeden-scout for this assigned factory discovery round."

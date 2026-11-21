@@ -1,4 +1,0 @@
-interface:
-  display_name: "CodeDen Verify"
-  short_description: "Produce evidence within the current factory stage"
-  default_prompt: "Use $codeden-verify to check the stated behavior within this assignment."
