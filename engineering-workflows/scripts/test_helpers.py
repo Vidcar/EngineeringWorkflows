@@ -5,6 +5,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from snapshot import capture
 from resolve_skill import resolve
@@ -163,6 +164,69 @@ class ResolverTests(unittest.TestCase):
     def test_repeated_root_does_not_create_false_duplicate(self):
         active = self.skill("skill-generated-id")
         self.assertEqual(resolve("engineering-example", [self.root, self.root]), active)
+
+    def test_directory_symlink_resolves_canonical_skill(self):
+        source = self.skill("source/engineering-example")
+        installed = self.root / "installed"
+        installed.mkdir()
+        (installed / "engineering-example").symlink_to(source, target_is_directory=True)
+        self.assertEqual(resolve("engineering-example", [installed]), source)
+
+    def test_directory_aliases_and_roots_do_not_duplicate_skill(self):
+        source = self.skill("source/engineering-example")
+        installed = self.root / "installed"
+        installed.mkdir()
+        (installed / "first").symlink_to(source, target_is_directory=True)
+        (installed / "second").symlink_to(source, target_is_directory=True)
+        self.assertEqual(resolve("engineering-example", [installed]), source)
+        self.assertEqual(resolve("engineering-example", [installed, source.parent]), source)
+
+    def test_directory_symlinks_to_distinct_skills_are_duplicates(self):
+        first = self.skill("source/first")
+        second = self.skill("source/second")
+        installed = self.root / "installed"
+        installed.mkdir()
+        (installed / "first").symlink_to(first, target_is_directory=True)
+        (installed / "second").symlink_to(second, target_is_directory=True)
+        with self.assertRaisesRegex(ValueError, "found 2"):
+            resolve("engineering-example", [installed])
+
+    def test_directory_link_cycle_terminates_and_keeps_disabled_hidden(self):
+        source = self.skill("source/engineering-example")
+        installed = self.root / "installed"
+        installed.mkdir()
+        self.skill("installed/uninstalled/old")
+        (installed / "active").symlink_to(source, target_is_directory=True)
+        (source / "loop").symlink_to(installed, target_is_directory=True)
+        self.assertEqual(resolve("engineering-example", [installed]), source)
+        with self.assertRaisesRegex(ValueError, "found 2"):
+            resolve("engineering-example", [installed], include_disabled=True)
+
+    def test_shallower_alias_keeps_descendants_within_depth_limit(self):
+        source = self.skill("source/parent/child")
+        installed = self.root / "installed"
+        deep = installed.joinpath(*[f"level-{index}" for index in range(7)])
+        deep.mkdir(parents=True)
+        (deep / "first").symlink_to(source.parent, target_is_directory=True)
+        (installed / "shallow").symlink_to(source.parent, target_is_directory=True)
+        walk = os.walk
+
+        def ordered_walk(*args, **kwargs):
+            for current, dirs, files in walk(*args, **kwargs):
+                dirs.sort()  # Visit the deep alias first on every filesystem.
+                yield current, dirs, files
+
+        with patch("resolve_skill.os.walk", ordered_walk):
+            self.assertEqual(resolve("engineering-example", [installed]), source)
+
+    def test_directory_symlink_preserves_depth_limit(self):
+        source = self.skill("source/engineering-example")
+        installed = self.root / "installed"
+        deep = installed.joinpath(*[f"level-{index}" for index in range(8)])
+        deep.mkdir(parents=True)
+        (deep / "too-deep").symlink_to(source, target_is_directory=True)
+        with self.assertRaisesRegex(ValueError, "found 0"):
+            resolve("engineering-example", [installed])
 
     def test_symlinked_skill_file_is_not_active(self):
         source = self.skill("uninstalled/source")

@@ -60,6 +60,15 @@ class PackFixtureTests(unittest.TestCase):
         report = validate([self.root])
         self.assertTrue(report["valid"], report)
 
+    def test_complete_pack_with_directory_symlinks_passes(self):
+        installed = Path(self.temp.name) / "installed"
+        installed.mkdir()
+        for name, source in self.paths.items():
+            (installed / name).symlink_to(source, target_is_directory=True)
+        report = validate([installed])
+        self.assertTrue(report["valid"], report)
+        self.assertEqual(report["skill_count"], 7)
+
     def test_cycle_is_rejected(self):
         self.node("engineering-verify")["auto_calls"].append("engineering-workflows")
         self.write_manifest()

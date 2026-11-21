@@ -29,16 +29,29 @@ def resolve(name, roots, include_disabled=False):
         root = Path(root).resolve()
         if not root.is_dir():
             continue
-        for current, dirs, files in os.walk(root, followlinks=False):
-            dirs[:] = [d for d in dirs if d not in {".git", "node_modules", "__pycache__"}
-                       and (include_disabled or d != "uninstalled" or Path(current) != root)]
-            if len(Path(current).relative_to(root).parts) > 8:
+        visited = {}
+        for current, dirs, files in os.walk(root, followlinks=True):
+            depth = len(Path(current).relative_to(root).parts)
+            if depth > 8:
                 dirs[:] = []
                 continue
+            try:
+                canonical = Path(current).resolve()
+            except (OSError, RuntimeError):
+                dirs[:] = []
+                continue
+            # Stop link cycles, but revisit a shallower alias so its descendants
+            # are not lost to the traversal depth limit.
+            if canonical in visited and visited[canonical] <= depth:
+                dirs[:] = []
+                continue
+            visited[canonical] = depth
+            dirs[:] = [d for d in dirs if d not in {".git", "node_modules", "__pycache__"}
+                       and (include_disabled or d != "uninstalled" or Path(current) != root)]
             if "SKILL.md" in files:
                 p = Path(current) / "SKILL.md"
                 if skill_name(p) == name:
-                    matches.append(p.parent.resolve())
+                    matches.append(canonical)
     matches = sorted(set(matches))
     if len(matches) != 1:
         raise ValueError(f"Expected one active {name}; found {len(matches)}: " + ", ".join(map(str, matches)))
