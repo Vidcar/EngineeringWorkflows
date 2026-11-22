@@ -8,6 +8,14 @@ routine technical details yourself. Ask only about an unresolved consequential
 product choice, missing access or permission; recommend a next step and continue
 work that does not depend on the answer. Reuse permission already given.
 
+For any entrypoint, consult the active catalog and applicable project instructions
+for skills covering the requested behavior, code or evidence. Read relevant
+project procedures before planning, reviewing, measuring or checking that area;
+this applies when a specialist is selected directly too. Verify their source and
+environment assumptions rather than trusting the name or an old passing result.
+Use only the matching guidance; discovery does not require a new skill, setup
+workflow or expanded permission.
+
 Keep the same accountable lead. When the user explicitly changes the requested
 result, update the workflow and scope while preserving completed work. Helpers
 inherit the assignment's scope, allowed writes, review depth and budget. They

@@ -28,19 +28,27 @@ administration; a large task or a missing tool does not select them.
 ## Do the work
 
 1. Establish what must work, what must stay the same and where the task should
-   finish. Read the relevant code, callers, project instructions and checks.
-2. Choose an approach. Read [methods](references/methods.md) for investigation,
-   planning, repair or migration. Use Arena for a consequential choice that needs
-   independent alternatives.
+   finish. Read the relevant code, callers and project instructions. Discover
+   existing project skills and harnesses by the behavior and code they cover,
+   not just their names. Check that their commands and assumptions still apply.
+2. Choose the needed phases using [routing](references/routing.md). Read
+   [methods](references/methods.md) for investigation, design, impact analysis,
+   repair or migration. Use Arena for a consequential unresolved choice; use
+   Measure before changing a performance-sensitive path or interpreting numbers.
 3. Before writing or materially changing tests, resolve `engineering-verify` by
    exact catalog name and read its `references/testing.md`. Apply it whether you
-   write the tests yourself or delegate them.
+   write the tests yourself or delegate them. For real application checks or
+   reusable control skills, read Verify's `references/application.md`; for formal
+   checks or maintaining a model/proof, read its `references/formal.md`. Read the
+   matching guidance before preparing the check, even when doing the work yourself.
 4. Make coherent changes. Delegate when it helps; read
    [coordination](references/coordination.md) before parallel work, a handoff or
    resumption. Keep shared interfaces and integration with one owner.
 5. Verify the combined result against the original requirements and preserved
-   behaviour. Follow the shared review rules. Ask Check, Verify or Measure a
-   specific question when their help is useful.
+   behaviour through the relevant project skill or real entrypoint. Reconcile
+   changed verification assets with the code they describe. Follow the shared
+   review rules; give Check the concrete change and remaining risks. Ask Verify
+   or Measure a bounded evidence question when their help is useful.
 6. Remove your temporary work, update instructions affected by the change and
    complete [delivery](references/delivery.md) at the requested finish.
 

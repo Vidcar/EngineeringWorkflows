@@ -36,7 +36,7 @@ class EvaluationControls(unittest.TestCase):
     def test_changed_evaluator_bytes_require_a_fresh_run(self):
         evaluator = self.root / "evaluator"
         evaluator.mkdir()
-        for name in ("cases.py", "probe.py", "run.py"):
+        for name in run.fixture_identity():
             (evaluator / name).write_bytes((run.HERE / name).read_bytes())
         with patch.object(run, "HERE", evaluator):
             trial = self.trial("checks-only")

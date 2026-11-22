@@ -9,7 +9,8 @@ own results. Check actual state when resuming rather than relying on chat histor
 
 Give each worker a result to produce, acceptance examples, exact inputs, files and
 resources it may change, dependencies, checks and a stopping condition. Provide
-accessible references. Give reviewers a fixed target and a neutral brief, with
+accessible references, including applicable project skills and the method needed
+for that phase. Give reviewers a fixed target and a neutral brief, with
 target edits prohibited. Workers stay within their assignment.
 
 Decide whether workers cover separate required parts or produce alternatives for

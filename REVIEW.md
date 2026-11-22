@@ -1,3 +1,31 @@
+# Engineering Workflows 2.3.0 — pstack adaptation candidate
+
+This candidate builds on 2.2.0 at
+[`6277fe359e25fd37e8c734a4627b3260d5245c78`](https://github.com/Vidcar/EngineeringWorkflows/tree/6277fe359e25fd37e8c734a4627b3260d5245c78).
+It retains seven skills and adds explicit phase routing plus reusable application
+and formal verification lifecycles. Design, impact analysis, measurement,
+review and delivery guidance are strengthened at their existing owners.
+
+- [Recommendation and complete pstack disposition](docs/PSTACK_REVIEW.md)
+- [Validation, agent trials and limitations](docs/EVALUATION.md)
+- [Phase routing](engineering-workflows/references/routing.md)
+- [Application verification](engineering-verify/references/application.md)
+- [Formal verification](engineering-verify/references/formal.md)
+
+The source comparison is pinned to pstack 0.15.46 at
+[`7a583913eb1b8d1a0ee76753d1a2cf072e7b54f9`](https://github.com/cursor/plugins/tree/7a583913eb1b8d1a0ee76753d1a2cf072e7b54f9/pstack).
+The candidate does not require pstack's runtime, fixed model roles or automation
+services. Review the proposed source before installing it through the host's
+supported process. This PR does not change an active personal installation.
+
+## Earlier review record
+
+The 2.2.0 record below is retained as historical evidence. Its Windows runs and
+installation observations do not validate the 2.3.0 candidate; use the new
+evaluation report for the current result.
+
+---
+
 # Engineering Workflows 2.2.0 — revised review candidate
 
 The original candidate was prepared on 21 November 2026 from

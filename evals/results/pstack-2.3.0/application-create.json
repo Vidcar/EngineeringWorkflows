@@ -1,0 +1,494 @@
+{
+  "acceptance": {
+    "decision": "accepted; fresh reuse recorded separately",
+    "guidance_read_provenance": "Runner report lists Workflows, shared rules and Verify application/testing guidance. Project RESULTS.md records guidance and commands. Parent inspected generated procedure and independent nine-process probe.",
+    "kind": "standard workflow case, evaluator v2",
+    "observed": "Eleven real CLI steps pass; a response-without-persistence mutation fails; evidence survives owned-state cleanup; product and SPEC unchanged."
+  },
+  "parent_checks": {},
+  "prepared_fixture_record": {
+    "baseline": {
+      "SPEC.md": "ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966",
+      "TASK.md": "8c2328ffb19f3db14436bb840441088facc0e3c5f4a9be474fbd830369fee914",
+      "notes.py": "db944fca8c7ea26f1201381e52cb9e81f8871e962801cbd80b2cc7a0b2a619e5"
+    },
+    "case": "application-create",
+    "fixture_files": {
+      "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+      "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+      "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+      "workflow_cases.py": "296285e00561f11c27c1b4a377df2603fdb5334106a8897eec2adfbdf28094bf",
+      "workflow_probe.py": "cc2e706d401415188d29537f48441b5d9d25e1874aa480ba7234c3edc40ebe13"
+    }
+  },
+  "reports": [
+    {
+      "artifact_hashes": {
+        ".agents/skills/pocket-notes-verify/SKILL.md": "cd53959587a6d19d1f5fd39be8cc05fea9284b23ab8d1b4d52538ffeb8110c48",
+        ".agents/skills/pocket-notes-verify/feature-map.md": "b3185725254e2e7b1ee662136c9f0a602533b06c525ccf5afc3b3ab0d40a5df0",
+        ".agents/skills/pocket-notes-verify/verify.py": "9483dcf8aa2c1ca10a80d7d80472a7b133ad7aea1eb00f0bca0ca3bd3a843bde",
+        "AGENTS.md": "f515e6c4ad85074abfbd23e4dc4e20baae222fa36f12acf23a73e2fcf77e6f6a",
+        "SPEC.md": "ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966",
+        "TASK.md": "8c2328ffb19f3db14436bb840441088facc0e3c5f4a9be474fbd830369fee914",
+        "notes.py": "db944fca8c7ea26f1201381e52cb9e81f8871e962801cbd80b2cc7a0b2a619e5",
+        "verification-evidence/RESULTS.md": "7872ac886f822774f5a0afe6243a82e7b3290960ce4e6379686f0d743393aece",
+        "verification-evidence/acceptance/01-empty-list.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/01-empty-list.stdout.txt": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "verification-evidence/acceptance/02-add-first.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/02-add-first.stdout.txt": "ad9d12d0ae72a69cc0744c7ee1ba420763fbcb445c2e664d56ab857ba3662858",
+        "verification-evidence/acceptance/02-add-first.store.json": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958",
+        "verification-evidence/acceptance/03-persisted-list.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/03-persisted-list.stdout.txt": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958",
+        "verification-evidence/acceptance/03-persisted-list.store.json": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958",
+        "verification-evidence/acceptance/04-repeat-add.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/04-repeat-add.stdout.txt": "ad9d12d0ae72a69cc0744c7ee1ba420763fbcb445c2e664d56ab857ba3662858",
+        "verification-evidence/acceptance/04-repeat-add.store.json": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958",
+        "verification-evidence/acceptance/05-conflicting-id.stderr.txt": "b30b9b9a6c20558538d9207ca6a7f8b31640d7d1fbe4478a3e72beb8d4bd029b",
+        "verification-evidence/acceptance/05-conflicting-id.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/05-conflicting-id.store.json": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958",
+        "verification-evidence/acceptance/06-add-survivor.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/06-add-survivor.stdout.txt": "fc83f4176b317090d492260e3d82d61a782c67920e0235610321755c8dbd4721",
+        "verification-evidence/acceptance/06-add-survivor.store.json": "9cdd997f5982e0cfe2d5f0bbf894ae9cd4dda71d894517c477ab937ff928c91d",
+        "verification-evidence/acceptance/07-remove-first.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/07-remove-first.stdout.txt": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6",
+        "verification-evidence/acceptance/07-remove-first.store.json": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6",
+        "verification-evidence/acceptance/08-persisted-removal.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/08-persisted-removal.stdout.txt": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6",
+        "verification-evidence/acceptance/08-persisted-removal.store.json": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6",
+        "verification-evidence/acceptance/09-repeat-removal.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/09-repeat-removal.stdout.txt": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6",
+        "verification-evidence/acceptance/09-repeat-removal.store.json": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6",
+        "verification-evidence/acceptance/10-remove-last.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/10-remove-last.stdout.txt": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "verification-evidence/acceptance/10-remove-last.store.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "verification-evidence/acceptance/11-final-empty-list.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/acceptance/11-final-empty-list.stdout.txt": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "verification-evidence/acceptance/11-final-empty-list.store.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "verification-evidence/acceptance/commands.json": "3d59caaf00b92c4e5213dd5875b946bbd68d82a941e7436623d63ae2135682ba",
+        "verification-evidence/acceptance/doctor.json": "54edfbe6733e4654fa925b6f63228a5eadc54fbe3485f6a3532a309f288e6f18",
+        "verification-evidence/acceptance/run.json": "ea61f3002d3a8efc52607808461d47680c299682df026c2c196536cfc31f6f16",
+        "verification-evidence/acceptance/summary.json": "1e39bca6996dcd761ea90730496347535e7848314ff5a947e4d1fbe9b5ab67d3",
+        "verification-evidence/sensitivity/fault.diff": "7e28e9ed6fbd5718b7b72c839327acfb50d3d61dd8d7dd80575a28a45c2cfe33",
+        "verification-evidence/sensitivity/observed/01-empty-list.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/sensitivity/observed/01-empty-list.stdout.txt": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "verification-evidence/sensitivity/observed/02-add-first.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/sensitivity/observed/02-add-first.stdout.txt": "ad9d12d0ae72a69cc0744c7ee1ba420763fbcb445c2e664d56ab857ba3662858",
+        "verification-evidence/sensitivity/observed/commands.json": "526a731d3001ae7c35f0bcb747b905a152b4f4ed8679a120eae8f04f33e1368a",
+        "verification-evidence/sensitivity/observed/doctor.json": "417e41c7bfa405b0ba572fefc2b9be7f5a3761fbbb31aa56af84543547bab58f",
+        "verification-evidence/sensitivity/observed/run.json": "9efa4cc5e0a23e96e42f05a15ceb609783bc179f16e0ddb4a68bc2515eee5e54",
+        "verification-evidence/sensitivity/observed/summary.json": "997380a4dab1861000e984e4eed1d184ae4d799bb938858683cd5e97b66a4ea9",
+        "verification-evidence/sensitivity/result.json": "553d8fa58ede187522ae2ab6e35cf36c8a552808ce651940c9df8fe1d5b66dce",
+        "verification-evidence/sensitivity/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verification-evidence/sensitivity/stdout.txt": "997380a4dab1861000e984e4eed1d184ae4d799bb938858683cd5e97b66a4ea9"
+      },
+      "artifact_snapshot": "/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/checks/check-8xqy0wmc/artifacts",
+      "case": "application-create",
+      "changed_files": [
+        ".agents/skills/pocket-notes-verify/SKILL.md",
+        ".agents/skills/pocket-notes-verify/feature-map.md",
+        ".agents/skills/pocket-notes-verify/verify.py",
+        "AGENTS.md",
+        "verification-evidence/RESULTS.md",
+        "verification-evidence/acceptance/01-empty-list.stderr.txt",
+        "verification-evidence/acceptance/01-empty-list.stdout.txt",
+        "verification-evidence/acceptance/02-add-first.stderr.txt",
+        "verification-evidence/acceptance/02-add-first.stdout.txt",
+        "verification-evidence/acceptance/02-add-first.store.json",
+        "verification-evidence/acceptance/03-persisted-list.stderr.txt",
+        "verification-evidence/acceptance/03-persisted-list.stdout.txt",
+        "verification-evidence/acceptance/03-persisted-list.store.json",
+        "verification-evidence/acceptance/04-repeat-add.stderr.txt",
+        "verification-evidence/acceptance/04-repeat-add.stdout.txt",
+        "verification-evidence/acceptance/04-repeat-add.store.json",
+        "verification-evidence/acceptance/05-conflicting-id.stderr.txt",
+        "verification-evidence/acceptance/05-conflicting-id.stdout.txt",
+        "verification-evidence/acceptance/05-conflicting-id.store.json",
+        "verification-evidence/acceptance/06-add-survivor.stderr.txt",
+        "verification-evidence/acceptance/06-add-survivor.stdout.txt",
+        "verification-evidence/acceptance/06-add-survivor.store.json",
+        "verification-evidence/acceptance/07-remove-first.stderr.txt",
+        "verification-evidence/acceptance/07-remove-first.stdout.txt",
+        "verification-evidence/acceptance/07-remove-first.store.json",
+        "verification-evidence/acceptance/08-persisted-removal.stderr.txt",
+        "verification-evidence/acceptance/08-persisted-removal.stdout.txt",
+        "verification-evidence/acceptance/08-persisted-removal.store.json",
+        "verification-evidence/acceptance/09-repeat-removal.stderr.txt",
+        "verification-evidence/acceptance/09-repeat-removal.stdout.txt",
+        "verification-evidence/acceptance/09-repeat-removal.store.json",
+        "verification-evidence/acceptance/10-remove-last.stderr.txt",
+        "verification-evidence/acceptance/10-remove-last.stdout.txt",
+        "verification-evidence/acceptance/10-remove-last.store.json",
+        "verification-evidence/acceptance/11-final-empty-list.stderr.txt",
+        "verification-evidence/acceptance/11-final-empty-list.stdout.txt",
+        "verification-evidence/acceptance/11-final-empty-list.store.json",
+        "verification-evidence/acceptance/commands.json",
+        "verification-evidence/acceptance/doctor.json",
+        "verification-evidence/acceptance/run.json",
+        "verification-evidence/acceptance/summary.json",
+        "verification-evidence/sensitivity/fault.diff",
+        "verification-evidence/sensitivity/observed/01-empty-list.stderr.txt",
+        "verification-evidence/sensitivity/observed/01-empty-list.stdout.txt",
+        "verification-evidence/sensitivity/observed/02-add-first.stderr.txt",
+        "verification-evidence/sensitivity/observed/02-add-first.stdout.txt",
+        "verification-evidence/sensitivity/observed/commands.json",
+        "verification-evidence/sensitivity/observed/doctor.json",
+        "verification-evidence/sensitivity/observed/run.json",
+        "verification-evidence/sensitivity/observed/summary.json",
+        "verification-evidence/sensitivity/result.json",
+        "verification-evidence/sensitivity/stderr.txt",
+        "verification-evidence/sensitivity/stdout.txt"
+      ],
+      "code_probes_executed": true,
+      "limit": "This report does not prove that the agent ran checks or respected scope throughout. Inspect its trace and final response.",
+      "manual_review_required": [
+        "A discoverable project skill gives exact local commands, runtime checks, per-run store isolation, expected observations and cleanup ownership.",
+        "Its feature map covers list, add, same-request retry, conflicting-ID rejection, remove, repeated removal and preservation of other notes.",
+        "The live rehearsal begins with a missing empty store, drives real CLI processes, reads persisted state and verifies forbidden duplicate/conflicting writes.",
+        "Evidence remains accessible after owned state cleanup. No existing user store or unrelated file is removed.",
+        "The generated procedure is usable by a fresh agent with the followup prompt; creation evidence is not automatically reuse evidence."
+      ],
+      "objective_checks": {
+        "independent_observation_matches_case": true,
+        "project_skill_present": true,
+        "protected_files_unchanged": true
+      },
+      "observations": {
+        "independent_behavior": {
+          "observations": [
+            {
+              "args": [
+                "list"
+              ],
+              "returncode": 0,
+              "stderr": "",
+              "stdout": "[]\n"
+            },
+            {
+              "args": [
+                "add",
+                "--id",
+                "n1",
+                "--text",
+                "hello"
+              ],
+              "returncode": 0,
+              "stderr": "",
+              "stdout": "{\"id\": \"n1\", \"text\": \"hello\"}\n"
+            },
+            {
+              "args": [
+                "add",
+                "--id",
+                "n1",
+                "--text",
+                "hello"
+              ],
+              "returncode": 0,
+              "stderr": "",
+              "stdout": "{\"id\": \"n1\", \"text\": \"hello\"}\n"
+            },
+            {
+              "args": [
+                "list"
+              ],
+              "returncode": 0,
+              "stderr": "",
+              "stdout": "[{\"id\": \"n1\", \"text\": \"hello\"}]\n"
+            },
+            {
+              "args": [
+                "add",
+                "--id",
+                "n1",
+                "--text",
+                "conflict"
+              ],
+              "returncode": 2,
+              "stderr": "usage: notes.py [-h] --store STORE {add,list,remove} ...\nnotes.py: error: id already belongs to different text\n",
+              "stdout": ""
+            },
+            {
+              "args": [
+                "add",
+                "--id",
+                "n2",
+                "--text",
+                "keep me"
+              ],
+              "returncode": 0,
+              "stderr": "",
+              "stdout": "{\"id\": \"n2\", \"text\": \"keep me\"}\n"
+            },
+            {
+              "args": [
+                "remove",
+                "--id",
+                "n1"
+              ],
+              "returncode": 0,
+              "stderr": "",
+              "stdout": "[{\"id\": \"n2\", \"text\": \"keep me\"}]\n"
+            },
+            {
+              "args": [
+                "remove",
+                "--id",
+                "n1"
+              ],
+              "returncode": 0,
+              "stderr": "",
+              "stdout": "[{\"id\": \"n2\", \"text\": \"keep me\"}]\n"
+            },
+            {
+              "args": [
+                "list"
+              ],
+              "returncode": 0,
+              "stderr": "",
+              "stdout": "[{\"id\": \"n2\", \"text\": \"keep me\"}]\n"
+            }
+          ],
+          "owned_store_cleaned": true,
+          "processes_run": 9,
+          "successful": true
+        }
+      },
+      "probe_limit": "Independent probes inspect product behavior, not the authored verification asset or the agent's process. A skill file's presence is structural only.",
+      "report_path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/checks/check-8xqy0wmc/report.json",
+      "runtime": {
+        "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "platform": "linux",
+        "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+      },
+      "status": "needs_review"
+    }
+  ],
+  "schema_version": 1,
+  "trial": "application-create",
+  "workspace_files": {
+    ".agents/skills/pocket-notes-verify/SKILL.md": {
+      "content": "---\nname: pocket-notes-verify\ndescription: Verify the Pocket notes Python CLI through real commands and persisted JSON. Use after changes to notes.py, SPEC.md, command arguments, note identity, persistence, or this verification procedure.\n---\n\n# Verify Pocket notes\n\n## Scope and prerequisites\n\nRead the project-root `SPEC.md`, `notes.py`, and [feature map](feature-map.md).\nThe specification supplies expected behavior. Do not change an expectation merely\nbecause the app fails it. This skill does not authorize production fixes.\n\nRun from the project root with Python 3.9 or newer. Only the Python standard library\nis needed. No install, account, network connection, database, server, seed file, or\nmigration is required. The procedure was exercised with Python 3.12.14 on Linux;\nother supported Python versions and operating systems have not been exercised.\nIf `python3` is unavailable, use an available Python 3.9+ executable consistently\nfor both commands below. The helper uses that same interpreter for the app.\n\nThis directory is the project skill location required by `SPEC.md`, and `AGENTS.md`\npoints here. Repository presence does not establish automatic host registration.\n\n## Doctor: check identity and environment\n\n```sh\npython3 .agents/skills/pocket-notes-verify/verify.py doctor\n```\n\nExpected: exit 0 and JSON with `status: \"PASS\"`, the project and interpreter paths,\nPython and platform versions, source/procedure SHA-256 hashes, and a successful\n`notes.py --help` command. This is read-only: it does not create a store, launch a\nserver, or write evidence. Content hashes identify the actual bytes, including\nlocal changes; no Git revision or clean-worktree claim is inferred.\n\nIf this fails, inspect the reported missing file, unsupported interpreter, or help\nfailure. Do not drive a different installation to obtain a passing result. Run\ndoctor again after a surprising environment or execution failure. A successful\nhelp command alone does not establish usable storage; the next step does.\n\n## Launch, drive, and inspect persistent effects\n\n```sh\npython3 .agents/skills/pocket-notes-verify/verify.py run\n```\n\nExpected: exit 0 and a printed evidence directory. Each run creates a unique\ndirectory under `verification-evidence/`, repeats doctor, and allocates a new\nowned `.pocket-notes-state-*` directory inside this project. The store starts\nabsent. The first `list` invocation is the launch/readiness check: it must return\n`[]` without creating the store. Every subsequent action is a fresh process running\nthe real `notes.py`, with an explicit `--store` path before the subcommand.\n\nThe helper performs every journey in the feature map. It asserts JSON output,\nexit behavior, independently parsed on-disk content, and exact byte preservation\nafter a conflicting ID. It never preloads the expected notes into the store.\nNotes are created and removed only through the app. A 15-second timeout bounds\neach command; there are no background application processes.\n\nFor a stable evidence location, use the following command on a fresh checkout:\n\n```sh\npython3 .agents/skills/pocket-notes-verify/verify.py run --evidence-dir verification-evidence/acceptance\n```\n\nThat directory must not already exist. It must resolve inside the project. Use\nthe default command for later runs; it retains earlier results without overwriting\nthem. Run from a checkout whose files you own; the helper does not need another\naccount, real user data, or any external write.\n\n## Evidence and cleanup\n\nRead the printed directory's `summary.json` and `commands.json`. The summary must\nsay `PASS`, list 11 completed steps, show unchanged `notes.py` and `SPEC.md` hashes,\nand report `cleanup.removed: true` and `evidence_retained: true`. Each command\nrecord includes its exact argument vector, working directory, expected results,\nexit status, observed result, and evidence file names. Numbered files preserve\nstdout, stderr, and raw persisted JSON after each action. `doctor.json` records\nthe environment and exact source/procedure hashes. Missing stores are recorded\nas absent rather than represented by a fabricated JSON snapshot.\n\nCleanup runs in a `finally` block on success or failure. It removes only the\ntemporary directory returned to this run by `tempfile.mkdtemp`, after copying\nuseful output and store evidence elsewhere. The summary records the former path,\nwhether removal succeeded, and whether evidence still exists after cleanup. A\ntimeout terminates and waits for that command before cleanup. No process-name\nkill or shared-store deletion is used.\n\nOn failure, keep the evidence, inspect the first failed command and the summary's\nerror, correct an authorized procedure defect, and rerun from a fresh state. A\nproduct failure remains a finding. If cleanup itself fails, inspect the exact\nowned path and cause recorded in the summary before removing anything manually;\nnever delete by wildcard. If the helper is forcibly killed, its `run.json` records\nthe owned state path for the same ownership check. Do not erase retained evidence\nas part of store cleanup.\n\n## Report the result accurately\n\nReport the interpreter/platform, source hashes, completed and failed journeys,\nevidence directory, and cleanup result. Passing this procedure verifies the mapped\nCLI contract on that environment. It does not establish concurrency behavior,\ncrash durability, malformed-store handling, permission-error handling, alternate\nPython/platform support, or automatic host discovery. Those behaviors are outside\nthe supplied specification and this procedure's exercised coverage.\n",
+      "sha256": "cd53959587a6d19d1f5fd39be8cc05fea9284b23ab8d1b4d52538ffeb8110c48"
+    },
+    ".agents/skills/pocket-notes-verify/feature-map.md": {
+      "content": "# Pocket notes feature map\n\nAll expectations come from project-root `SPEC.md`. `verify.py run` resets by\ncreating a fresh owned directory with an absent `notes.json`. Each row uses the\nstate left by preceding rows. To reproduce a row without manually arranging data,\nrerun the complete procedure. The store is never seeded by direct JSON writes.\nAll command examples below follow `python3 notes.py --store` and the owned path\nrecorded in `commands.json`; the helper records complete runnable argument vectors.\n\n| Journey and steps | Prerequisite | Stable command arguments | Required observation and effect | Known trap |\n| --- | --- | --- | --- | --- |\n| Empty launch, 01 | Store does not exist | `list` | Exit 0, output `[]`, store remains absent | Creating an empty file as a fixture would hide forbidden writes. |\n| Add and process restart, 02\u201303 | Empty store | `add --id n1 --text hello`, then `list` in another process | Add prints the note; JSON on disk and later list contain exactly that note | Printed success alone does not prove persistence. |\n| Idempotent add, 04 | `n1` contains `hello` | `add --id n1 --text hello` | One note remains; no duplicate is persisted | Check list length and contents, not just exit status. |\n| Conflicting ID, 05 | `n1` contains `hello` | `add --id n1 --text different` | Nonzero exit, persisted bytes unchanged | An error message with changed storage is a failure. |\n| Remove with another note, 06\u201308 | Add `n2` containing `keep me` through the CLI | `add --id n2 --text 'keep me'`, `remove --id n1`, then `list` | `n1` disappears, `n2` survives on disk and across another invocation | An empty return value would miss accidentally deleting other notes. |\n| Repeated removal and empty state, 09\u201311 | Only `n2` remains | `remove --id n1`, `remove --id n2`, then `list` | Repeating removal is harmless; final persisted and returned list is empty | An absent ID is a valid removal, not an error. |\n\nThe helper checks JSON values without imposing object-key formatting. Only the\nconflicting add uses an exact-byte comparison, because the specification requires\nthe stored content to remain unchanged on that failure. Each successful `list`\nalso confirms that its existing store bytes are unchanged. No malformed-data,\nconcurrency, or filesystem-error behavior is specified or asserted.\n",
+      "sha256": "b3185725254e2e7b1ee662136c9f0a602533b06c525ccf5afc3b3ab0d40a5df0"
+    },
+    ".agents/skills/pocket-notes-verify/verify.py": {
+      "content": "#!/usr/bin/env python3\n\"\"\"Exercise Pocket notes through fresh CLI processes and retain evidence.\"\"\"\n\nimport argparse\nfrom datetime import datetime, timezone\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport shutil\nimport subprocess\nimport sys\nimport tempfile\nimport uuid\n\n\nROOT = Path(__file__).resolve().parents[3]\nAPP = ROOT / \"notes.py\"\nSOURCE_FILES = (\"notes.py\", \"SPEC.md\")\nIDENTITY_FILES = SOURCE_FILES + (\n    \"AGENTS.md\",\n    \".agents/skills/pocket-notes-verify/SKILL.md\",\n    \".agents/skills/pocket-notes-verify/feature-map.md\",\n    \".agents/skills/pocket-notes-verify/verify.py\",\n)\n\n\ndef dump(path, value):\n    path.write_text(json.dumps(value, indent=2, sort_keys=True) + \"\\n\", encoding=\"utf-8\")\n\n\ndef hashes(paths):\n    return {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in paths}\n\n\ndef invoke(arguments):\n    return subprocess.run(\n        [sys.executable, str(APP)] + arguments,\n        cwd=ROOT,\n        capture_output=True,\n        text=True,\n        encoding=\"utf-8\",\n        timeout=15,\n        env=dict(os.environ, PYTHONDONTWRITEBYTECODE=\"1\", PYTHONIOENCODING=\"utf-8\"),\n    )\n\n\ndef doctor():\n    if sys.version_info < (3, 9):\n        raise RuntimeError(\"Pocket notes requires Python 3.9 or newer\")\n    identity = hashes(IDENTITY_FILES)\n    help_result = invoke([\"--help\"])\n    if help_result.returncode != 0:\n        raise RuntimeError(\"notes.py --help failed: \" + help_result.stderr)\n    return {\n        \"status\": \"PASS\",\n        \"project\": str(ROOT),\n        \"interpreter\": sys.executable,\n        \"python\": platform.python_version(),\n        \"platform\": platform.platform(),\n        \"identity_sha256\": identity,\n        \"revision_basis\": \"Exact file hashes; Git revision and dirty state not inferred\",\n        \"help_command\": help_result.args,\n        \"help_exit_code\": help_result.returncode,\n        \"help_stdout\": help_result.stdout,\n        \"help_stderr\": help_result.stderr,\n        \"store\": \"Not opened or created by doctor\",\n    }\n\n\ndef run(evidence_argument):\n    timestamp = datetime.now(timezone.utc).strftime(\"%Y%m%dT%H%M%SZ\")\n    default = Path(\"verification-evidence\") / (timestamp + \"-\" + uuid.uuid4().hex[:8])\n    evidence = (ROOT / (evidence_argument or default)).resolve()\n    if not evidence.is_relative_to(ROOT) or evidence == ROOT:\n        raise RuntimeError(\"Evidence must be a new directory inside the project\")\n    evidence.mkdir(parents=True, exist_ok=False)\n    initial_hashes = hashes(SOURCE_FILES)\n    state = None\n    steps = []\n    report = {\"status\": \"RUNNING\", \"evidence\": str(evidence), \"source_before\": initial_hashes}\n    failure = None\n\n    def drive(label, arguments, expected_output, expected_store, error=False, unchanged=False):\n        index = len(steps) + 1\n        prefix = \"{:02d}-{}\".format(index, label)\n        before = store.read_bytes() if store.exists() else None\n        record = {\n            \"step\": index,\n            \"label\": label,\n            \"command\": [sys.executable, str(APP), \"--store\", str(store)] + arguments,\n            \"cwd\": str(ROOT),\n            \"expected\": {\n                \"exit\": \"nonzero\" if error else 0,\n                \"stdout_json\": expected_output,\n                \"store_json\": expected_store,\n                \"store_absent\": expected_store is None,\n                \"unchanged_bytes\": unchanged,\n            },\n            \"status\": \"RUNNING\",\n        }\n        steps.append(record)\n        dump(evidence / \"commands.json\", steps)\n        try:\n            result = invoke([\"--store\", str(store)] + arguments)\n            stdout_name, stderr_name = prefix + \".stdout.txt\", prefix + \".stderr.txt\"\n            (evidence / stdout_name).write_text(result.stdout, encoding=\"utf-8\")\n            (evidence / stderr_name).write_text(result.stderr, encoding=\"utf-8\")\n            after = store.read_bytes() if store.exists() else None\n            store_name = prefix + \".store.json\" if after is not None else None\n            if store_name:\n                (evidence / store_name).write_bytes(after)\n            record.update(\n                exit_code=result.returncode,\n                stdout_file=stdout_name,\n                stderr_file=stderr_name,\n                store_file=store_name,\n                store_exists=after is not None,\n                store_sha256=hashlib.sha256(after).hexdigest() if after is not None else None,\n                bytes_unchanged=before == after,\n            )\n            if error:\n                if result.returncode == 0:\n                    raise AssertionError(\"Conflicting ID must return a nonzero exit status\")\n            else:\n                if result.returncode != 0:\n                    raise AssertionError(\"Expected success, got exit {}\".format(result.returncode))\n                observed_output = json.loads(result.stdout)\n                record[\"observed_stdout_json\"] = observed_output\n                if observed_output != expected_output:\n                    raise AssertionError(\"Unexpected stdout JSON\")\n            if expected_store is None:\n                if after is not None:\n                    raise AssertionError(\"Read-only empty list created the store\")\n            else:\n                if after is None:\n                    raise AssertionError(\"Expected a persisted store\")\n                observed_store = json.loads(after)\n                record[\"observed_store_json\"] = observed_store\n                if observed_store != expected_store:\n                    raise AssertionError(\"Unexpected persisted JSON\")\n            if unchanged and after != before:\n                raise AssertionError(\"Command changed store bytes unexpectedly\")\n            record[\"status\"] = \"PASS\"\n        except Exception as exc:\n            record[\"status\"] = \"FAIL\"\n            record[\"error\"] = \"{}: {}\".format(type(exc).__name__, exc)\n            raise\n        finally:\n            dump(evidence / \"commands.json\", steps)\n\n    try:\n        dump(evidence / \"doctor.json\", doctor())\n        state = Path(tempfile.mkdtemp(prefix=\".pocket-notes-state-\", dir=ROOT))\n        store = state / \"nested\" / \"notes.json\"\n        dump(evidence / \"run.json\", {\n            \"created_utc\": timestamp,\n            \"owned_state\": str(state),\n            \"store\": str(store),\n            \"evidence\": str(evidence),\n            \"ownership\": \"State directory created by this run with tempfile.mkdtemp\",\n        })\n        n1, n2 = {\"id\": \"n1\", \"text\": \"hello\"}, {\"id\": \"n2\", \"text\": \"keep me\"}\n        drive(\"empty-list\", [\"list\"], [], None, unchanged=True)\n        drive(\"add-first\", [\"add\", \"--id\", \"n1\", \"--text\", \"hello\"], n1, [n1])\n        drive(\"persisted-list\", [\"list\"], [n1], [n1], unchanged=True)\n        drive(\"repeat-add\", [\"add\", \"--id\", \"n1\", \"--text\", \"hello\"], n1, [n1])\n        drive(\"conflicting-id\", [\"add\", \"--id\", \"n1\", \"--text\", \"different\"], None, [n1], error=True, unchanged=True)\n        drive(\"add-survivor\", [\"add\", \"--id\", \"n2\", \"--text\", \"keep me\"], n2, [n1, n2])\n        drive(\"remove-first\", [\"remove\", \"--id\", \"n1\"], [n2], [n2])\n        drive(\"persisted-removal\", [\"list\"], [n2], [n2], unchanged=True)\n        drive(\"repeat-removal\", [\"remove\", \"--id\", \"n1\"], [n2], [n2])\n        drive(\"remove-last\", [\"remove\", \"--id\", \"n2\"], [], [])\n        drive(\"final-empty-list\", [\"list\"], [], [], unchanged=True)\n    except Exception as exc:\n        failure = \"{}: {}\".format(type(exc).__name__, exc)\n    finally:\n        cleanup = {\"owned_state\": str(state) if state else None, \"removed\": state is None}\n        if state is not None:\n            try:\n                shutil.rmtree(state)\n                cleanup[\"removed\"] = not state.exists()\n            except Exception as exc:\n                cleanup[\"error\"] = \"{}: {}\".format(type(exc).__name__, exc)\n                failure = failure or cleanup[\"error\"]\n        final_hashes = hashes(SOURCE_FILES)\n        unchanged_sources = initial_hashes == final_hashes\n        if not unchanged_sources:\n            failure = failure or \"Application or specification changed during verification\"\n        retained = all(\n            (evidence / step[key]).is_file()\n            for step in steps\n            for key in (\"stdout_file\", \"stderr_file\", \"store_file\")\n            if step.get(key)\n        ) and (evidence / \"doctor.json\").is_file() and (evidence / \"commands.json\").is_file()\n        complete = len(steps) == 11 and all(step[\"status\"] == \"PASS\" for step in steps)\n        report.update(\n            status=\"PASS\" if complete and not failure and cleanup[\"removed\"] and retained else \"FAIL\",\n            error=failure,\n            steps_completed=sum(step[\"status\"] == \"PASS\" for step in steps),\n            steps_expected=11,\n            source_after=final_hashes,\n            source_unchanged=unchanged_sources,\n            cleanup=cleanup,\n            evidence_retained=retained,\n        )\n        dump(evidence / \"summary.json\", report)\n    print(json.dumps(report, indent=2, sort_keys=True))\n    return 0 if report[\"status\"] == \"PASS\" else 1\n\n\ndef main():\n    parser = argparse.ArgumentParser(description=__doc__)\n    commands = parser.add_subparsers(dest=\"command\", required=True)\n    commands.add_parser(\"doctor\", help=\"Read-only environment and identity check\")\n    verify = commands.add_parser(\"run\", help=\"Drive all mapped journeys and clean up owned state\")\n    verify.add_argument(\"--evidence-dir\", type=Path, help=\"New evidence directory inside the project\")\n    args = parser.parse_args()\n    try:\n        if args.command == \"doctor\":\n            print(json.dumps(doctor(), indent=2, sort_keys=True))\n            return 0\n        return run(args.evidence_dir)\n    except Exception as exc:\n        print(\"Verification setup failed: {}: {}\".format(type(exc).__name__, exc), file=sys.stderr)\n        return 1\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n",
+      "sha256": "9483dcf8aa2c1ca10a80d7d80472a7b133ad7aea1eb00f0bca0ca3bd3a843bde"
+    },
+    "AGENTS.md": {
+      "content": "# Pocket notes verification\n\nFor changes affecting the CLI, JSON persistence, or its contract, read\n`.agents/skills/pocket-notes-verify/SKILL.md` and follow its project-local procedure.\nIt covers the real command interface, disposable stores, persistent effects, and\nretained evidence. The procedure is available in this repository; automatic host\ncatalog registration has not been established.\n",
+      "sha256": "f515e6c4ad85074abfbd23e4dc4e20baae222fa36f12acf23a73e2fcf77e6f6a"
+    },
+    "SPEC.md": {
+      "content": "# Pocket notes\n\nThis app is a local Python CLI. Use Python 3.9 or newer; it has no dependency\ninstallation, account, network service or server to start. Each command receives\nan explicit JSON store path with `--store`; use a disposable path you own.\n\nCommands from the project root:\n\n- `python notes.py --store PATH list`: print the stored list as JSON. A missing\n  store is an empty list and listing it must not create a file.\n- `python notes.py --store PATH add --id n1 --text hello`: persist one note and\n  print it as JSON. Repeating the same ID and text is idempotent. Reusing an ID\n  for different text is an error and must leave the stored content unchanged.\n- `python notes.py --store PATH remove --id n1`: remove that ID, preserve other\n  notes, and print the remaining list. Repeating removal is harmless.\n\nIndependent command invocations must observe the same persisted notes. A happy\nreturn value alone does not establish persistence. Project skills belong under\n`.agents/skills/`. Keep reusable evidence outside disposable store directories.\n",
+      "sha256": "ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966"
+    },
+    "TASK.md": {
+      "content": "Give future agents a project-local verification skill for Pocket notes. Make its launch and environment check, feature-driving steps, persistent-effect evidence and cleanup reproducible, then follow it on the app. Keep notes.py and SPEC.md unchanged and leave the work local.\n",
+      "sha256": "8c2328ffb19f3db14436bb840441088facc0e3c5f4a9be474fbd830369fee914"
+    },
+    "notes.py": {
+      "content": "import argparse\nimport json\nfrom pathlib import Path\n\n\ndef load(path):\n    return json.loads(path.read_text()) if path.exists() else []\n\n\ndef save(path, notes):\n    path.parent.mkdir(parents=True, exist_ok=True)\n    temporary = path.with_name(path.name + \".tmp\")\n    temporary.write_text(json.dumps(notes, sort_keys=True) + \"\\n\")\n    temporary.replace(path)\n\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--store\", required=True, type=Path)\n    commands = parser.add_subparsers(dest=\"command\", required=True)\n    add = commands.add_parser(\"add\")\n    add.add_argument(\"--id\", required=True)\n    add.add_argument(\"--text\", required=True)\n    commands.add_parser(\"list\")\n    remove = commands.add_parser(\"remove\")\n    remove.add_argument(\"--id\", required=True)\n    args = parser.parse_args()\n    notes = load(args.store)\n    if args.command == \"add\":\n        item = {\"id\": args.id, \"text\": args.text}\n        old = next((note for note in notes if note[\"id\"] == args.id), None)\n        if old is not None and old != item:\n            parser.error(\"id already belongs to different text\")\n        if old is None:\n            notes.append(item)\n        save(args.store, notes)\n        output = item\n    elif args.command == \"remove\":\n        notes = [note for note in notes if note[\"id\"] != args.id]\n        save(args.store, notes)\n        output = notes\n    else:\n        output = notes\n    print(json.dumps(output, sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    main()\n",
+      "sha256": "db944fca8c7ea26f1201381e52cb9e81f8871e962801cbd80b2cc7a0b2a619e5"
+    },
+    "verification-evidence/RESULTS.md": {
+      "content": "# Pocket notes project verification skill\n\nThe requested project-local skill is complete and has been exercised against the\nreal CLI. The documented acceptance run passed all 11 command steps. The original\n`notes.py` and `SPEC.md` remain byte-for-byte unchanged. Work remains local.\n\n## Deliverables\n\n- `../AGENTS.md` points future agents to the project procedure.\n- `../.agents/skills/pocket-notes-verify/SKILL.md` gives launch, doctor, drive,\n  persistent-effect inspection, evidence, cleanup, and reporting instructions.\n- `../.agents/skills/pocket-notes-verify/feature-map.md` maps all commands and the\n  specified empty, retry, conflict, and removal cases.\n- `../.agents/skills/pocket-notes-verify/verify.py` drives the real CLI through\n  independent processes using owned disposable state and standard-library Python.\n\n## Commands and actual results\n\nCommands were run from the project root:\n\n```sh\npython3 .agents/skills/pocket-notes-verify/verify.py doctor\npython3 .agents/skills/pocket-notes-verify/verify.py run --evidence-dir verification-evidence/acceptance\n```\n\nBoth exited 0. The tested environment was Python 3.12.14 on\n`Linux-6.18.57-x86_64-with-glibc2.41`. `acceptance/doctor.json` records the actual\ninterpreter, app path, help result, source and procedure hashes. No server,\ndependency installation, account, network access, or external resources were used.\n\n| Steps | Observation |\n| --- | --- |\n| 01 | Missing-store list returned `[]` and left the store absent. |\n| 02\u201303 | Adding `n1: hello` persisted a note, visible to a new CLI process. |\n| 04 | Repeating the same ID and text left exactly one note. |\n| 05 | Conflicting text returned exit 2; stored bytes remained unchanged. |\n| 06\u201308 | Added `n2: keep me`; removing `n1` preserved `n2`, including after a new process listed it. |\n| 09\u201311 | Repeating the removal was harmless; removing the final note persisted an empty list, visible to a later list command. |\n\n`acceptance/commands.json` contains the complete argument vector, working\ndirectory, expectations, exit status, observed JSON, store hash, and evidence-file\nnames for every action. Numbered stdout, stderr, and raw store snapshots remain\nbeside it. `acceptance/summary.json` records 11/11 completed steps, unchanged source\nhashes, successful owned-state removal, and evidence retained after cleanup.\n\n## Sensitivity check\n\nA temporary copy of this project was created within this workspace. Only that\ncopy's `save` function was changed to return without persisting anything. The\ninjected change is preserved in `sensitivity/fault.diff`. The unchanged verifier\nwas invoked in the copy with:\n\n```sh\npython3 .agents/skills/pocket-notes-verify/verify.py run --evidence-dir verification-evidence/fault\n```\n\nThe copied CLI printed success for the first add, but the verifier exited 1 at\n`add-first` with `AssertionError: Expected a persisted store`. This establishes\nthat the persistent-effect assertion can reject a happy response without saved\nstate. `sensitivity/result.json` records the actual command, temporary project\npath, failure point, and cleanup. `sensitivity/observed/` retains the failing\nrun's command records, output, and summary. The failing run's store directory and\nthe outer temporary project were both removed after retaining evidence. The\noriginal product files were not modified.\n\nAn additional read-only inspection verified that every source/procedure hash still\nmatches `acceptance/doctor.json`, that all command evidence files still exist, and\nthat no owned `.pocket-notes-state-*` or `.pocket-notes-probe-*` directories remain.\n\n## Preserved source identity\n\n| File | SHA-256 before and after |\n| --- | --- |\n| `notes.py` | `db944fca8c7ea26f1201381e52cb9e81f8871e962801cbd80b2cc7a0b2a619e5` |\n| `SPEC.md` | `ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966` |\n\n## Guidance and limits\n\nRead `TASK.md`, `SPEC.md`, and `notes.py` in this workspace. No pre-existing\nproject-local guidance or verification harness was present. From the supplied\n`instructions-review` pack, the following guidance was read:\n\n- `engineering-workflows/SKILL.md`\n- `engineering-workflows/references/contract.md`\n- `engineering-workflows/references/coordination.md`\n- `engineering-workflows/references/delivery.md`\n- `engineering-workflows/references/notes.md`\n- `engineering-verify/SKILL.md`\n- `engineering-verify/references/application.md`\n- `engineering-verify/references/testing.md`\n\nThe skill is present at the project location required by `SPEC.md` and indexed by\n`AGENTS.md`; automatic host catalog registration was not established. No Git\nrevision or worktree status is claimed; exact content is identified by hashes.\nOther Python versions/platforms, concurrency, crash durability, malformed stores,\nand permission errors were not exercised. They are outside the supplied contract\nand this procedure's mapped coverage. There were no unexpected application-check\nfailures. No independent final review occurred in this worker because all agent\nslots were occupied; the lead will arrange a fresh reuse/review after handoff.\n",
+      "sha256": "7872ac886f822774f5a0afe6243a82e7b3290960ce4e6379686f0d743393aece"
+    },
+    "verification-evidence/acceptance/01-empty-list.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/01-empty-list.stdout.txt": {
+      "content": "[]\n",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "verification-evidence/acceptance/02-add-first.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/02-add-first.stdout.txt": {
+      "content": "{\"id\": \"n1\", \"text\": \"hello\"}\n",
+      "sha256": "ad9d12d0ae72a69cc0744c7ee1ba420763fbcb445c2e664d56ab857ba3662858"
+    },
+    "verification-evidence/acceptance/02-add-first.store.json": {
+      "content": "[{\"id\": \"n1\", \"text\": \"hello\"}]\n",
+      "sha256": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958"
+    },
+    "verification-evidence/acceptance/03-persisted-list.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/03-persisted-list.stdout.txt": {
+      "content": "[{\"id\": \"n1\", \"text\": \"hello\"}]\n",
+      "sha256": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958"
+    },
+    "verification-evidence/acceptance/03-persisted-list.store.json": {
+      "content": "[{\"id\": \"n1\", \"text\": \"hello\"}]\n",
+      "sha256": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958"
+    },
+    "verification-evidence/acceptance/04-repeat-add.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/04-repeat-add.stdout.txt": {
+      "content": "{\"id\": \"n1\", \"text\": \"hello\"}\n",
+      "sha256": "ad9d12d0ae72a69cc0744c7ee1ba420763fbcb445c2e664d56ab857ba3662858"
+    },
+    "verification-evidence/acceptance/04-repeat-add.store.json": {
+      "content": "[{\"id\": \"n1\", \"text\": \"hello\"}]\n",
+      "sha256": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958"
+    },
+    "verification-evidence/acceptance/05-conflicting-id.stderr.txt": {
+      "content": "usage: notes.py [-h] --store STORE {add,list,remove} ...\nnotes.py: error: id already belongs to different text\n",
+      "sha256": "b30b9b9a6c20558538d9207ca6a7f8b31640d7d1fbe4478a3e72beb8d4bd029b"
+    },
+    "verification-evidence/acceptance/05-conflicting-id.stdout.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/05-conflicting-id.store.json": {
+      "content": "[{\"id\": \"n1\", \"text\": \"hello\"}]\n",
+      "sha256": "9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958"
+    },
+    "verification-evidence/acceptance/06-add-survivor.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/06-add-survivor.stdout.txt": {
+      "content": "{\"id\": \"n2\", \"text\": \"keep me\"}\n",
+      "sha256": "fc83f4176b317090d492260e3d82d61a782c67920e0235610321755c8dbd4721"
+    },
+    "verification-evidence/acceptance/06-add-survivor.store.json": {
+      "content": "[{\"id\": \"n1\", \"text\": \"hello\"}, {\"id\": \"n2\", \"text\": \"keep me\"}]\n",
+      "sha256": "9cdd997f5982e0cfe2d5f0bbf894ae9cd4dda71d894517c477ab937ff928c91d"
+    },
+    "verification-evidence/acceptance/07-remove-first.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/07-remove-first.stdout.txt": {
+      "content": "[{\"id\": \"n2\", \"text\": \"keep me\"}]\n",
+      "sha256": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6"
+    },
+    "verification-evidence/acceptance/07-remove-first.store.json": {
+      "content": "[{\"id\": \"n2\", \"text\": \"keep me\"}]\n",
+      "sha256": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6"
+    },
+    "verification-evidence/acceptance/08-persisted-removal.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/08-persisted-removal.stdout.txt": {
+      "content": "[{\"id\": \"n2\", \"text\": \"keep me\"}]\n",
+      "sha256": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6"
+    },
+    "verification-evidence/acceptance/08-persisted-removal.store.json": {
+      "content": "[{\"id\": \"n2\", \"text\": \"keep me\"}]\n",
+      "sha256": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6"
+    },
+    "verification-evidence/acceptance/09-repeat-removal.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/09-repeat-removal.stdout.txt": {
+      "content": "[{\"id\": \"n2\", \"text\": \"keep me\"}]\n",
+      "sha256": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6"
+    },
+    "verification-evidence/acceptance/09-repeat-removal.store.json": {
+      "content": "[{\"id\": \"n2\", \"text\": \"keep me\"}]\n",
+      "sha256": "67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6"
+    },
+    "verification-evidence/acceptance/10-remove-last.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/10-remove-last.stdout.txt": {
+      "content": "[]\n",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "verification-evidence/acceptance/10-remove-last.store.json": {
+      "content": "[]\n",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "verification-evidence/acceptance/11-final-empty-list.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/acceptance/11-final-empty-list.stdout.txt": {
+      "content": "[]\n",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "verification-evidence/acceptance/11-final-empty-list.store.json": {
+      "content": "[]\n",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "verification-evidence/acceptance/commands.json": {
+      "content": "[\n  {\n    \"bytes_unchanged\": true,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"list\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": [],\n      \"store_absent\": true,\n      \"store_json\": null,\n      \"unchanged_bytes\": true\n    },\n    \"label\": \"empty-list\",\n    \"observed_stdout_json\": [],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"01-empty-list.stderr.txt\",\n    \"stdout_file\": \"01-empty-list.stdout.txt\",\n    \"step\": 1,\n    \"store_exists\": false,\n    \"store_file\": null,\n    \"store_sha256\": null\n  },\n  {\n    \"bytes_unchanged\": false,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"add\",\n      \"--id\",\n      \"n1\",\n      \"--text\",\n      \"hello\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": {\n        \"id\": \"n1\",\n        \"text\": \"hello\"\n      },\n      \"store_absent\": false,\n      \"store_json\": [\n        {\n          \"id\": \"n1\",\n          \"text\": \"hello\"\n        }\n      ],\n      \"unchanged_bytes\": false\n    },\n    \"label\": \"add-first\",\n    \"observed_stdout_json\": {\n      \"id\": \"n1\",\n      \"text\": \"hello\"\n    },\n    \"observed_store_json\": [\n      {\n        \"id\": \"n1\",\n        \"text\": \"hello\"\n      }\n    ],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"02-add-first.stderr.txt\",\n    \"stdout_file\": \"02-add-first.stdout.txt\",\n    \"step\": 2,\n    \"store_exists\": true,\n    \"store_file\": \"02-add-first.store.json\",\n    \"store_sha256\": \"9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958\"\n  },\n  {\n    \"bytes_unchanged\": true,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"list\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": [\n        {\n          \"id\": \"n1\",\n          \"text\": \"hello\"\n        }\n      ],\n      \"store_absent\": false,\n      \"store_json\": [\n        {\n          \"id\": \"n1\",\n          \"text\": \"hello\"\n        }\n      ],\n      \"unchanged_bytes\": true\n    },\n    \"label\": \"persisted-list\",\n    \"observed_stdout_json\": [\n      {\n        \"id\": \"n1\",\n        \"text\": \"hello\"\n      }\n    ],\n    \"observed_store_json\": [\n      {\n        \"id\": \"n1\",\n        \"text\": \"hello\"\n      }\n    ],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"03-persisted-list.stderr.txt\",\n    \"stdout_file\": \"03-persisted-list.stdout.txt\",\n    \"step\": 3,\n    \"store_exists\": true,\n    \"store_file\": \"03-persisted-list.store.json\",\n    \"store_sha256\": \"9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958\"\n  },\n  {\n    \"bytes_unchanged\": true,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"add\",\n      \"--id\",\n      \"n1\",\n      \"--text\",\n      \"hello\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": {\n        \"id\": \"n1\",\n        \"text\": \"hello\"\n      },\n      \"store_absent\": false,\n      \"store_json\": [\n        {\n          \"id\": \"n1\",\n          \"text\": \"hello\"\n        }\n      ],\n      \"unchanged_bytes\": false\n    },\n    \"label\": \"repeat-add\",\n    \"observed_stdout_json\": {\n      \"id\": \"n1\",\n      \"text\": \"hello\"\n    },\n    \"observed_store_json\": [\n      {\n        \"id\": \"n1\",\n        \"text\": \"hello\"\n      }\n    ],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"04-repeat-add.stderr.txt\",\n    \"stdout_file\": \"04-repeat-add.stdout.txt\",\n    \"step\": 4,\n    \"store_exists\": true,\n    \"store_file\": \"04-repeat-add.store.json\",\n    \"store_sha256\": \"9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958\"\n  },\n  {\n    \"bytes_unchanged\": true,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"add\",\n      \"--id\",\n      \"n1\",\n      \"--text\",\n      \"different\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 2,\n    \"expected\": {\n      \"exit\": \"nonzero\",\n      \"stdout_json\": null,\n      \"store_absent\": false,\n      \"store_json\": [\n        {\n          \"id\": \"n1\",\n          \"text\": \"hello\"\n        }\n      ],\n      \"unchanged_bytes\": true\n    },\n    \"label\": \"conflicting-id\",\n    \"observed_store_json\": [\n      {\n        \"id\": \"n1\",\n        \"text\": \"hello\"\n      }\n    ],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"05-conflicting-id.stderr.txt\",\n    \"stdout_file\": \"05-conflicting-id.stdout.txt\",\n    \"step\": 5,\n    \"store_exists\": true,\n    \"store_file\": \"05-conflicting-id.store.json\",\n    \"store_sha256\": \"9a7878e14436cad8f88cec27c69da7e8ddaa120ee2693b2fa6e29067a0a3a958\"\n  },\n  {\n    \"bytes_unchanged\": false,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"add\",\n      \"--id\",\n      \"n2\",\n      \"--text\",\n      \"keep me\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": {\n        \"id\": \"n2\",\n        \"text\": \"keep me\"\n      },\n      \"store_absent\": false,\n      \"store_json\": [\n        {\n          \"id\": \"n1\",\n          \"text\": \"hello\"\n        },\n        {\n          \"id\": \"n2\",\n          \"text\": \"keep me\"\n        }\n      ],\n      \"unchanged_bytes\": false\n    },\n    \"label\": \"add-survivor\",\n    \"observed_stdout_json\": {\n      \"id\": \"n2\",\n      \"text\": \"keep me\"\n    },\n    \"observed_store_json\": [\n      {\n        \"id\": \"n1\",\n        \"text\": \"hello\"\n      },\n      {\n        \"id\": \"n2\",\n        \"text\": \"keep me\"\n      }\n    ],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"06-add-survivor.stderr.txt\",\n    \"stdout_file\": \"06-add-survivor.stdout.txt\",\n    \"step\": 6,\n    \"store_exists\": true,\n    \"store_file\": \"06-add-survivor.store.json\",\n    \"store_sha256\": \"9cdd997f5982e0cfe2d5f0bbf894ae9cd4dda71d894517c477ab937ff928c91d\"\n  },\n  {\n    \"bytes_unchanged\": false,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"remove\",\n      \"--id\",\n      \"n1\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": [\n        {\n          \"id\": \"n2\",\n          \"text\": \"keep me\"\n        }\n      ],\n      \"store_absent\": false,\n      \"store_json\": [\n        {\n          \"id\": \"n2\",\n          \"text\": \"keep me\"\n        }\n      ],\n      \"unchanged_bytes\": false\n    },\n    \"label\": \"remove-first\",\n    \"observed_stdout_json\": [\n      {\n        \"id\": \"n2\",\n        \"text\": \"keep me\"\n      }\n    ],\n    \"observed_store_json\": [\n      {\n        \"id\": \"n2\",\n        \"text\": \"keep me\"\n      }\n    ],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"07-remove-first.stderr.txt\",\n    \"stdout_file\": \"07-remove-first.stdout.txt\",\n    \"step\": 7,\n    \"store_exists\": true,\n    \"store_file\": \"07-remove-first.store.json\",\n    \"store_sha256\": \"67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6\"\n  },\n  {\n    \"bytes_unchanged\": true,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"list\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": [\n        {\n          \"id\": \"n2\",\n          \"text\": \"keep me\"\n        }\n      ],\n      \"store_absent\": false,\n      \"store_json\": [\n        {\n          \"id\": \"n2\",\n          \"text\": \"keep me\"\n        }\n      ],\n      \"unchanged_bytes\": true\n    },\n    \"label\": \"persisted-removal\",\n    \"observed_stdout_json\": [\n      {\n        \"id\": \"n2\",\n        \"text\": \"keep me\"\n      }\n    ],\n    \"observed_store_json\": [\n      {\n        \"id\": \"n2\",\n        \"text\": \"keep me\"\n      }\n    ],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"08-persisted-removal.stderr.txt\",\n    \"stdout_file\": \"08-persisted-removal.stdout.txt\",\n    \"step\": 8,\n    \"store_exists\": true,\n    \"store_file\": \"08-persisted-removal.store.json\",\n    \"store_sha256\": \"67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6\"\n  },\n  {\n    \"bytes_unchanged\": true,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"remove\",\n      \"--id\",\n      \"n1\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": [\n        {\n          \"id\": \"n2\",\n          \"text\": \"keep me\"\n        }\n      ],\n      \"store_absent\": false,\n      \"store_json\": [\n        {\n          \"id\": \"n2\",\n          \"text\": \"keep me\"\n        }\n      ],\n      \"unchanged_bytes\": false\n    },\n    \"label\": \"repeat-removal\",\n    \"observed_stdout_json\": [\n      {\n        \"id\": \"n2\",\n        \"text\": \"keep me\"\n      }\n    ],\n    \"observed_store_json\": [\n      {\n        \"id\": \"n2\",\n        \"text\": \"keep me\"\n      }\n    ],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"09-repeat-removal.stderr.txt\",\n    \"stdout_file\": \"09-repeat-removal.stdout.txt\",\n    \"step\": 9,\n    \"store_exists\": true,\n    \"store_file\": \"09-repeat-removal.store.json\",\n    \"store_sha256\": \"67c2c38e920d762a971fd3a725fc64d688dec17144dd7f3a624aa18f9e730ff6\"\n  },\n  {\n    \"bytes_unchanged\": false,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"remove\",\n      \"--id\",\n      \"n2\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": [],\n      \"store_absent\": false,\n      \"store_json\": [],\n      \"unchanged_bytes\": false\n    },\n    \"label\": \"remove-last\",\n    \"observed_stdout_json\": [],\n    \"observed_store_json\": [],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"10-remove-last.stderr.txt\",\n    \"stdout_file\": \"10-remove-last.stdout.txt\",\n    \"step\": 10,\n    \"store_exists\": true,\n    \"store_file\": \"10-remove-last.store.json\",\n    \"store_sha256\": \"37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570\"\n  },\n  {\n    \"bytes_unchanged\": true,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\",\n      \"list\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": [],\n      \"store_absent\": false,\n      \"store_json\": [],\n      \"unchanged_bytes\": true\n    },\n    \"label\": \"final-empty-list\",\n    \"observed_stdout_json\": [],\n    \"observed_store_json\": [],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"11-final-empty-list.stderr.txt\",\n    \"stdout_file\": \"11-final-empty-list.stdout.txt\",\n    \"step\": 11,\n    \"store_exists\": true,\n    \"store_file\": \"11-final-empty-list.store.json\",\n    \"store_sha256\": \"37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570\"\n  }\n]\n",
+      "sha256": "3d59caaf00b92c4e5213dd5875b946bbd68d82a941e7436623d63ae2135682ba"
+    },
+    "verification-evidence/acceptance/doctor.json": {
+      "content": "{\n  \"help_command\": [\n    \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n    \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/notes.py\",\n    \"--help\"\n  ],\n  \"help_exit_code\": 0,\n  \"help_stderr\": \"\",\n  \"help_stdout\": \"usage: notes.py [-h] --store STORE {add,list,remove} ...\\n\\npositional arguments:\\n  {add,list,remove}\\n\\noptions:\\n  -h, --help         show this help message and exit\\n  --store STORE\\n\",\n  \"identity_sha256\": {\n    \".agents/skills/pocket-notes-verify/SKILL.md\": \"cd53959587a6d19d1f5fd39be8cc05fea9284b23ab8d1b4d52538ffeb8110c48\",\n    \".agents/skills/pocket-notes-verify/feature-map.md\": \"b3185725254e2e7b1ee662136c9f0a602533b06c525ccf5afc3b3ab0d40a5df0\",\n    \".agents/skills/pocket-notes-verify/verify.py\": \"9483dcf8aa2c1ca10a80d7d80472a7b133ad7aea1eb00f0bca0ca3bd3a843bde\",\n    \"AGENTS.md\": \"f515e6c4ad85074abfbd23e4dc4e20baae222fa36f12acf23a73e2fcf77e6f6a\",\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"db944fca8c7ea26f1201381e52cb9e81f8871e962801cbd80b2cc7a0b2a619e5\"\n  },\n  \"interpreter\": \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n  \"platform\": \"Linux-6.18.57-x86_64-with-glibc2.41\",\n  \"project\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work\",\n  \"python\": \"3.12.14\",\n  \"revision_basis\": \"Exact file hashes; Git revision and dirty state not inferred\",\n  \"status\": \"PASS\",\n  \"store\": \"Not opened or created by doctor\"\n}\n",
+      "sha256": "54edfbe6733e4654fa925b6f63228a5eadc54fbe3485f6a3532a309f288e6f18"
+    },
+    "verification-evidence/acceptance/run.json": {
+      "content": "{\n  \"created_utc\": \"20261122T234820Z\",\n  \"evidence\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/verification-evidence/acceptance\",\n  \"owned_state\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz\",\n  \"ownership\": \"State directory created by this run with tempfile.mkdtemp\",\n  \"store\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz/nested/notes.json\"\n}\n",
+      "sha256": "ea61f3002d3a8efc52607808461d47680c299682df026c2c196536cfc31f6f16"
+    },
+    "verification-evidence/acceptance/summary.json": {
+      "content": "{\n  \"cleanup\": {\n    \"owned_state\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-state-00rl3chz\",\n    \"removed\": true\n  },\n  \"error\": null,\n  \"evidence\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/verification-evidence/acceptance\",\n  \"evidence_retained\": true,\n  \"source_after\": {\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"db944fca8c7ea26f1201381e52cb9e81f8871e962801cbd80b2cc7a0b2a619e5\"\n  },\n  \"source_before\": {\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"db944fca8c7ea26f1201381e52cb9e81f8871e962801cbd80b2cc7a0b2a619e5\"\n  },\n  \"source_unchanged\": true,\n  \"status\": \"PASS\",\n  \"steps_completed\": 11,\n  \"steps_expected\": 11\n}\n",
+      "sha256": "1e39bca6996dcd761ea90730496347535e7848314ff5a947e4d1fbe9b5ab67d3"
+    },
+    "verification-evidence/sensitivity/fault.diff": {
+      "content": "--- original/notes.py\n+++ probe/notes.py\n@@ -8,6 +8,7 @@\n \n \n def save(path, notes):\n+    return  # deliberate no-persistence fault for verifier sensitivity\n     path.parent.mkdir(parents=True, exist_ok=True)\n     temporary = path.with_name(path.name + \".tmp\")\n     temporary.write_text(json.dumps(notes, sort_keys=True) + \"\\n\")\n",
+      "sha256": "7e28e9ed6fbd5718b7b72c839327acfb50d3d61dd8d7dd80575a28a45c2cfe33"
+    },
+    "verification-evidence/sensitivity/observed/01-empty-list.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/sensitivity/observed/01-empty-list.stdout.txt": {
+      "content": "[]\n",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "verification-evidence/sensitivity/observed/02-add-first.stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/sensitivity/observed/02-add-first.stdout.txt": {
+      "content": "{\"id\": \"n1\", \"text\": \"hello\"}\n",
+      "sha256": "ad9d12d0ae72a69cc0744c7ee1ba420763fbcb445c2e664d56ab857ba3662858"
+    },
+    "verification-evidence/sensitivity/observed/commands.json": {
+      "content": "[\n  {\n    \"bytes_unchanged\": true,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/.pocket-notes-state-t3hhd5fx/nested/notes.json\",\n      \"list\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": [],\n      \"store_absent\": true,\n      \"store_json\": null,\n      \"unchanged_bytes\": true\n    },\n    \"label\": \"empty-list\",\n    \"observed_stdout_json\": [],\n    \"status\": \"PASS\",\n    \"stderr_file\": \"01-empty-list.stderr.txt\",\n    \"stdout_file\": \"01-empty-list.stdout.txt\",\n    \"step\": 1,\n    \"store_exists\": false,\n    \"store_file\": null,\n    \"store_sha256\": null\n  },\n  {\n    \"bytes_unchanged\": true,\n    \"command\": [\n      \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/notes.py\",\n      \"--store\",\n      \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/.pocket-notes-state-t3hhd5fx/nested/notes.json\",\n      \"add\",\n      \"--id\",\n      \"n1\",\n      \"--text\",\n      \"hello\"\n    ],\n    \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j\",\n    \"error\": \"AssertionError: Expected a persisted store\",\n    \"exit_code\": 0,\n    \"expected\": {\n      \"exit\": 0,\n      \"stdout_json\": {\n        \"id\": \"n1\",\n        \"text\": \"hello\"\n      },\n      \"store_absent\": false,\n      \"store_json\": [\n        {\n          \"id\": \"n1\",\n          \"text\": \"hello\"\n        }\n      ],\n      \"unchanged_bytes\": false\n    },\n    \"label\": \"add-first\",\n    \"observed_stdout_json\": {\n      \"id\": \"n1\",\n      \"text\": \"hello\"\n    },\n    \"status\": \"FAIL\",\n    \"stderr_file\": \"02-add-first.stderr.txt\",\n    \"stdout_file\": \"02-add-first.stdout.txt\",\n    \"step\": 2,\n    \"store_exists\": false,\n    \"store_file\": null,\n    \"store_sha256\": null\n  }\n]\n",
+      "sha256": "526a731d3001ae7c35f0bcb747b905a152b4f4ed8679a120eae8f04f33e1368a"
+    },
+    "verification-evidence/sensitivity/observed/doctor.json": {
+      "content": "{\n  \"help_command\": [\n    \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n    \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/notes.py\",\n    \"--help\"\n  ],\n  \"help_exit_code\": 0,\n  \"help_stderr\": \"\",\n  \"help_stdout\": \"usage: notes.py [-h] --store STORE {add,list,remove} ...\\n\\npositional arguments:\\n  {add,list,remove}\\n\\noptions:\\n  -h, --help         show this help message and exit\\n  --store STORE\\n\",\n  \"identity_sha256\": {\n    \".agents/skills/pocket-notes-verify/SKILL.md\": \"cd53959587a6d19d1f5fd39be8cc05fea9284b23ab8d1b4d52538ffeb8110c48\",\n    \".agents/skills/pocket-notes-verify/feature-map.md\": \"b3185725254e2e7b1ee662136c9f0a602533b06c525ccf5afc3b3ab0d40a5df0\",\n    \".agents/skills/pocket-notes-verify/verify.py\": \"9483dcf8aa2c1ca10a80d7d80472a7b133ad7aea1eb00f0bca0ca3bd3a843bde\",\n    \"AGENTS.md\": \"f515e6c4ad85074abfbd23e4dc4e20baae222fa36f12acf23a73e2fcf77e6f6a\",\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"9b3c50c285797a9c9edde016b3f3ac32a07ca20a76f9ef62ec5b1fc8bdb2ef3e\"\n  },\n  \"interpreter\": \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n  \"platform\": \"Linux-6.18.57-x86_64-with-glibc2.41\",\n  \"project\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j\",\n  \"python\": \"3.12.14\",\n  \"revision_basis\": \"Exact file hashes; Git revision and dirty state not inferred\",\n  \"status\": \"PASS\",\n  \"store\": \"Not opened or created by doctor\"\n}\n",
+      "sha256": "417e41c7bfa405b0ba572fefc2b9be7f5a3761fbbb31aa56af84543547bab58f"
+    },
+    "verification-evidence/sensitivity/observed/run.json": {
+      "content": "{\n  \"created_utc\": \"20261122T234900Z\",\n  \"evidence\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/verification-evidence/fault\",\n  \"owned_state\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/.pocket-notes-state-t3hhd5fx\",\n  \"ownership\": \"State directory created by this run with tempfile.mkdtemp\",\n  \"store\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/.pocket-notes-state-t3hhd5fx/nested/notes.json\"\n}\n",
+      "sha256": "9efa4cc5e0a23e96e42f05a15ceb609783bc179f16e0ddb4a68bc2515eee5e54"
+    },
+    "verification-evidence/sensitivity/observed/summary.json": {
+      "content": "{\n  \"cleanup\": {\n    \"owned_state\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/.pocket-notes-state-t3hhd5fx\",\n    \"removed\": true\n  },\n  \"error\": \"AssertionError: Expected a persisted store\",\n  \"evidence\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/verification-evidence/fault\",\n  \"evidence_retained\": true,\n  \"source_after\": {\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"9b3c50c285797a9c9edde016b3f3ac32a07ca20a76f9ef62ec5b1fc8bdb2ef3e\"\n  },\n  \"source_before\": {\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"9b3c50c285797a9c9edde016b3f3ac32a07ca20a76f9ef62ec5b1fc8bdb2ef3e\"\n  },\n  \"source_unchanged\": true,\n  \"status\": \"FAIL\",\n  \"steps_completed\": 1,\n  \"steps_expected\": 11\n}\n",
+      "sha256": "997380a4dab1861000e984e4eed1d184ae4d799bb938858683cd5e97b66a4ea9"
+    },
+    "verification-evidence/sensitivity/result.json": {
+      "content": "{\n  \"command\": [\n    \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n    \".agents/skills/pocket-notes-verify/verify.py\",\n    \"run\",\n    \"--evidence-dir\",\n    \"verification-evidence/fault\"\n  ],\n  \"cwd\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j\",\n  \"exit_code\": 1,\n  \"failed_step\": \"add-first\",\n  \"helper_cleanup\": {\n    \"owned_state\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/.pocket-notes-state-t3hhd5fx\",\n    \"removed\": true\n  },\n  \"observed_error\": \"AssertionError: Expected a persisted store\",\n  \"original_source_unchanged\": true,\n  \"probe_removed\": true,\n  \"probe_root\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j\",\n  \"purpose\": \"Confirm printed success without persistence is rejected\",\n  \"source_after\": {\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"db944fca8c7ea26f1201381e52cb9e81f8871e962801cbd80b2cc7a0b2a619e5\"\n  },\n  \"source_before\": {\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"db944fca8c7ea26f1201381e52cb9e81f8871e962801cbd80b2cc7a0b2a619e5\"\n  },\n  \"status\": \"PASS: isolated fault rejected at the intended persistent-effect assertion\"\n}\n",
+      "sha256": "553d8fa58ede187522ae2ab6e35cf36c8a552808ce651940c9df8fe1d5b66dce"
+    },
+    "verification-evidence/sensitivity/stderr.txt": {
+      "content": "",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verification-evidence/sensitivity/stdout.txt": {
+      "content": "{\n  \"cleanup\": {\n    \"owned_state\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/.pocket-notes-state-t3hhd5fx\",\n    \"removed\": true\n  },\n  \"error\": \"AssertionError: Expected a persisted store\",\n  \"evidence\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/application-create-candidate/work/.pocket-notes-probe-i6k3xe0j/verification-evidence/fault\",\n  \"evidence_retained\": true,\n  \"source_after\": {\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"9b3c50c285797a9c9edde016b3f3ac32a07ca20a76f9ef62ec5b1fc8bdb2ef3e\"\n  },\n  \"source_before\": {\n    \"SPEC.md\": \"ce181853efa1569116fe641cca07d4f883be339bb9fd4a07f6a0b1837996b966\",\n    \"notes.py\": \"9b3c50c285797a9c9edde016b3f3ac32a07ca20a76f9ef62ec5b1fc8bdb2ef3e\"\n  },\n  \"source_unchanged\": true,\n  \"status\": \"FAIL\",\n  \"steps_completed\": 1,\n  \"steps_expected\": 11\n}\n",
+      "sha256": "997380a4dab1861000e984e4eed1d184ae4d799bb938858683cd5e97b66a4ea9"
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "automated_controls": {
+    "baseline_evaluator_tests": {
+      "passed": 8
+    },
+    "baseline_pack_tests": {
+      "environment_note": "Initial 54 pass/1 error due to TMPDIR inside checkout; external TMPDIR rerun passed without source/test changes.",
+      "passed": 55
+    },
+    "candidate_evaluator_tests": {
+      "independent_reviewer_repeated": true,
+      "passed": 18
+    },
+    "candidate_pack_tests": {
+      "passed": 57
+    },
+    "pack_validator": {
+      "automatic_edges": 17,
+      "skill_count": 7,
+      "valid": true,
+      "version": "2.3.0"
+    },
+    "provenance": "Recorded from actual parent and reviewer tool results; full per-test log is not bundled."
+  },
+  "baseline_commit": "6277fe359e25fd37e8c734a4627b3260d5245c78",
+  "baseline_tree": "d56ed33f3b40483391d651b39efdd06f813683ac",
+  "candidate": {
+    "digest": "efab50e5047156e2a31ab7235b600afcd7dd85416fe3df28c86397890154af52",
+    "files": {
+      "engineering-arena/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-arena/SKILL.md": "807500336642dc88a2f31cd4bda43d67079724eb8b48e906ace9faf975f10362",
+      "engineering-arena/agents/openai.yaml": "7fb3e5f5bd018bfc0fb3529ec08bcf974dbcc39463ad71bdeef6a7b3c4b39593",
+      "engineering-arena/assets/icon.svg": "e9301497fa98ef56aaca7ede0857b9a18dc06c34040f0679c609a6bf49b1d38b",
+      "engineering-arena/references/comparison.md": "4c776fe2931082ea6747d8778ec3798eba7d9bea1fbd4835a28c4f06e0052a62",
+      "engineering-campaign/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-campaign/SKILL.md": "c642a5e865f35f9c53f8ee0536bbbcfc48d09b409ea92d48a215f0eb0f80be55",
+      "engineering-campaign/agents/openai.yaml": "ad24d0a9290e933cbd7f2d7c92ff8c1c525ba59c117637fc5d4c4a3a1d22ac5d",
+      "engineering-campaign/assets/icon.svg": "72343cc4b66256ae7de8474c7cad14e711ad84a94c473732a44f96a56124c42d",
+      "engineering-campaign/references/state-and-control.md": "9861d123d957f9d57a9e413ecc78ea1822958050270de70aa5102fbb5025e7d3",
+      "engineering-check/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-check/SKILL.md": "803074aeace9289b3de58f46c73260eb7de1b1060a2687a3078e19ec941e0e72",
+      "engineering-check/agents/openai.yaml": "b372df0d679957ebf93b0f2547ee4e7f1e97d539608f6e60d54796031f644634",
+      "engineering-check/assets/icon.svg": "e9301497fa98ef56aaca7ede0857b9a18dc06c34040f0679c609a6bf49b1d38b",
+      "engineering-check/references/critical-review.md": "9899aca2a0036f658f758c8ce7cb48eaf08dc3fb70755782eef994f825a98c66",
+      "engineering-configure/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-configure/SKILL.md": "c2de61b512772fc59db06d686522661f2fb05fc6d0dd2aae5bf3447c22518b1a",
+      "engineering-configure/agents/openai.yaml": "37575dd59fb4c480818f8ef8cedf40213c6acd6c3a1e6a573deea9377fa261b5",
+      "engineering-configure/assets/icon.svg": "e9301497fa98ef56aaca7ede0857b9a18dc06c34040f0679c609a6bf49b1d38b",
+      "engineering-configure/references/capabilities.md": "16fdc53a4698483b78781060fa0a07de80e416d2878e73a4bc95549c6a81d3ed",
+      "engineering-configure/references/evaluate-and-promote.md": "4a9b7c5c07cc06099331bffae7fe1a01e50226abb69e9638d37de5a8414a86d1",
+      "engineering-configure/references/routing-cases.md": "8d534dfef5562a6bcc08eaeb4cdf9ee1ba6a86fa269a45eb163cfad1f109821a",
+      "engineering-measure/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-measure/SKILL.md": "b1f3c0296ea377c7dd21e64b7e98b86db5b26edb4c562b6001b1496131fa6a34",
+      "engineering-measure/agents/openai.yaml": "c2deb3827859333a41cab0b237cef80412e9e7f73796eb898698e81c5668bfed",
+      "engineering-measure/assets/icon.svg": "e9301497fa98ef56aaca7ede0857b9a18dc06c34040f0679c609a6bf49b1d38b",
+      "engineering-measure/references/measurement.md": "3ae643f3ca6d513b64337a9e15b9ce2b56dff1d7278576b164e950f813b233cc",
+      "engineering-verify/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-verify/SKILL.md": "eff76d48fb08014dcc7054934725428e5df8f7c10615ece2b0a8a742cb6ed207",
+      "engineering-verify/agents/openai.yaml": "e8b8daae7a8caa74354c28c00cf170488ca3ae956558df05c05f0ea6e0e955de",
+      "engineering-verify/assets/icon.svg": "8936b24f674a1250d999e2c2b5901374fb4240426f32bd1ae340c352a90d617d",
+      "engineering-verify/references/application.md": "639e6009eabe5d2ce03116bd94ae43a223ddea84f514ddfa8a6ce3948ffff971",
+      "engineering-verify/references/bend.md": "787e2f19a0eed8574447eb0ff5226755390a765554a43cf1396fe9a7ecdeb4a6",
+      "engineering-verify/references/formal.md": "a353b02380ab9c23c04bd73df30ab371fbd9d0c36ec08dc3bdae70ec8cbaf4ad",
+      "engineering-verify/references/methods.md": "474889ea559498c04a31669e37c6e4c058ad302b25a8d24f57ac0b9888f1c668",
+      "engineering-verify/references/testing.md": "7876cf56d9bdd51dd5bcfb9b9d1eaf7075623de4fa0fd88010d9cd6b6205d6de",
+      "engineering-workflows/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-workflows/SKILL.md": "a7f827ec8d9edf0d297241b61d94b5aa596a96f7116fc2f7afd3f6d71a86786a",
+      "engineering-workflows/agents/openai.yaml": "759d4316074ae4667492b00c17f9a30c55e5e42a1376836fc111003cf840bd1c",
+      "engineering-workflows/assets/icon.svg": "8936b24f674a1250d999e2c2b5901374fb4240426f32bd1ae340c352a90d617d",
+      "engineering-workflows/references/contract.md": "b0d2af99552b95ec375f5d48eb2fc62b027c0267f4fe08a9aa40d66b82b84ddb",
+      "engineering-workflows/references/coordination.md": "10a864ff8155faa933fc4a882761f5f9b5e26fa56592bdf3f507d8109d54d783",
+      "engineering-workflows/references/delivery.md": "48610a136b9b720f0c8b154a8dd0c4ed55de1678d7a2bbb1f65d5f93d8fb9728",
+      "engineering-workflows/references/methods.md": "2f17e2bb07836085efb11c2c9267927c7cf941b668fb392e67f3b8bf809a9a8c",
+      "engineering-workflows/references/notes.md": "24c42bcadd85466c96c937f92f6ab1eebf146523d3bf6373c15abb3f310c18d1",
+      "engineering-workflows/references/pack-contract.json": "d692199119dab71aad2bc9a55219352b45a54ea70075826266d73862ef5ebbc8",
+      "engineering-workflows/references/routing.md": "7ad9575ea60025e5088bab9b540206fd7f70021ea8313996d02f3a706edceef8",
+      "engineering-workflows/scripts/resolve_skill.py": "ab1324c408fe383c6a21d709a064d8c9bef2c5b9390e92dd3fd22de430c38bae",
+      "engineering-workflows/scripts/snapshot.py": "44ef3732d8fa816bcbbcff11394c416bb3eae801a80b667a4bcc572f22243121",
+      "engineering-workflows/scripts/test_helpers.py": "96a61a6952898f46fe2bc94e48a00f550925122a52b2e44ad9afc8544bb70adf",
+      "engineering-workflows/scripts/test_pack.py": "465dfd40f2da285ec32b7a0c02b8fbd32756b6477c0c309dec87b1ae983e3468",
+      "engineering-workflows/scripts/validate_pack.py": "02bbaef7ff37d97c863a55576456df68695b1f5a5444db07c9c5c60388678563"
+    }
+  },
+  "conditions": {
+    "agent_context": "Fresh conversations; ordinary project task and candidate filesystem pack; reuse received only generated project.",
+    "catalog": "Frozen 52-file candidate supplied by exact filesystem path for normal trials; active personal catalog unchanged; host registration not tested.",
+    "comparison": "No baseline-vs-candidate agent outcome-rate estimate.",
+    "filesystem_isolation": "Shared host filesystem, instruction boundaries only; not OS-enforced.",
+    "model": "Inherited parent model, no override; independently verifiable provider/model revision unavailable.",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "trace": "Submitted artifacts, retained command outputs, final runner reports and parent replays; not a full export of all tool calls."
+  },
+  "evaluator_v1_sha256": {
+    "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+    "probe.py": "ae1683b69dc60528d437ec7eaa2e7e734df84ec4eff7340c602f0a7c1ecddd44",
+    "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+    "workflow_cases.py": "296285e00561f11c27c1b4a377df2603fdb5334106a8897eec2adfbdf28094bf",
+    "workflow_probe.py": "cc2e706d401415188d29537f48441b5d9d25e1874aa480ba7234c3edc40ebe13"
+  },
+  "evaluator_v2_sha256": {
+    "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+    "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+    "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+    "workflow_cases.py": "296285e00561f11c27c1b4a377df2603fdb5334106a8897eec2adfbdf28094bf",
+    "workflow_probe.py": "cc2e706d401415188d29537f48441b5d9d25e1874aa480ba7234c3edc40ebe13"
+  },
+  "independent_reviews": [
+    {
+      "finding": "Direct Check/Measure could bypass project-skill discovery",
+      "resolution": "Discovery added to shared contract; reviewer followup confirmed resolution; direct specialist trials accepted.",
+      "scope": "Seven entrypoints, substantive references and metadata"
+    },
+    {
+      "limits": "No hostile-code containment or full trial transcript review.",
+      "result": "No material findings",
+      "scope": "Evaluation helper diff, fixtures, probes, tests and README; 18 controls executed"
+    }
+  ],
+  "recorded_at_utc": "2026-11-22T23:55:11.085634+00:00",
+  "schema_version": 1,
+  "trial_index": {
+    "application-create": {
+      "decision": "accepted; fresh reuse recorded separately",
+      "file": "application-create.json"
+    },
+    "application-reuse": {
+      "decision": "accepted",
+      "file": "application-reuse.json"
+    },
+    "check-discovery": {
+      "decision": "accepted",
+      "file": "check-discovery.json"
+    },
+    "formal-create": {
+      "decision": "accepted for finite scope; fresh reuse recorded separately",
+      "file": "formal-create.json"
+    },
+    "formal-maintain": {
+      "decision": "accepted; the product property remains failed",
+      "file": "formal-maintain.json"
+    },
+    "formal-reuse": {
+      "decision": "accepted for finite scope",
+      "file": "formal-reuse.json"
+    },
+    "measured-comparison": {
+      "decision": "accepted; speedup claim rejected",
+      "file": "measured-comparison.json"
+    },
+    "minimal": {
+      "decision": "accepted",
+      "file": "minimal.json"
+    },
+    "refactor-contract": {
+      "decision": "accepted",
+      "file": "refactor-contract.json"
+    }
+  },
+  "upstream_commit": "7a583913eb1b8d1a0ee76753d1a2cf072e7b54f9"
+}

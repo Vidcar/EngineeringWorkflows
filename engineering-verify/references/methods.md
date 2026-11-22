@@ -1,12 +1,5 @@
 # Other verification methods
 
-## Application checks
-
-Identify the process, revision, account, configuration and data being exercised.
-Observe both the action and its important persisted or external effects. Use
-disposable fixtures where possible. A command labelled dry-run still needs its
-effects checked; the label grants no permission to write or send messages.
-
 ## Visual checks
 
 Capture the independent reference and compare the rendered result at matching
@@ -14,17 +7,19 @@ viewport and state. Check relevant responsive layouts and interactions. Describe
 visible differences precisely. A successful build or one screenshot cannot
 establish behaviour in states that were not observed.
 
-## Formal and generated-input checks
+## Generated-input checks
 
-State the property, input domain, assumptions and bounds. Explain how the checked
-model or function relates to the implementation. Confirm that valid starting
-states and generated cases exist, filters have not discarded the useful domain,
-the intended property is registered, and its check completed.
+Exercise the responsible implementation rather than a duplicate of its algorithm.
+Derive properties from the required behaviour. State the input domain, generators,
+filters, seeds and limits that affect the claim. Check that useful valid and invalid
+cases remain reachable and the intended assertions actually execute. Retain a
+small reproducible counterexample when generation finds a failure.
 
-Use representative counterexamples or isolated faults to establish that a
-consequential property rejects relevant bad behaviour. Keep errors, timeouts and
-incomplete checks visible. Report uncovered states and assumptions; a result for
-a bounded model supports claims within that model and bound.
+Use the testing reference's sensitivity checks for consequential properties.
+Sampled generated inputs are testing; an exhausted finite domain is evidence only
+for that domain. Neither establishes an unbounded proof. Keep errors, timeouts,
+discarded cases and incomplete runs visible.
 
 For checks that others will maintain, keep setup, inputs, expected observations,
 cleanup and environmental limits beside the check or in the existing test guide.
+Use the application and formal references for those verification lifecycles.

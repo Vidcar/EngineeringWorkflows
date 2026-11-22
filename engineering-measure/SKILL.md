@@ -18,14 +18,16 @@ Measurement adds no permission for production effects or spending.
 1. Define the decision, metrics, units, workload, correctness criteria, baseline,
    candidate and environment before running comparisons. Read
    [measurement.md](references/measurement.md) for performance or agent evaluation.
-2. Confirm the actual revisions and configuration. Check that runs execute the
-   intended work, finish and produce correct results. Check that the load generator
+2. Confirm the actual revisions and configuration. Inspect what the measurement
+   includes. Check that intended work completes inside the measured interval,
+   outputs are correct, and errors are counted. Check that the load generator
    can supply the intended load.
 3. Compare under equivalent, realistic conditions. Choose appropriate warmup,
    repetitions and representative inputs. Control or disclose caching, contention
    and changes between runs. Isolate mutable resources and inspect what a claimed
    dry run actually does.
-4. Keep failures and invalid runs visible. Explain exclusions. Report observations
+4. Check surprising results against plausible resource and end-to-end limits.
+   Keep failures and invalid runs visible. Explain exclusions. Report observations
    or useful summaries, sample size, variability, conditions and material limits.
 
 Separate measured results from explanations of their cause. Limit speedup or
