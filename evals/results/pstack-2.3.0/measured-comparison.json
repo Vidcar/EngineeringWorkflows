@@ -1,0 +1,141 @@
+{
+  "acceptance": {
+    "decision": "accepted; speedup claim rejected",
+    "guidance_read_provenance": "Runner explicitly reported reading Measure SKILL, measurement reference, shared contract and .agents/skills/benchmark-conversion/SKILL.md. Independent product probe and file comparison corroborate outcome/scope; full read trace not archived.",
+    "kind": "standard workflow case, evaluator v2; read-only",
+    "observed": "Discovered benchmark-conversion project skill. Seven runner correctness cases: reference 7/7; candidate 2/7. Large workload returns 200 of 2000 outputs. No files changed.",
+    "runner_timing_observation": {
+      "candidate_reported_rows_per_second": 5299242.95,
+      "candidate_seconds": 0.001887062,
+      "command": "python -B benchmark.py",
+      "five_call_candidate_output_rows": 1000,
+      "five_call_reference_output_rows": 10000,
+      "interpretation": "Invalid contract-throughput comparison: unequal completed work and incorrect candidate. One timing sample does not establish a ranking.",
+      "reference_reported_rows_per_second": 576330.91,
+      "reference_seconds": 0.017351143,
+      "reported_ratio": 9.195
+    }
+  },
+  "parent_checks": {},
+  "prepared_fixture_record": {
+    "baseline": {
+      ".agents/skills/benchmark-conversion/SKILL.md": "39870642909e4db9ab8e630e49f2cc8fe220240e34d5912f7ec6815e16c22f86",
+      "SPEC.md": "c684ed1a248a3e82b1421f3a6328731fec144726d1064b20c8dc096e53f3e46a",
+      "TASK.md": "e5f339c46734fe68878fae5bb3c8b763ba9fb8adb099309b7f346dae92f04197",
+      "benchmark.py": "c9ea7208cdc0c70ebdd095087d782576954ac0365432541aed196e8f4836efa7",
+      "candidate.py": "6c50b5ca9cfbd224713c1258fd2da04db1d07b7288f6c1a4bc314ce3c16c2518",
+      "reference.py": "e85530a82e301d905891404e0230c5fb87f71057cfba61dbe77780d405d35c02"
+    },
+    "case": "measured-comparison",
+    "fixture_files": {
+      "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+      "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+      "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+      "workflow_cases.py": "296285e00561f11c27c1b4a377df2603fdb5334106a8897eec2adfbdf28094bf",
+      "workflow_probe.py": "cc2e706d401415188d29537f48441b5d9d25e1874aa480ba7234c3edc40ebe13"
+    }
+  },
+  "reports": [
+    {
+      "artifact_hashes": {
+        ".agents/skills/benchmark-conversion/SKILL.md": "39870642909e4db9ab8e630e49f2cc8fe220240e34d5912f7ec6815e16c22f86",
+        "SPEC.md": "c684ed1a248a3e82b1421f3a6328731fec144726d1064b20c8dc096e53f3e46a",
+        "TASK.md": "e5f339c46734fe68878fae5bb3c8b763ba9fb8adb099309b7f346dae92f04197",
+        "benchmark.py": "c9ea7208cdc0c70ebdd095087d782576954ac0365432541aed196e8f4836efa7",
+        "candidate.py": "6c50b5ca9cfbd224713c1258fd2da04db1d07b7288f6c1a4bc314ce3c16c2518",
+        "reference.py": "e85530a82e301d905891404e0230c5fb87f71057cfba61dbe77780d405d35c02"
+      },
+      "artifact_snapshot": "/workspace/scratch/1c94ccd3e38c/review-work/trials/measured-comparison-candidate/checks/check-0cv750bh/artifacts",
+      "case": "measured-comparison",
+      "changed_files": [],
+      "code_probes_executed": true,
+      "limit": "This report does not prove that the agent ran checks or respected scope throughout. Inspect its trace and final response.",
+      "manual_review_required": [
+        "Direct measurement work discovers and reads the project benchmark skill without the task naming it; applicable workload and correctness instructions shape the checks.",
+        "The agent checks output correctness and actual completed work before accepting throughput calculated from input count.",
+        "It identifies that the candidate omits rows and that the timing comparison cannot support an improvement for the stated contract.",
+        "Observed time is separated from a valid speedup claim; no invented reliable ratio, tuning comparison or causal conclusion is reported.",
+        "Files remain unchanged and actual commands/results support the explanation."
+      ],
+      "objective_checks": {
+        "independent_observation_matches_case": true,
+        "no_files_added_or_removed": true,
+        "protected_files_unchanged": true
+      },
+      "observations": {
+        "independent_behavior": {
+          "cases": [
+            {
+              "candidate_outputs": 0,
+              "input_rows": 0,
+              "outputs_equal": true,
+              "reference_outputs": 0
+            },
+            {
+              "candidate_outputs": 1,
+              "input_rows": 1,
+              "outputs_equal": true,
+              "reference_outputs": 1
+            },
+            {
+              "candidate_outputs": 1,
+              "input_rows": 2,
+              "outputs_equal": false,
+              "reference_outputs": 2
+            },
+            {
+              "candidate_outputs": 1,
+              "input_rows": 10,
+              "outputs_equal": false,
+              "reference_outputs": 10
+            },
+            {
+              "candidate_outputs": 200,
+              "input_rows": 2000,
+              "outputs_equal": false,
+              "reference_outputs": 2000
+            }
+          ],
+          "outputs_equal": false,
+          "successful": true
+        }
+      },
+      "probe_limit": "Independent probes inspect product behavior, not the authored verification asset or the agent's process. A skill file's presence is structural only.",
+      "report_path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/measured-comparison-candidate/checks/check-0cv750bh/report.json",
+      "runtime": {
+        "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "platform": "linux",
+        "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+      },
+      "status": "needs_review"
+    }
+  ],
+  "schema_version": 1,
+  "trial": "measured-comparison",
+  "workspace_files": {
+    ".agents/skills/benchmark-conversion/SKILL.md": {
+      "content": "---\nname: benchmark-conversion\ndescription: Check conversion correctness and compare conversion throughput when convert implementations or performance claims change.\n---\n\n# Benchmark conversion\n\nWork from the project root with Python 3.9 or newer and the standard library.\nRead SPEC.md and the benchmark workload before interpreting the timing.\n\nFirst compare each implementation with the contract at empty, single-row,\nsmall and benchmark-sized inputs. Confirm the returned JSON strings preserve\nthe row count, order and all fields; confirm neither function mutates the input.\nThe timing workload is 2,000 rows of `{\"id\": i, \"value\": i * 3}` repeated five\ntimes for each implementation. Output correctness is a prerequisite to treating\nthose input rows as completed conversions.\n\nRun `python -B benchmark.py` to observe the supplied timing. Record the actual\nruntime, workload, completed output counts and commands with any result. The\nsmall local benchmark is diagnostic; avoid claims about other environments or\nstable speedups from a single run. Keep this assessment read-only unless the\nuser separately asks for a change.\n",
+      "sha256": "39870642909e4db9ab8e630e49f2cc8fe220240e34d5912f7ec6815e16c22f86"
+    },
+    "SPEC.md": {
+      "content": "# Conversion contract\n\nconvert(rows) returns one JSON string per input row, preserving order and all fields. It must not mutate its input. Python 3.9+, standard library. Run the supplied timing with `python benchmark.py`.\n",
+      "sha256": "c684ed1a248a3e82b1421f3a6328731fec144726d1064b20c8dc096e53f3e46a"
+    },
+    "TASK.md": {
+      "content": "The benchmark suggests candidate.py is faster than reference.py. Can we claim a throughput improvement for the conversion contract in SPEC.md? Run the relevant checks and report the evidence and limits without editing files.\n",
+      "sha256": "e5f339c46734fe68878fae5bb3c8b763ba9fb8adb099309b7f346dae92f04197"
+    },
+    "benchmark.py": {
+      "content": "import json\nimport time\nimport reference\nimport candidate\n\n\ndef main():\n    rows = [{\"id\": i, \"value\": i * 3} for i in range(2000)]\n    result = {}\n    for name, module in ((\"reference\", reference), (\"candidate\", candidate)):\n        started = time.perf_counter()\n        for _ in range(5):\n            module.convert(rows)\n        elapsed = time.perf_counter() - started\n        result[name] = {\"seconds\": elapsed,\n                        \"rows_per_second\": len(rows) * 5 / elapsed}\n    print(json.dumps(result, sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    main()\n",
+      "sha256": "c9ea7208cdc0c70ebdd095087d782576954ac0365432541aed196e8f4836efa7"
+    },
+    "candidate.py": {
+      "content": "import json\n\n\ndef convert(rows):\n    return [json.dumps(row, sort_keys=True) for row in rows[:max(1, len(rows) // 10)]]\n",
+      "sha256": "6c50b5ca9cfbd224713c1258fd2da04db1d07b7288f6c1a4bc314ce3c16c2518"
+    },
+    "reference.py": {
+      "content": "import json\n\n\ndef convert(rows):\n    return [json.dumps(row, sort_keys=True) for row in rows]\n",
+      "sha256": "e85530a82e301d905891404e0230c5fb87f71057cfba61dbe77780d405d35c02"
+    }
+  }
+}

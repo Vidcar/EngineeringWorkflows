@@ -8,8 +8,11 @@ requirements; withhold preferred conclusions and other candidates' reasoning.
 
 For designs, ask for realistic caller examples, state ownership, success and
 failure flows, recovery, compatibility, and a way to test the most consequential
-assumption. For implementations, require evidence that the relevant behaviour
-works.
+assumption. Identify the observation that would favour one approach before running
+an experiment. For implementations, require evidence that the relevant behaviour
+works. Keep prototypes bounded to the decision rather than building every proposed
+feature. The candidates need the requirements; hiding preferred answers must not
+hide acceptance conditions.
 
 ## Keep work independent
 

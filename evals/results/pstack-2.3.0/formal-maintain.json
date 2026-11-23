@@ -1,0 +1,1517 @@
+{
+  "acceptance": {
+    "decision": "accepted; the product property remains failed",
+    "guidance_read_provenance": "Runner report, baseline/current evidence, generated project instructions; parent inspected and reran authored checker/rehearsal.",
+    "kind": "standard workflow case, evaluator v2",
+    "observed": "Initial stale model passed. Updated model and actual code complete 256 schedules, each with 48 unsafe schedules and zero trace mismatches; real replay A B A A B B fails. Product and SPEC unchanged.",
+    "parent_checks": [
+      "maintenance-current.json",
+      "maintenance-rehearsal.json",
+      "maintenance-rehearsal-command.json",
+      "maintenance-preservation.json"
+    ]
+  },
+  "parent_checks": {
+    "maintenance-current.json": {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "verification/check_lease.py"
+      ],
+      "cwd": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work",
+      "exit_code": 1,
+      "result": {
+        "bound": 8,
+        "completed": true,
+        "correspondence": {
+          "first_mismatch": null,
+          "holds": true,
+          "mismatched_schedules": 0,
+          "schedules_checked": 256
+        },
+        "exit_code": 1,
+        "implementation": {
+          "counterexample": [
+            {
+              "action": "checked",
+              "active": [],
+              "owner": null,
+              "step": 1,
+              "worker": "A"
+            },
+            {
+              "action": "checked",
+              "active": [],
+              "owner": null,
+              "step": 2,
+              "worker": "B"
+            },
+            {
+              "action": "claimed",
+              "active": [],
+              "owner": "A",
+              "step": 3,
+              "worker": "A"
+            },
+            {
+              "action": "working",
+              "active": [
+                "A"
+              ],
+              "owner": "A",
+              "step": 4,
+              "worker": "A"
+            },
+            {
+              "action": "claimed",
+              "active": [
+                "A"
+              ],
+              "owner": "B",
+              "step": 5,
+              "worker": "B"
+            },
+            {
+              "action": "working",
+              "active": [
+                "A",
+                "B"
+              ],
+              "owner": "B",
+              "step": 6,
+              "worker": "B"
+            }
+          ],
+          "holds": false,
+          "observations_checked": 2048,
+          "replay": {
+            "matches_exploration": true,
+            "schedule": [
+              "A",
+              "B",
+              "A",
+              "A",
+              "B",
+              "B"
+            ],
+            "trace": [
+              {
+                "action": "checked",
+                "active": [],
+                "owner": null,
+                "step": 1,
+                "worker": "A"
+              },
+              {
+                "action": "checked",
+                "active": [],
+                "owner": null,
+                "step": 2,
+                "worker": "B"
+              },
+              {
+                "action": "claimed",
+                "active": [],
+                "owner": "A",
+                "step": 3,
+                "worker": "A"
+              },
+              {
+                "action": "working",
+                "active": [
+                  "A"
+                ],
+                "owner": "A",
+                "step": 4,
+                "worker": "A"
+              },
+              {
+                "action": "claimed",
+                "active": [
+                  "A"
+                ],
+                "owner": "B",
+                "step": 5,
+                "worker": "B"
+              },
+              {
+                "action": "working",
+                "active": [
+                  "A",
+                  "B"
+                ],
+                "owner": "B",
+                "step": 6,
+                "worker": "B"
+              }
+            ],
+            "violates_safety": true
+          },
+          "schedules_checked": 256,
+          "unsafe_schedules": 48
+        },
+        "inputs": {
+          "checker_sha256": "448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd",
+          "contract_sha256": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+          "implementation": {
+            "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py",
+            "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+          },
+          "model": {
+            "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py",
+            "sha256": "62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e"
+          }
+        },
+        "method": "Exhaustive finite schedules of actual Python and model",
+        "model": {
+          "counterexample": [
+            {
+              "action": "checked",
+              "active": [],
+              "owner": null,
+              "step": 1,
+              "worker": "A"
+            },
+            {
+              "action": "checked",
+              "active": [],
+              "owner": null,
+              "step": 2,
+              "worker": "B"
+            },
+            {
+              "action": "claimed",
+              "active": [],
+              "owner": "A",
+              "step": 3,
+              "worker": "A"
+            },
+            {
+              "action": "working",
+              "active": [
+                "A"
+              ],
+              "owner": "A",
+              "step": 4,
+              "worker": "A"
+            },
+            {
+              "action": "claimed",
+              "active": [
+                "A"
+              ],
+              "owner": "B",
+              "step": 5,
+              "worker": "B"
+            },
+            {
+              "action": "working",
+              "active": [
+                "A",
+                "B"
+              ],
+              "owner": "B",
+              "step": 6,
+              "worker": "B"
+            }
+          ],
+          "holds": false,
+          "observations_checked": 2048,
+          "schedules_checked": 256,
+          "unsafe_schedules": 48
+        },
+        "property": "At most one worker is active",
+        "python": "3.12.14",
+        "schedules_expected": 256,
+        "status": "safety_failure",
+        "workers": [
+          "A",
+          "B"
+        ]
+      },
+      "stderr": ""
+    },
+    "maintenance-preservation.json": {
+      "after": {
+        "SPEC.md": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+        "lease.py": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+      },
+      "before": {
+        "SPEC.md": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+        "lease.py": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+      },
+      "unchanged": true
+    },
+    "maintenance-rehearsal-command.json": {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "verification/rehearse.py",
+        "--output",
+        "/workspace/scratch/1c94ccd3e38c/review-work/root-checks/maintenance-rehearsal.json"
+      ],
+      "cwd": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work",
+      "exit_code": 0,
+      "result": {
+        "cases": {
+          "broken_real_source_current_model": {
+            "exit_code": 1,
+            "status": "safety_failure"
+          },
+          "broken_real_source_stale_model": {
+            "exit_code": 2,
+            "status": "correspondence_drift"
+          },
+          "current_after": {
+            "exit_code": 1,
+            "status": "safety_failure"
+          },
+          "current_before": {
+            "exit_code": 1,
+            "status": "safety_failure"
+          },
+          "restored_valid_control": {
+            "exit_code": 0,
+            "status": "bounded_pass"
+          },
+          "valid_control": {
+            "exit_code": 0,
+            "status": "bounded_pass"
+          }
+        },
+        "completed": true,
+        "error": null,
+        "evidence": "/workspace/scratch/1c94ccd3e38c/review-work/root-checks/maintenance-rehearsal.json"
+      },
+      "stderr": ""
+    },
+    "maintenance-rehearsal.json": {
+      "baseline_restored": true,
+      "cases": {
+        "broken_real_source_current_model": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "-B",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py",
+            "--source",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/lease.py",
+            "--model",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/broken_model.py"
+          ],
+          "duration_seconds": 0.066136,
+          "exit_code": 1,
+          "result": {
+            "bound": 8,
+            "completed": true,
+            "correspondence": {
+              "first_mismatch": null,
+              "holds": true,
+              "mismatched_schedules": 0,
+              "schedules_checked": 256
+            },
+            "exit_code": 1,
+            "implementation": {
+              "counterexample": [
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 1,
+                  "worker": "A"
+                },
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 2,
+                  "worker": "B"
+                },
+                {
+                  "action": "claimed",
+                  "active": [],
+                  "owner": "A",
+                  "step": 3,
+                  "worker": "A"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "A",
+                  "step": 4,
+                  "worker": "A"
+                },
+                {
+                  "action": "claimed",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "B",
+                  "step": 5,
+                  "worker": "B"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A",
+                    "B"
+                  ],
+                  "owner": "B",
+                  "step": 6,
+                  "worker": "B"
+                }
+              ],
+              "holds": false,
+              "observations_checked": 2048,
+              "replay": {
+                "matches_exploration": true,
+                "schedule": [
+                  "A",
+                  "B",
+                  "A",
+                  "A",
+                  "B",
+                  "B"
+                ],
+                "trace": [
+                  {
+                    "action": "checked",
+                    "active": [],
+                    "owner": null,
+                    "step": 1,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "checked",
+                    "active": [],
+                    "owner": null,
+                    "step": 2,
+                    "worker": "B"
+                  },
+                  {
+                    "action": "claimed",
+                    "active": [],
+                    "owner": "A",
+                    "step": 3,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "working",
+                    "active": [
+                      "A"
+                    ],
+                    "owner": "A",
+                    "step": 4,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "claimed",
+                    "active": [
+                      "A"
+                    ],
+                    "owner": "B",
+                    "step": 5,
+                    "worker": "B"
+                  },
+                  {
+                    "action": "working",
+                    "active": [
+                      "A",
+                      "B"
+                    ],
+                    "owner": "B",
+                    "step": 6,
+                    "worker": "B"
+                  }
+                ],
+                "violates_safety": true
+              },
+              "schedules_checked": 256,
+              "unsafe_schedules": 48
+            },
+            "inputs": {
+              "checker_sha256": "448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd",
+              "contract_sha256": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+              "implementation": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/lease.py",
+                "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+              },
+              "model": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/broken_model.py",
+                "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+              }
+            },
+            "method": "Exhaustive finite schedules of actual Python and model",
+            "model": {
+              "counterexample": [
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 1,
+                  "worker": "A"
+                },
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 2,
+                  "worker": "B"
+                },
+                {
+                  "action": "claimed",
+                  "active": [],
+                  "owner": "A",
+                  "step": 3,
+                  "worker": "A"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "A",
+                  "step": 4,
+                  "worker": "A"
+                },
+                {
+                  "action": "claimed",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "B",
+                  "step": 5,
+                  "worker": "B"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A",
+                    "B"
+                  ],
+                  "owner": "B",
+                  "step": 6,
+                  "worker": "B"
+                }
+              ],
+              "holds": false,
+              "observations_checked": 2048,
+              "schedules_checked": 256,
+              "unsafe_schedules": 48
+            },
+            "property": "At most one worker is active",
+            "python": "3.12.14",
+            "schedules_expected": 256,
+            "status": "safety_failure",
+            "workers": [
+              "A",
+              "B"
+            ]
+          },
+          "stderr": ""
+        },
+        "broken_real_source_stale_model": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "-B",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py",
+            "--source",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/lease.py",
+            "--model",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/valid_model.py"
+          ],
+          "duration_seconds": 0.041699,
+          "exit_code": 2,
+          "result": {
+            "bound": 8,
+            "completed": true,
+            "correspondence": {
+              "first_mismatch": {
+                "implementation": {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 1,
+                  "worker": "A"
+                },
+                "model": {
+                  "action": "claimed",
+                  "active": [],
+                  "owner": "A",
+                  "step": 1,
+                  "worker": "A"
+                },
+                "schedule": [
+                  "A",
+                  "A",
+                  "A",
+                  "A",
+                  "A",
+                  "A",
+                  "A",
+                  "A"
+                ],
+                "step": 1
+              },
+              "holds": false,
+              "mismatched_schedules": 256,
+              "schedules_checked": 256
+            },
+            "exit_code": 2,
+            "implementation": {
+              "counterexample": [
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 1,
+                  "worker": "A"
+                },
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 2,
+                  "worker": "B"
+                },
+                {
+                  "action": "claimed",
+                  "active": [],
+                  "owner": "A",
+                  "step": 3,
+                  "worker": "A"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "A",
+                  "step": 4,
+                  "worker": "A"
+                },
+                {
+                  "action": "claimed",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "B",
+                  "step": 5,
+                  "worker": "B"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A",
+                    "B"
+                  ],
+                  "owner": "B",
+                  "step": 6,
+                  "worker": "B"
+                }
+              ],
+              "holds": false,
+              "observations_checked": 2048,
+              "replay": {
+                "matches_exploration": true,
+                "schedule": [
+                  "A",
+                  "B",
+                  "A",
+                  "A",
+                  "B",
+                  "B"
+                ],
+                "trace": [
+                  {
+                    "action": "checked",
+                    "active": [],
+                    "owner": null,
+                    "step": 1,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "checked",
+                    "active": [],
+                    "owner": null,
+                    "step": 2,
+                    "worker": "B"
+                  },
+                  {
+                    "action": "claimed",
+                    "active": [],
+                    "owner": "A",
+                    "step": 3,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "working",
+                    "active": [
+                      "A"
+                    ],
+                    "owner": "A",
+                    "step": 4,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "claimed",
+                    "active": [
+                      "A"
+                    ],
+                    "owner": "B",
+                    "step": 5,
+                    "worker": "B"
+                  },
+                  {
+                    "action": "working",
+                    "active": [
+                      "A",
+                      "B"
+                    ],
+                    "owner": "B",
+                    "step": 6,
+                    "worker": "B"
+                  }
+                ],
+                "violates_safety": true
+              },
+              "schedules_checked": 256,
+              "unsafe_schedules": 48
+            },
+            "inputs": {
+              "checker_sha256": "448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd",
+              "contract_sha256": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+              "implementation": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/lease.py",
+                "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+              },
+              "model": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/valid_model.py",
+                "sha256": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+              }
+            },
+            "method": "Exhaustive finite schedules of actual Python and model",
+            "model": {
+              "counterexample": null,
+              "holds": true,
+              "observations_checked": 2048,
+              "schedules_checked": 256,
+              "unsafe_schedules": 0
+            },
+            "property": "At most one worker is active",
+            "python": "3.12.14",
+            "schedules_expected": 256,
+            "status": "correspondence_drift",
+            "workers": [
+              "A",
+              "B"
+            ]
+          },
+          "stderr": ""
+        },
+        "current_after": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "-B",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py",
+            "--source",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py",
+            "--model",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py"
+          ],
+          "duration_seconds": 0.048754,
+          "exit_code": 1,
+          "result": {
+            "bound": 8,
+            "completed": true,
+            "correspondence": {
+              "first_mismatch": null,
+              "holds": true,
+              "mismatched_schedules": 0,
+              "schedules_checked": 256
+            },
+            "exit_code": 1,
+            "implementation": {
+              "counterexample": [
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 1,
+                  "worker": "A"
+                },
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 2,
+                  "worker": "B"
+                },
+                {
+                  "action": "claimed",
+                  "active": [],
+                  "owner": "A",
+                  "step": 3,
+                  "worker": "A"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "A",
+                  "step": 4,
+                  "worker": "A"
+                },
+                {
+                  "action": "claimed",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "B",
+                  "step": 5,
+                  "worker": "B"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A",
+                    "B"
+                  ],
+                  "owner": "B",
+                  "step": 6,
+                  "worker": "B"
+                }
+              ],
+              "holds": false,
+              "observations_checked": 2048,
+              "replay": {
+                "matches_exploration": true,
+                "schedule": [
+                  "A",
+                  "B",
+                  "A",
+                  "A",
+                  "B",
+                  "B"
+                ],
+                "trace": [
+                  {
+                    "action": "checked",
+                    "active": [],
+                    "owner": null,
+                    "step": 1,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "checked",
+                    "active": [],
+                    "owner": null,
+                    "step": 2,
+                    "worker": "B"
+                  },
+                  {
+                    "action": "claimed",
+                    "active": [],
+                    "owner": "A",
+                    "step": 3,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "working",
+                    "active": [
+                      "A"
+                    ],
+                    "owner": "A",
+                    "step": 4,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "claimed",
+                    "active": [
+                      "A"
+                    ],
+                    "owner": "B",
+                    "step": 5,
+                    "worker": "B"
+                  },
+                  {
+                    "action": "working",
+                    "active": [
+                      "A",
+                      "B"
+                    ],
+                    "owner": "B",
+                    "step": 6,
+                    "worker": "B"
+                  }
+                ],
+                "violates_safety": true
+              },
+              "schedules_checked": 256,
+              "unsafe_schedules": 48
+            },
+            "inputs": {
+              "checker_sha256": "448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd",
+              "contract_sha256": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+              "implementation": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py",
+                "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+              },
+              "model": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py",
+                "sha256": "62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e"
+              }
+            },
+            "method": "Exhaustive finite schedules of actual Python and model",
+            "model": {
+              "counterexample": [
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 1,
+                  "worker": "A"
+                },
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 2,
+                  "worker": "B"
+                },
+                {
+                  "action": "claimed",
+                  "active": [],
+                  "owner": "A",
+                  "step": 3,
+                  "worker": "A"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "A",
+                  "step": 4,
+                  "worker": "A"
+                },
+                {
+                  "action": "claimed",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "B",
+                  "step": 5,
+                  "worker": "B"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A",
+                    "B"
+                  ],
+                  "owner": "B",
+                  "step": 6,
+                  "worker": "B"
+                }
+              ],
+              "holds": false,
+              "observations_checked": 2048,
+              "schedules_checked": 256,
+              "unsafe_schedules": 48
+            },
+            "property": "At most one worker is active",
+            "python": "3.12.14",
+            "schedules_expected": 256,
+            "status": "safety_failure",
+            "workers": [
+              "A",
+              "B"
+            ]
+          },
+          "stderr": ""
+        },
+        "current_before": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "-B",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py",
+            "--source",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py",
+            "--model",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py"
+          ],
+          "duration_seconds": 0.043245,
+          "exit_code": 1,
+          "result": {
+            "bound": 8,
+            "completed": true,
+            "correspondence": {
+              "first_mismatch": null,
+              "holds": true,
+              "mismatched_schedules": 0,
+              "schedules_checked": 256
+            },
+            "exit_code": 1,
+            "implementation": {
+              "counterexample": [
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 1,
+                  "worker": "A"
+                },
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 2,
+                  "worker": "B"
+                },
+                {
+                  "action": "claimed",
+                  "active": [],
+                  "owner": "A",
+                  "step": 3,
+                  "worker": "A"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "A",
+                  "step": 4,
+                  "worker": "A"
+                },
+                {
+                  "action": "claimed",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "B",
+                  "step": 5,
+                  "worker": "B"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A",
+                    "B"
+                  ],
+                  "owner": "B",
+                  "step": 6,
+                  "worker": "B"
+                }
+              ],
+              "holds": false,
+              "observations_checked": 2048,
+              "replay": {
+                "matches_exploration": true,
+                "schedule": [
+                  "A",
+                  "B",
+                  "A",
+                  "A",
+                  "B",
+                  "B"
+                ],
+                "trace": [
+                  {
+                    "action": "checked",
+                    "active": [],
+                    "owner": null,
+                    "step": 1,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "checked",
+                    "active": [],
+                    "owner": null,
+                    "step": 2,
+                    "worker": "B"
+                  },
+                  {
+                    "action": "claimed",
+                    "active": [],
+                    "owner": "A",
+                    "step": 3,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "working",
+                    "active": [
+                      "A"
+                    ],
+                    "owner": "A",
+                    "step": 4,
+                    "worker": "A"
+                  },
+                  {
+                    "action": "claimed",
+                    "active": [
+                      "A"
+                    ],
+                    "owner": "B",
+                    "step": 5,
+                    "worker": "B"
+                  },
+                  {
+                    "action": "working",
+                    "active": [
+                      "A",
+                      "B"
+                    ],
+                    "owner": "B",
+                    "step": 6,
+                    "worker": "B"
+                  }
+                ],
+                "violates_safety": true
+              },
+              "schedules_checked": 256,
+              "unsafe_schedules": 48
+            },
+            "inputs": {
+              "checker_sha256": "448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd",
+              "contract_sha256": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+              "implementation": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py",
+                "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+              },
+              "model": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py",
+                "sha256": "62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e"
+              }
+            },
+            "method": "Exhaustive finite schedules of actual Python and model",
+            "model": {
+              "counterexample": [
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 1,
+                  "worker": "A"
+                },
+                {
+                  "action": "checked",
+                  "active": [],
+                  "owner": null,
+                  "step": 2,
+                  "worker": "B"
+                },
+                {
+                  "action": "claimed",
+                  "active": [],
+                  "owner": "A",
+                  "step": 3,
+                  "worker": "A"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "A",
+                  "step": 4,
+                  "worker": "A"
+                },
+                {
+                  "action": "claimed",
+                  "active": [
+                    "A"
+                  ],
+                  "owner": "B",
+                  "step": 5,
+                  "worker": "B"
+                },
+                {
+                  "action": "working",
+                  "active": [
+                    "A",
+                    "B"
+                  ],
+                  "owner": "B",
+                  "step": 6,
+                  "worker": "B"
+                }
+              ],
+              "holds": false,
+              "observations_checked": 2048,
+              "schedules_checked": 256,
+              "unsafe_schedules": 48
+            },
+            "property": "At most one worker is active",
+            "python": "3.12.14",
+            "schedules_expected": 256,
+            "status": "safety_failure",
+            "workers": [
+              "A",
+              "B"
+            ]
+          },
+          "stderr": ""
+        },
+        "restored_valid_control": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "-B",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py",
+            "--source",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/lease.py",
+            "--model",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/valid_model.py"
+          ],
+          "duration_seconds": 0.053447,
+          "exit_code": 0,
+          "result": {
+            "bound": 8,
+            "completed": true,
+            "correspondence": {
+              "first_mismatch": null,
+              "holds": true,
+              "mismatched_schedules": 0,
+              "schedules_checked": 256
+            },
+            "exit_code": 0,
+            "implementation": {
+              "counterexample": null,
+              "holds": true,
+              "observations_checked": 2048,
+              "schedules_checked": 256,
+              "unsafe_schedules": 0
+            },
+            "inputs": {
+              "checker_sha256": "448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd",
+              "contract_sha256": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+              "implementation": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/lease.py",
+                "sha256": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+              },
+              "model": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/valid_model.py",
+                "sha256": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+              }
+            },
+            "method": "Exhaustive finite schedules of actual Python and model",
+            "model": {
+              "counterexample": null,
+              "holds": true,
+              "observations_checked": 2048,
+              "schedules_checked": 256,
+              "unsafe_schedules": 0
+            },
+            "property": "At most one worker is active",
+            "python": "3.12.14",
+            "schedules_expected": 256,
+            "status": "bounded_pass",
+            "workers": [
+              "A",
+              "B"
+            ]
+          },
+          "stderr": ""
+        },
+        "valid_control": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+            "-B",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py",
+            "--source",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/lease.py",
+            "--model",
+            "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/valid_model.py"
+          ],
+          "duration_seconds": 0.049509,
+          "exit_code": 0,
+          "result": {
+            "bound": 8,
+            "completed": true,
+            "correspondence": {
+              "first_mismatch": null,
+              "holds": true,
+              "mismatched_schedules": 0,
+              "schedules_checked": 256
+            },
+            "exit_code": 0,
+            "implementation": {
+              "counterexample": null,
+              "holds": true,
+              "observations_checked": 2048,
+              "schedules_checked": 256,
+              "unsafe_schedules": 0
+            },
+            "inputs": {
+              "checker_sha256": "448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd",
+              "contract_sha256": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+              "implementation": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/lease.py",
+                "sha256": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+              },
+              "model": {
+                "path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-1m9mom5p/valid_model.py",
+                "sha256": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+              }
+            },
+            "method": "Exhaustive finite schedules of actual Python and model",
+            "model": {
+              "counterexample": null,
+              "holds": true,
+              "observations_checked": 2048,
+              "schedules_checked": 256,
+              "unsafe_schedules": 0
+            },
+            "property": "At most one worker is active",
+            "python": "3.12.14",
+            "schedules_expected": 256,
+            "status": "bounded_pass",
+            "workers": [
+              "A",
+              "B"
+            ]
+          },
+          "stderr": ""
+        }
+      },
+      "completed": true,
+      "fixtures": {
+        "broken_source": {
+          "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6",
+          "text": "from dataclasses import dataclass, field\nfrom typing import Optional\n\n\n@dataclass\nclass Lease:\n    owner: Optional[str] = None\n    active: set[str] = field(default_factory=set)\n\n\ndef work(lease, worker):\n    if lease.owner is not None:\n        return\n    yield \"checked\"\n    lease.owner = worker\n    yield \"claimed\"\n    lease.active.add(worker)\n    yield \"working\"\n    lease.active.remove(worker)\n    lease.owner = None\n    yield \"released\"\n"
+        },
+        "mutation": "Insert yield checked between owner test and owner assignment",
+        "valid_source": {
+          "sha256": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913",
+          "text": "from dataclasses import dataclass, field\nfrom typing import Optional\n\n\n@dataclass\nclass Lease:\n    owner: Optional[str] = None\n    active: set[str] = field(default_factory=set)\n\n\ndef work(lease, worker):\n    if lease.owner is not None:\n        return\n    lease.owner = worker\n    yield \"claimed\"\n    lease.active.add(worker)\n    yield \"working\"\n    lease.active.remove(worker)\n    lease.owner = None\n    yield \"released\"\n"
+        }
+      },
+      "protected_after": {
+        "SPEC.md": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+        "lease.py": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+      },
+      "protected_before": {
+        "SPEC.md": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+        "lease.py": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+      },
+      "temporary_resources_removed": true
+    }
+  },
+  "prepared_fixture_record": {
+    "baseline": {
+      ".agents/skills/verify-lease/SKILL.md": "a1d62e0cf7f2c5f23dd57b115302dcee1fbd3fe7cc5994c9dad59677a5fd1583",
+      "SPEC.md": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+      "TASK.md": "dd6e1fc1babef07f422bad2ef1657c8c62915594cdca7ac7a603d4e51cce7eab",
+      "lease.py": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6",
+      "verification/check_lease.py": "1094668c5234d35ddb6d8eb0662366cc6f28005fa49d0a2f560df289d6aef49a",
+      "verification/coverage.json": "ac364e74007a8c1c1f727cc8253b9aeef1c1822c901f4749f50362eccf4b54c8",
+      "verification/last-synced/lease.py": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913",
+      "verification/model.py": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+    },
+    "case": "formal-maintain",
+    "fixture_files": {
+      "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+      "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+      "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+      "workflow_cases.py": "296285e00561f11c27c1b4a377df2603fdb5334106a8897eec2adfbdf28094bf",
+      "workflow_probe.py": "cc2e706d401415188d29537f48441b5d9d25e1874aa480ba7234c3edc40ebe13"
+    }
+  },
+  "reports": [
+    {
+      "artifact_hashes": {
+        ".agents/skills/verify-lease/SKILL.md": "7f0979400b8a7fafcb4cbd70cde85737565918a16fae4da02d4cd7bb646fa6b7",
+        "SPEC.md": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+        "TASK.md": "dd6e1fc1babef07f422bad2ef1657c8c62915594cdca7ac7a603d4e51cce7eab",
+        "lease.py": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6",
+        "verification/RESULTS.md": "cdd68450218ac707a22337b58d0b7bf69859330271d5563ec16f8ca32cdc63ab",
+        "verification/check_lease.py": "448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd",
+        "verification/check_record.py": "f1c0baf2a26d16bbfbf5446495bbf048f961fa2a516aea259ad61b79ac32681d",
+        "verification/coverage.json": "d14dcd6cfa87c8b10b1e103af0d5a79ec4d4b98569255f0dc8719370f43164ba",
+        "verification/evidence/baseline.json": "5ecc776a98d19b1542e3c82ee5a09800a4bdef197f71e1e6499244da195305a7",
+        "verification/evidence/current.json": "1d5ef557c7ce5cfb2e9c25eab450c5e728dd4c54a9790ba311ee14b9204772df",
+        "verification/evidence/instruction-replay.json": "9de66e6c7b97f24bf70ce95271a6e8119515ed863ad1c065df21229ae7866df1",
+        "verification/evidence/previous-coverage.json": "ac364e74007a8c1c1f727cc8253b9aeef1c1822c901f4749f50362eccf4b54c8",
+        "verification/evidence/previous-lease.py.txt": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913",
+        "verification/evidence/record-check.json": "4dbaccd81886cc628ca97f8be30881e9c5426d822abede6f34f76afed366105a",
+        "verification/evidence/rehearsal.json": "17a161368159456b3f3d7ecbfb6fd904f18631fbedf9755859f198c6a7ed2ea5",
+        "verification/last-synced/lease.py": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6",
+        "verification/model.py": "62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e",
+        "verification/rehearse.py": "692b351b630ad8ca317edd43d4f5d86e72ba0bc51cee5e39778868ff6ccf576d"
+      },
+      "artifact_snapshot": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/checks/check-dpsp51w_/artifacts",
+      "case": "formal-maintain",
+      "changed_files": [
+        ".agents/skills/verify-lease/SKILL.md",
+        "verification/RESULTS.md",
+        "verification/check_lease.py",
+        "verification/check_record.py",
+        "verification/coverage.json",
+        "verification/evidence/baseline.json",
+        "verification/evidence/current.json",
+        "verification/evidence/instruction-replay.json",
+        "verification/evidence/previous-coverage.json",
+        "verification/evidence/previous-lease.py.txt",
+        "verification/evidence/record-check.json",
+        "verification/evidence/rehearsal.json",
+        "verification/last-synced/lease.py",
+        "verification/model.py",
+        "verification/rehearse.py"
+      ],
+      "code_probes_executed": true,
+      "limit": "This report does not prove that the agent ran checks or respected scope throughout. Inspect its trace and final response.",
+      "manual_review_required": [
+        "The agent runs the initial checker, compares the recorded source hash and old source with current code, and notices changed atomicity.",
+        "Verification is updated from implementation semantics; the valid safety promise is not weakened to preserve the old pass.",
+        "A failing schedule is replayed against real lease.py, with domain-level steps and harm; model drift is distinguished from the product bug it reveals.",
+        "Product code remains unchanged. The prior pass is identified as evidence about an outdated model, not current safety.",
+        "Coverage and the project skill describe what was actually checked. Source hashes are not claimed as Git commits; blocked correspondence is not marked synchronized."
+      ],
+      "objective_checks": {
+        "independent_observation_matches_case": true,
+        "project_skill_present": true,
+        "protected_files_unchanged": true
+      },
+      "observations": {
+        "independent_behavior": {
+          "bound": 8,
+          "counterexample": [
+            {
+              "action": "checked",
+              "active": [],
+              "owner": null,
+              "worker": "A"
+            },
+            {
+              "action": "checked",
+              "active": [],
+              "owner": null,
+              "worker": "B"
+            },
+            {
+              "action": "claimed",
+              "active": [],
+              "owner": "A",
+              "worker": "A"
+            },
+            {
+              "action": "working",
+              "active": [
+                "A"
+              ],
+              "owner": "A",
+              "worker": "A"
+            },
+            {
+              "action": "claimed",
+              "active": [
+                "A"
+              ],
+              "owner": "B",
+              "worker": "B"
+            },
+            {
+              "action": "working",
+              "active": [
+                "A",
+                "B"
+              ],
+              "owner": "B",
+              "worker": "B"
+            }
+          ],
+          "holds": false,
+          "schedules_checked": 77,
+          "successful": true
+        }
+      },
+      "probe_limit": "Independent probes inspect product behavior, not the authored verification asset or the agent's process. A skill file's presence is structural only.",
+      "report_path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/checks/check-dpsp51w_/report.json",
+      "runtime": {
+        "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "platform": "linux",
+        "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+      },
+      "status": "needs_review"
+    }
+  ],
+  "schema_version": 1,
+  "trial": "formal-maintain",
+  "workspace_files": {
+    ".agents/skills/verify-lease/SKILL.md": {
+      "content": "---\nname: verify-lease\ndescription: Verify the cooperative worker lease after changes to lease.py, its yield boundaries or shared-state writers, SPEC.md, the model, checker or verification evidence.\n---\n\n# Verify the cooperative lease\n\n## Scope and setup\n\nWork from the project root containing `SPEC.md` and `lease.py`. Read that\ncontract, `verification/coverage.json` and the actual source before interpreting\nresults. Use Python 3.9 or newer and only its standard library; the recorded run\nused Python 3.12.14. Do not install tools or use a network service. A complete\nrun and sensitivity rehearsal should take under ten seconds on this fixture;\nthe rehearsal gives each checker subprocess a ten-second timeout. A timeout or\nexception is an incomplete check, never a pass.\n\nThe project-supported skill location is `.agents/skills/verify-lease/SKILL.md`,\nas specified by `SPEC.md`. Its presence does not prove registration in any host\ncatalog; this procedure also works when read explicitly from the project.\n\nVerification-only maintenance must leave `lease.py` and `SPEC.md` unchanged.\nThe exported project has no Git history. Synchronization is identified by file\nSHA-256 hashes and `verification/last-synced/lease.py`, not by a commit. Preserve\nthe previous content record before advancing it.\n\n## Claim, correspondence and bounds\n\nThe sole product property is `len(lease.active) <= 1` at every observable\nscheduler boundary. Violating it allows two workers to do protected work\nsimultaneously. The expected result comes from `SPEC.md`, not the model output.\n\n`verification/check_lease.py` executes **both real `lease.py` and the model**\nfrom fresh state for every one of the 256 sequences in `{A, B}^8`. Each worker\nis invoked exactly once; choosing an exhausted generator again is a no-op.\nIt examines all 2,048 post-call states per implementation, checks the safety\nproperty independently on each side, and compares action/owner/active traces.\nIt finishes enumeration even after a counterexample and replays the shortest\nfound unsafe prefix against real code. Every shorter prefix is covered as the\nprefix of an eight-call sequence; completion of workers is not required.\n\n| Implementation boundary in `lease.py` | Model action and observed effects |\n| --- | --- |\n| `Lease` defaults | `owner=None`, `active=set()`; checked before scheduling |\n| `work`: owner test; busy return | Generator finishes without acquisition or work |\n| `work`: `yield \"checked\"` | Owner was seen unowned; no shared write yet |\n| `work`: `lease.owner = worker`; `yield \"claimed\"` | Claim executes in a later scheduler step |\n| `work`: `lease.active.add(worker)`; `yield \"working\"` | Worker enters the protected active set |\n| `work`: active removal, owner clear; `yield \"released\"` | Both writes execute within the same atomic step |\n| `work`: generator completion | `done`, no state change; may be scheduled again |\n\nAll protected-state writers are the `Lease` initialization and `work`'s owner\nassignment/clear and active add/remove. Inspect all writers again when code\nmoves or splits. The new yield between test and claim is consequential:\nanother worker may also observe an empty lease before either claims it.\n\nThe executable model mirrors these boundaries; model-only success cannot\nestablish anything about changed source. Trace comparison is additional bounded\ncorrespondence evidence, not an unbounded equivalence proof. This procedure\nassumes the contract's cooperative scheduler: no preemption within a step,\nthreads, clocks, injected exceptions, external state writers or services.\nIt makes no fairness, liveness, expiry, unbounded or arbitrary-worker-count claim.\n\n## Run and interpret\n\nRun these commands separately so the known product failure does not prevent\nthe rehearsal or content-record check:\n\n```sh\npython3 --version\npython3 -B verification/check_lease.py --output verification/evidence/current.json\npython3 -B verification/rehearse.py --output verification/evidence/rehearsal.json\npython3 -B verification/check_record.py\n```\n\nThe primary check's exit codes have distinct meanings:\n\n- **0:** complete enumeration, matching model/source traces, bounded safety pass.\n- **1:** complete enumeration and matching traces, with a safety violation.\n- **2:** correspondence drift or a setup/runtime error. Inspect `status`,\n  `completed`, `error` and the separate implementation/model results. A completed\n  drift report may still contain a real implementation counterexample.\n\nNever infer a pass from exit code alone: check `completed`, 256 schedules on\nboth sides, 256 correspondence comparisons, and 2,048 observations per side.\nErrors, timeouts and incomplete runs cannot advance synchronization.\n\nThe current expected product result is **exit 1**, with 48 unsafe schedules,\nzero model/source mismatches, and replay prefix `A B A A B B`. After the sixth\ncall both A and B are active. The known product bug is intentionally unresolved\nbecause this assignment only authorizes verification changes. Correspondence is\ncurrent even though safety fails. Do not change expectations to declare it safe.\n\nThe rehearsal's exit 0 means the **verification procedure is sensitive**, not\nthat production is safe. It copies the preserved valid historical source into a\ntemporary directory inside `verification/evidence`, verifies it passes, inserts\nthe actual check/claim yield defect into real Python code, checks that a stale\nmodel is rejected and a corresponding model exposes the safety failure, restores\nthe valid copy and confirms its pass returns. It also reruns the real current\nbaseline before and after, compares complete reports, and checks protected-file\nhashes. Each case records its command, result, hashes and timing. Temporary\nfixtures are removed; their exact bytes and results remain in `rehearsal.json`.\nDo not substitute a different mutation if this rehearsal fails.\n\n`check_record.py` verifies hashes, synchronization-copy equality and completed\nevidence against the recorded result. It exits 0 for a fresh record, even when\nthe recorded product property fails; exit 1 means the record needs investigation.\n\n## Maintain after a relevant change\n\n1. Save the current evidence and coverage record, then run the existing check\n   before changing verification. Compare `verification/last-synced/lease.py`\n   with actual `lease.py`, including uncommitted/new bytes, using `diff -u`.\n   Diff exit 1 means a difference, not a tool failure. Follow moved functions\n   and all shared-state writers. Preserve baseline failures.\n2. Classify differences: irrelevant, model/harness drift, authorized contract\n   change, or possible product bug. A changed yield boundary requires renewed\n   atomicity mapping. A source change alone never authorizes weaker safety,\n   smaller bounds, excluded schedules, or a contract change.\n3. Update the model from actual source semantics and preserve the independent\n   SPEC-backed invariant. Run the real-source checker, inspect complete results\n   and replay each reported finding. Unrealizable model steps mean model error;\n   a matching replay supports a product finding. Keep product fixes separate\n   when verification is the only authorized scope.\n4. Follow the isolated rehearsal above, then reread and follow these instructions\n   as a cold reader. Prefer a fresh agent for this when available; record whether\n   the rehearsal was independent. This run was self-rehearsed because the agent\n   concurrency limit prevented delegation; that review limit remains explicit.\n5. Only after complete correspondence and affected sensitivity checks, refresh\n   the exact source snapshot, hashes of source/contract/model/checker/procedure,\n   result fields and evidence links in `verification/coverage.json`. Record\n   synchronization separately from safety. Never advance a blocked check's\n   record. If a future contract change is authorized, retain the old/new property\n   and rationale; rerun the resulting check and update this procedure.\n6. Rerun the documented commands and `check_record.py`. Preserve useful evidence,\n   remove only owned temporary resources, and report commands, outputs, product\n   findings, coverage exclusions and delivery state. Keep all work local unless\n   delivery is explicitly authorized.\n\nEvidence for this maintenance is in `verification/evidence/baseline.json`,\n`previous-coverage.json`, `previous-lease.py.txt`, `current.json`, `rehearsal.json`,\n`record-check.json`, and `verification/RESULTS.md`. The previous source was\n`0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913`;\nthe current protected source is\n`55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6`.\n",
+      "sha256": "7f0979400b8a7fafcb4cbd70cde85737565918a16fae4da02d4cd7bb646fa6b7"
+    },
+    "SPEC.md": {
+      "content": "# Cooperative worker lease\n\n`lease.work(lease, worker)` is a cooperative worker. The scheduler may switch\nworkers at every `yield`; Python statements between yields execute indivisibly\nin this fixture. Workers share one `Lease`. An attempted acquisition while the\nlease is owned returns without doing work. A worker that acquired the lease adds\nits name to `active`, does work, removes its name and releases the lease.\n\nThe safety promise is that `active` never contains more than one worker.\nFor this project, check two workers named A and B, each invoked once, from an\nunowned lease with no active workers. Explore schedules of eight calls to `next`;\na scheduler can select a completed worker again, which is a no-op. This is a\nbounded safety check and need not finish both workers on every schedule. There\nare no threads, clocks, failures, network services or\npreemption between yields. This contract makes no claim about fairness,\nliveness, lease expiry or any unbounded system.\n\nUse Python 3.9 or newer and the standard library. Project-local skills belong\nunder `.agents/skills/`. Verification-only changes must leave `lease.py` and this\ncontract intact. Do not install tools or access a network service for this task.\n",
+      "sha256": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948"
+    },
+    "TASK.md": {
+      "content": "The lease implementation changed. Bring the existing verification and project skill into line with the current code, run them and explain what the result means. Do not change lease.py or SPEC.md; keep product findings visible and leave the work local.\n",
+      "sha256": "dd6e1fc1babef07f422bad2ef1657c8c62915594cdca7ac7a603d4e51cce7eab"
+    },
+    "lease.py": {
+      "content": "from dataclasses import dataclass, field\nfrom typing import Optional\n\n\n@dataclass\nclass Lease:\n    owner: Optional[str] = None\n    active: set[str] = field(default_factory=set)\n\n\ndef work(lease, worker):\n    if lease.owner is not None:\n        return\n    yield \"checked\"\n    lease.owner = worker\n    yield \"claimed\"\n    lease.active.add(worker)\n    yield \"working\"\n    lease.active.remove(worker)\n    lease.owner = None\n    yield \"released\"\n",
+      "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+    },
+    "verification/RESULTS.md": {
+      "content": "# Lease verification maintenance\n\n## Outcome\n\nVerification correspondence is current. The product safety property **fails**\nwithin the exact scope required by `SPEC.md`: two workers A and B, invoked once\neach, from an unowned empty lease, across all 256 schedules of eight `next`\ncalls. The real implementation and updated model each have 48 unsafe schedules\nand matching observations on every schedule. No product code or contract was\nchanged. This is exhaustive finite exploration of actual Python code, with a\ncorresponding executable model; it is not an unbounded formal proof.\n\nThe original checker passed 256 schedules because it imported only the old\nmodel. Its baseline and content hashes are preserved in\n`evidence/baseline.json`. The old source and coverage records are retained in\n`evidence/previous-lease.py.txt` and `evidence/previous-coverage.json`.\n\n## Change classification and product finding\n\n`lease.py` differs from its previous synchronization copy by one added statement:\n`yield \"checked\"` after the unowned test and before the owner assignment.\nThe contract did not change. The verification model had drifted, and the new\nproduction scheduling boundary also introduced a realizable product defect.\n\nWith the original code the unowned test and owner assignment were in one atomic\nscheduler step. With the current code both workers can observe an empty lease\nbefore either claims it. A later claim does not recheck ownership. The shortest\ncounterexample found and replayed against `lease.py` is:\n\n| Call | Worker | Yield | Owner afterward | Active afterward |\n| --- | --- | --- | --- | --- |\n| 1 | A | checked | none | empty |\n| 2 | B | checked | none | empty |\n| 3 | A | claimed | A | empty |\n| 4 | A | working | A | A |\n| 5 | B | claimed | B | A |\n| 6 | B | working | B | A, B |\n\nThis six-call prefix appears within permitted eight-call schedules. It violates\nthe contract's sole safety promise at call six. A source correction would need\nto restore exclusive acquisition across the actual scheduler boundaries; that\nproduct change is outside this verification-only assignment and remains open.\n\n## Changes made to verification\n\n- Updated `model.py` to represent the new `checked` scheduling boundary.\n- Changed `check_lease.py` to execute real `lease.py` as well as the model,\n  assert `len(active) <= 1` independently on each, and compare all observable\n  traces. It checks all schedules even after finding a violation, preserves\n  both safety and correspondence outcomes, and replays a real-code witness.\n- Added `rehearse.py` with isolated valid, broken and restored source controls.\n  It tests both detection of a stale model and detection of the actual safety\n  defect, checks exact baseline restoration and removes its temporary files.\n- Added `check_record.py` to distinguish content/evidence freshness from safety.\n- Refreshed the project skill with claim, source mapping, all shared-state\n  writers, commands, bounds, failure meanings, maintenance rules and cleanup.\n- Advanced the synchronization snapshot and content record only after complete\n  correspondence, sensitivity and replay evidence. The recorded safety result\n  stays failed. No Git history exists, so no synchronization commit is claimed.\n\n## Actual commands and results\n\nRun from the project root with Python 3.12.14; Python 3.9+ and the standard\nlibrary are the only prerequisites. No installation or network access was used.\n\n| Command / case | Exit | Observation |\n| --- | --- | --- |\n| Original `python3 verification/check_lease.py` | 0 | Old model only; 256 schedules passed; stale source correspondence |\n| `python3 -B verification/check_lease.py --output verification/evidence/current.json` | 1 | Complete: 256 schedules, 2,048 observations per side; 48 unsafe schedules; zero mismatches; real counterexample replayed |\n| `python3 -B verification/rehearse.py --output verification/evidence/rehearsal.json` | 0 | Sensitivity procedure completed, temporary resources removed, protected hashes unchanged |\n| Rehearsal valid historical source + matching model | 0 | Bounded safety pass, 256 schedules |\n| Rehearsal broken real source + stale model | 2 | Correspondence drift and a real-source safety failure; not a setup/import error |\n| Rehearsal broken real source + corresponding model | 1 | Bounded safety failure, real counterexample replayed |\n| Rehearsal restored valid source + matching model | 0 | Original valid-control pass returned |\n| Rehearsal current root baseline before and after | 1 / 1 | Exact report equality, known production failure preserved |\n| `python3 -B verification/check_record.py` | 0 | Content record and evidence fresh; does not mean product safety passes |\n\nThe project instructions were reread and their commands rerun after updating\nthe procedure and synchronization record. `evidence/instruction-replay.json`\nrecords those actual commands, exit codes and summary results. Each rehearsal\nchecker subprocess has a ten-second timeout; the completed suite took well\nunder that budget. Full inputs, exact mutation bytes, source hashes, replay\ntraces and subprocess timings are retained in the JSON evidence.\n\n## Checked identity and limits\n\nThe protected source SHA-256 is\n`55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6`.\nThe unchanged contract SHA-256 is\n`502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948`.\n`coverage.json` records the exact model, checker, rehearsal, record-checker and\nproject-skill identities. The source snapshot is byte-identical to `lease.py`.\n\nAll 256 schedules completed; there were no skipped schedules, filtered cases,\ntimeouts or setup errors in the completed checks. An exhausted worker can be\nscheduled again as a no-op. Every shorter prefix is covered by an eight-call\nextension. No fairness assumption is needed for this safety check.\n\nThe result assumes the supplied cooperative execution semantics. It does not\ncover preemption between yields, threads, failures, expiry, clocks, external\nwriters, services, more workers or repeated invocations. It establishes neither\nliveness nor unbounded safety or equivalence. A modeled behavior alone is not\nevidence about production; the finding here has an actual-code replay.\n\nA fresh independent review was attempted, but the available agent concurrency\nlimit prevented spawning a reviewer. The cold-reader procedure rehearsal was\nperformed by the author, so independent review remains a stated limitation.\nAll changes and evidence remain local, with no commit, push or publication.\n",
+      "sha256": "cdd68450218ac707a22337b58d0b7bf69859330271d5563ec16f8ca32cdc63ab"
+    },
+    "verification/check_lease.py": {
+      "content": "\"\"\"Exhaustive finite scheduling check of the model AND implementation.\n\nExit 0: completed, corresponding traces, both safe within SPEC.md's bound.\nExit 1: completed, corresponding traces, bounded safety counterexample.\nExit 2: incomplete check, setup/runtime error, or model/source drift.\n\"\"\"\n\nimport argparse\nimport hashlib\nimport importlib.util\nimport itertools\nimport json\nfrom pathlib import Path\nimport platform\nimport sys\nimport traceback\n\n\nROOT = Path(__file__).resolve().parents[1]\nWORKERS = (\"A\", \"B\")\nBOUND = 8\n\n\ndef sha256(path):\n    return hashlib.sha256(Path(path).read_bytes()).hexdigest()\n\n\ndef load_module(path, name):\n    spec = importlib.util.spec_from_file_location(name, path)\n    if spec is None or spec.loader is None:\n        raise RuntimeError(\"Cannot load Python source: \" + str(path))\n    module = importlib.util.module_from_spec(spec)\n    sys.modules[name] = module  # dataclasses resolves annotations via sys.modules.\n    spec.loader.exec_module(module)\n    return module\n\n\ndef run_schedule(module, schedule):\n    lease = module.Lease()\n    if lease.owner is not None or lease.active != set():\n        raise AssertionError(\"SPEC.md requires an unowned, empty starting lease\")\n    workers = {name: module.work(lease, name) for name in WORKERS}\n    trace = []\n    for step, name in enumerate(schedule, start=1):\n        action = next(workers[name], \"done\")\n        trace.append({\"step\": step, \"worker\": name, \"action\": action,\n                      \"owner\": lease.owner, \"active\": sorted(lease.active)})\n    return trace\n\n\ndef new_summary():\n    return {\"holds\": True, \"schedules_checked\": 0, \"observations_checked\": 0,\n            \"unsafe_schedules\": 0, \"counterexample\": None}\n\n\ndef observe(summary, trace):\n    summary[\"schedules_checked\"] += 1\n    summary[\"observations_checked\"] += len(trace)\n    for index, state in enumerate(trace):\n        # Independent requirement from SPEC.md; never use the model as oracle.\n        if len(state[\"active\"]) > 1:\n            summary[\"holds\"] = False\n            summary[\"unsafe_schedules\"] += 1\n            prefix = trace[:index + 1]\n            previous = summary[\"counterexample\"]\n            if previous is None or len(prefix) < len(previous):\n                summary[\"counterexample\"] = prefix\n            break\n\n\ndef check(source_path=None, model_path=None):\n    source_path = Path(source_path or ROOT / \"lease.py\").resolve()\n    model_path = Path(model_path or ROOT / \"verification/model.py\").resolve()\n    result = {\n        \"property\": \"At most one worker is active\",\n        \"method\": \"Exhaustive finite schedules of actual Python and model\",\n        \"completed\": False,\n        \"python\": platform.python_version(),\n        \"workers\": list(WORKERS), \"bound\": BOUND,\n        \"schedules_expected\": len(WORKERS) ** BOUND,\n        \"implementation\": new_summary(), \"model\": new_summary(),\n        \"correspondence\": {\"holds\": True, \"schedules_checked\": 0,\n                           \"mismatched_schedules\": 0, \"first_mismatch\": None},\n    }\n    try:\n        result[\"inputs\"] = {\n            \"implementation\": {\"path\": str(source_path), \"sha256\": sha256(source_path)},\n            \"model\": {\"path\": str(model_path), \"sha256\": sha256(model_path)},\n            \"contract_sha256\": sha256(ROOT / \"SPEC.md\"),\n            \"checker_sha256\": sha256(__file__),\n        }\n        source = load_module(source_path, \"lease_under_check\")\n        model = load_module(model_path, \"lease_model_under_check\")\n        for schedule in itertools.product(WORKERS, repeat=BOUND):\n            actual = run_schedule(source, schedule)\n            abstract = run_schedule(model, schedule)\n            observe(result[\"implementation\"], actual)\n            observe(result[\"model\"], abstract)\n            correspondence = result[\"correspondence\"]\n            correspondence[\"schedules_checked\"] += 1\n            if actual != abstract:\n                correspondence[\"holds\"] = False\n                correspondence[\"mismatched_schedules\"] += 1\n                if correspondence[\"first_mismatch\"] is None:\n                    first = next(i for i, pair in enumerate(zip(actual, abstract))\n                                 if pair[0] != pair[1])\n                    correspondence[\"first_mismatch\"] = {\n                        \"schedule\": list(schedule), \"step\": first + 1,\n                        \"implementation\": actual[first], \"model\": abstract[first]}\n        result[\"completed\"] = True\n        counterexample = result[\"implementation\"][\"counterexample\"]\n        if counterexample is not None:\n            prefix = [state[\"worker\"] for state in counterexample]\n            replay = run_schedule(source, prefix)\n            result[\"implementation\"][\"replay\"] = {\n                \"schedule\": prefix, \"trace\": replay,\n                \"matches_exploration\": replay == counterexample,\n                \"violates_safety\": any(len(state[\"active\"]) > 1 for state in replay)}\n            if replay != counterexample:\n                raise AssertionError(\"Implementation counterexample replay changed\")\n        if not result[\"correspondence\"][\"holds\"]:\n            result[\"status\"] = \"correspondence_drift\"\n            result[\"exit_code\"] = 2\n        elif not result[\"implementation\"][\"holds\"] or not result[\"model\"][\"holds\"]:\n            result[\"status\"] = \"safety_failure\"\n            result[\"exit_code\"] = 1\n        else:\n            result[\"status\"] = \"bounded_pass\"\n            result[\"exit_code\"] = 0\n    except Exception as error:\n        result[\"completed\"] = False\n        result[\"status\"] = \"check_error\"\n        result[\"exit_code\"] = 2\n        result[\"error\"] = {\"type\": type(error).__name__, \"message\": str(error),\n                           \"traceback\": traceback.format_exc()}\n    return result\n\n\ndef main():\n    parser = argparse.ArgumentParser(description=__doc__)\n    parser.add_argument(\"--source\", type=Path, default=ROOT / \"lease.py\")\n    parser.add_argument(\"--model\", type=Path, default=ROOT / \"verification/model.py\")\n    parser.add_argument(\"--output\", type=Path,\n                        help=\"Write the same JSON report to this evidence file\")\n    args = parser.parse_args()\n    result = check(args.source, args.model)\n    report = json.dumps(result, indent=2, sort_keys=True) + \"\\n\"\n    if args.output is not None:\n        args.output.parent.mkdir(parents=True, exist_ok=True)\n        args.output.write_text(report)\n    print(report, end=\"\")\n    return result[\"exit_code\"]\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+      "sha256": "448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd"
+    },
+    "verification/check_record.py": {
+      "content": "\"\"\"Check synchronization/evidence freshness; this is not a product safety pass.\"\"\"\n\nimport hashlib\nimport json\nfrom pathlib import Path\n\n\nROOT = Path(__file__).resolve().parents[1]\n\n\ndef digest(path):\n    return hashlib.sha256((ROOT / path).read_bytes()).hexdigest()\n\n\ndef main():\n    failures = []\n    checked = {}\n    try:\n        coverage = json.loads((ROOT / \"verification/coverage.json\").read_text())\n        for path, expected in coverage[\"synchronization\"][\"files\"].items():\n            actual = digest(path)\n            checked[path] = actual\n            if actual != expected:\n                failures.append(\"Content changed: \" + path)\n        snapshot = ROOT / coverage[\"synchronization\"][\"source_copy\"]\n        if snapshot.read_bytes() != (ROOT / \"lease.py\").read_bytes():\n            failures.append(\"Synchronization snapshot differs from actual lease.py\")\n        current = json.loads((ROOT / \"verification/evidence/current.json\").read_text())\n        if (not current[\"completed\"] or current[\"correspondence\"][\"holds\"] is not True\n                or current[\"correspondence\"][\"schedules_checked\"] != 256):\n            failures.append(\"Incomplete or mismatched correspondence evidence\")\n        for side in (\"implementation\", \"model\"):\n            summary = current[side]\n            if (summary[\"schedules_checked\"] != 256\n                    or summary[\"observations_checked\"] != 2048):\n                failures.append(\"Incomplete scheduling evidence: \" + side)\n        expected_result = coverage[\"result\"]\n        if (current[\"status\"] != expected_result[\"status\"]\n                or current[\"implementation\"][\"holds\"] != expected_result[\"holds\"]\n                or current[\"implementation\"][\"unsafe_schedules\"] != expected_result[\"unsafe_schedules\"]):\n            failures.append(\"Recorded safety result differs from actual evidence\")\n        evidence_hashes = {\n            \"lease.py\": current[\"inputs\"][\"implementation\"][\"sha256\"],\n            \"SPEC.md\": current[\"inputs\"][\"contract_sha256\"],\n            \"verification/model.py\": current[\"inputs\"][\"model\"][\"sha256\"],\n            \"verification/check_lease.py\": current[\"inputs\"][\"checker_sha256\"],\n        }\n        for path, expected in evidence_hashes.items():\n            if digest(path) != expected:\n                failures.append(\"Evidence describes different content: \" + path)\n        rehearsal = json.loads((ROOT / \"verification/evidence/rehearsal.json\").read_text())\n        if (not rehearsal[\"completed\"] or not rehearsal[\"baseline_restored\"]\n                or not rehearsal[\"temporary_resources_removed\"]):\n            failures.append(\"Rehearsal did not complete and restore resources\")\n        if rehearsal[\"cases\"][\"current_after\"][\"result\"] != current:\n            failures.append(\"Rehearsal used different current baseline\")\n        for path in (\"lease.py\", \"SPEC.md\"):\n            baseline = json.loads((ROOT / \"verification/evidence/baseline.json\").read_text())\n            if digest(path) != baseline[\"input_sha256\"][path]:\n                failures.append(\"Protected file changed during maintenance: \" + path)\n    except Exception as error:\n        failures.append(type(error).__name__ + \": \" + str(error))\n    report = {\"fresh\": not failures, \"failures\": failures, \"checked_sha256\": checked,\n              \"meaning\": \"Record freshness only; inspect current.json for safety result\"}\n    output = ROOT / \"verification/evidence/record-check.json\"\n    output.write_text(json.dumps(report, indent=2, sort_keys=True) + \"\\n\")\n    print(json.dumps(report, sort_keys=True))\n    return 0 if not failures else 1\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+      "sha256": "f1c0baf2a26d16bbfbf5446495bbf048f961fa2a516aea259ad61b79ac32681d"
+    },
+    "verification/coverage.json": {
+      "content": "{\n  \"action_mapping\": [\n    {\n      \"atomicity\": \"Owner test yields before claim\",\n      \"model_action\": \"done when busy; checked when unowned\",\n      \"source\": \"work: owner check and busy return\"\n    },\n    {\n      \"atomicity\": \"Assignment then yield\",\n      \"model_action\": \"claimed\",\n      \"source\": \"work: owner assignment\"\n    },\n    {\n      \"atomicity\": \"Add then yield; safety observed\",\n      \"model_action\": \"working\",\n      \"source\": \"work: active.add\"\n    },\n    {\n      \"atomicity\": \"Both writes in one step\",\n      \"model_action\": \"released\",\n      \"source\": \"work: active.remove and owner clear\"\n    },\n    {\n      \"atomicity\": \"No shared-state change\",\n      \"model_action\": \"done\",\n      \"source\": \"work: completion\"\n    }\n  ],\n  \"assumptions\": [\n    \"Cooperative scheduler switches only at yields\",\n    \"All statements between yields execute atomically\",\n    \"No external shared-state writers\",\n    \"No failures, threads, clocks or network services\"\n  ],\n  \"bound\": {\n    \"completed_worker_selection\": \"allowed as no-op\",\n    \"initial_state\": {\n      \"active\": [],\n      \"owner\": null\n    },\n    \"invocations_per_worker\": 1,\n    \"next_calls\": 8,\n    \"observations_per_side\": 2048,\n    \"schedules\": 256,\n    \"workers\": [\n      \"A\",\n      \"B\"\n    ]\n  },\n  \"change_classification\": {\n    \"contract\": \"unchanged\",\n    \"model\": \"model/harness drift\",\n    \"product\": \"real bounded safety bug due to yield between check and claim\"\n  },\n  \"covered_symbols\": [\n    \"lease.Lease\",\n    \"lease.work\"\n  ],\n  \"exclusions\": [\n    \"Fairness\",\n    \"Liveness\",\n    \"Lease expiry\",\n    \"Unbounded safety\",\n    \"Arbitrary worker counts or repeated invocations\",\n    \"Unbounded model/source equivalence\"\n  ],\n  \"method\": \"Exhaustive finite exploration of real Python code and executable model with trace comparison and real-code replay\",\n  \"procedure\": {\n    \"cleanup\": \"Temporary rehearsal directory removed; exact fixture bytes and evidence retained\",\n    \"commands\": [\n      \"python3 --version\",\n      \"python3 -B verification/check_lease.py --output verification/evidence/current.json\",\n      \"python3 -B verification/rehearse.py --output verification/evidence/rehearsal.json\",\n      \"python3 -B verification/check_record.py\"\n    ],\n    \"discovery\": \"Project-supported .agents/skills path per SPEC.md; read explicitly, runtime host registration not asserted\",\n    \"independent_review\": \"Unavailable: reviewer spawn rejected because agent concurrency limit was reached\",\n    \"skill\": \".agents/skills/verify-lease/SKILL.md\"\n  },\n  \"property\": \"At most one worker is active\",\n  \"property_source\": \"SPEC.md\",\n  \"report\": \"verification/RESULTS.md\",\n  \"result\": {\n    \"counterexample_schedule\": [\n      \"A\",\n      \"B\",\n      \"A\",\n      \"A\",\n      \"B\",\n      \"B\"\n    ],\n    \"evidence\": \"verification/evidence/current.json\",\n    \"exit_code\": 1,\n    \"holds\": false,\n    \"replayed_against\": \"lease.py\",\n    \"status\": \"safety_failure\",\n    \"unsafe_schedules\": 48\n  },\n  \"runtime\": {\n    \"installation\": \"none\",\n    \"network\": \"none\",\n    \"per_rehearsal_subprocess_timeout_seconds\": 10,\n    \"required\": \"Python >=3.9; standard library only\",\n    \"tested\": \"Python 3.12.14\"\n  },\n  \"sensitivity\": {\n    \"broken_corresponding_implementation_rejected\": true,\n    \"completed\": true,\n    \"current_baseline_preserved\": true,\n    \"evidence\": \"verification/evidence/rehearsal.json\",\n    \"mutation\": \"Insert yield checked between owner test and owner write in isolated real Python source\",\n    \"stale_model_rejected\": true,\n    \"valid_control\": \"historical implementation, preserved exact bytes\",\n    \"valid_control_restored\": true\n  },\n  \"synchronization\": {\n    \"basis\": \"source-sha256\",\n    \"commit\": null,\n    \"correspondence\": {\n      \"complete\": true,\n      \"evidence\": \"verification/evidence/current.json\",\n      \"mismatched_schedules\": 0,\n      \"schedules_checked\": 256\n    },\n    \"files\": {\n      \".agents/skills/verify-lease/SKILL.md\": \"7f0979400b8a7fafcb4cbd70cde85737565918a16fae4da02d4cd7bb646fa6b7\",\n      \"SPEC.md\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n      \"lease.py\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\",\n      \"verification/check_lease.py\": \"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\",\n      \"verification/check_record.py\": \"f1c0baf2a26d16bbfbf5446495bbf048f961fa2a516aea259ad61b79ac32681d\",\n      \"verification/model.py\": \"62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e\",\n      \"verification/rehearse.py\": \"692b351b630ad8ca317edd43d4f5d86e72ba0bc51cee5e39778868ff6ccf576d\"\n    },\n    \"note\": \"No Git history is available in this export; file hashes identify the exact checked local content. Synchronization is current while product safety fails.\",\n    \"previous_record\": \"verification/evidence/previous-coverage.json\",\n    \"previous_source\": \"verification/evidence/previous-lease.py.txt\",\n    \"source_copy\": \"verification/last-synced/lease.py\",\n    \"status\": \"current\"\n  },\n  \"writers\": [\n    {\n      \"effects\": [\n        \"owner initialization\",\n        \"active initialization\"\n      ],\n      \"model\": \"model.Lease\",\n      \"source\": \"lease.Lease\"\n    },\n    {\n      \"effects\": [\n        \"owner assignment\",\n        \"active.add(worker)\",\n        \"active.remove(worker)\",\n        \"owner clear\"\n      ],\n      \"model\": \"model.work\",\n      \"source\": \"lease.work\"\n    }\n  ]\n}\n",
+      "sha256": "d14dcd6cfa87c8b10b1e103af0d5a79ec4d4b98569255f0dc8719370f43164ba"
+    },
+    "verification/evidence/baseline.json": {
+      "content": "{\n  \"command\": [\n    \"python3\",\n    \"verification/check_lease.py\"\n  ],\n  \"exit_code\": 0,\n  \"input_sha256\": {\n    \".agents/skills/verify-lease/SKILL.md\": \"a1d62e0cf7f2c5f23dd57b115302dcee1fbd3fe7cc5994c9dad59677a5fd1583\",\n    \"SPEC.md\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n    \"lease.py\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\",\n    \"verification/check_lease.py\": \"1094668c5234d35ddb6d8eb0662366cc6f28005fa49d0a2f560df289d6aef49a\",\n    \"verification/coverage.json\": \"ac364e74007a8c1c1f727cc8253b9aeef1c1822c901f4749f50362eccf4b54c8\",\n    \"verification/last-synced/lease.py\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\",\n    \"verification/model.py\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\"\n  },\n  \"meaning\": \"Legacy model only; no execution of current lease.py; passing result is stale evidence.\",\n  \"python\": \"Python 3.12.14\",\n  \"source_diff\": \"--- verification/last-synced/lease.py\\t2026-11-22 23:44:58.577043643 +0000\\n+++ lease.py\\t2026-11-22 23:44:58.576740278 +0000\\n@@ -11,6 +11,7 @@\\n def work(lease, worker):\\n     if lease.owner is not None:\\n         return\\n+    yield \\\"checked\\\"\\n     lease.owner = worker\\n     yield \\\"claimed\\\"\\n     lease.active.add(worker)\\n\",\n  \"source_diff_exit_code\": 1,\n  \"stderr\": \"\",\n  \"stdout\": \"{\\\"bound\\\": 8, \\\"holds\\\": true, \\\"schedules_checked\\\": 256}\\n\"\n}\n",
+      "sha256": "5ecc776a98d19b1542e3c82ee5a09800a4bdef197f71e1e6499244da195305a7"
+    },
+    "verification/evidence/current.json": {
+      "content": "{\n  \"bound\": 8,\n  \"completed\": true,\n  \"correspondence\": {\n    \"first_mismatch\": null,\n    \"holds\": true,\n    \"mismatched_schedules\": 0,\n    \"schedules_checked\": 256\n  },\n  \"exit_code\": 1,\n  \"implementation\": {\n    \"counterexample\": [\n      {\n        \"action\": \"checked\",\n        \"active\": [],\n        \"owner\": null,\n        \"step\": 1,\n        \"worker\": \"A\"\n      },\n      {\n        \"action\": \"checked\",\n        \"active\": [],\n        \"owner\": null,\n        \"step\": 2,\n        \"worker\": \"B\"\n      },\n      {\n        \"action\": \"claimed\",\n        \"active\": [],\n        \"owner\": \"A\",\n        \"step\": 3,\n        \"worker\": \"A\"\n      },\n      {\n        \"action\": \"working\",\n        \"active\": [\n          \"A\"\n        ],\n        \"owner\": \"A\",\n        \"step\": 4,\n        \"worker\": \"A\"\n      },\n      {\n        \"action\": \"claimed\",\n        \"active\": [\n          \"A\"\n        ],\n        \"owner\": \"B\",\n        \"step\": 5,\n        \"worker\": \"B\"\n      },\n      {\n        \"action\": \"working\",\n        \"active\": [\n          \"A\",\n          \"B\"\n        ],\n        \"owner\": \"B\",\n        \"step\": 6,\n        \"worker\": \"B\"\n      }\n    ],\n    \"holds\": false,\n    \"observations_checked\": 2048,\n    \"replay\": {\n      \"matches_exploration\": true,\n      \"schedule\": [\n        \"A\",\n        \"B\",\n        \"A\",\n        \"A\",\n        \"B\",\n        \"B\"\n      ],\n      \"trace\": [\n        {\n          \"action\": \"checked\",\n          \"active\": [],\n          \"owner\": null,\n          \"step\": 1,\n          \"worker\": \"A\"\n        },\n        {\n          \"action\": \"checked\",\n          \"active\": [],\n          \"owner\": null,\n          \"step\": 2,\n          \"worker\": \"B\"\n        },\n        {\n          \"action\": \"claimed\",\n          \"active\": [],\n          \"owner\": \"A\",\n          \"step\": 3,\n          \"worker\": \"A\"\n        },\n        {\n          \"action\": \"working\",\n          \"active\": [\n            \"A\"\n          ],\n          \"owner\": \"A\",\n          \"step\": 4,\n          \"worker\": \"A\"\n        },\n        {\n          \"action\": \"claimed\",\n          \"active\": [\n            \"A\"\n          ],\n          \"owner\": \"B\",\n          \"step\": 5,\n          \"worker\": \"B\"\n        },\n        {\n          \"action\": \"working\",\n          \"active\": [\n            \"A\",\n            \"B\"\n          ],\n          \"owner\": \"B\",\n          \"step\": 6,\n          \"worker\": \"B\"\n        }\n      ],\n      \"violates_safety\": true\n    },\n    \"schedules_checked\": 256,\n    \"unsafe_schedules\": 48\n  },\n  \"inputs\": {\n    \"checker_sha256\": \"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\",\n    \"contract_sha256\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n    \"implementation\": {\n      \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py\",\n      \"sha256\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\"\n    },\n    \"model\": {\n      \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py\",\n      \"sha256\": \"62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e\"\n    }\n  },\n  \"method\": \"Exhaustive finite schedules of actual Python and model\",\n  \"model\": {\n    \"counterexample\": [\n      {\n        \"action\": \"checked\",\n        \"active\": [],\n        \"owner\": null,\n        \"step\": 1,\n        \"worker\": \"A\"\n      },\n      {\n        \"action\": \"checked\",\n        \"active\": [],\n        \"owner\": null,\n        \"step\": 2,\n        \"worker\": \"B\"\n      },\n      {\n        \"action\": \"claimed\",\n        \"active\": [],\n        \"owner\": \"A\",\n        \"step\": 3,\n        \"worker\": \"A\"\n      },\n      {\n        \"action\": \"working\",\n        \"active\": [\n          \"A\"\n        ],\n        \"owner\": \"A\",\n        \"step\": 4,\n        \"worker\": \"A\"\n      },\n      {\n        \"action\": \"claimed\",\n        \"active\": [\n          \"A\"\n        ],\n        \"owner\": \"B\",\n        \"step\": 5,\n        \"worker\": \"B\"\n      },\n      {\n        \"action\": \"working\",\n        \"active\": [\n          \"A\",\n          \"B\"\n        ],\n        \"owner\": \"B\",\n        \"step\": 6,\n        \"worker\": \"B\"\n      }\n    ],\n    \"holds\": false,\n    \"observations_checked\": 2048,\n    \"schedules_checked\": 256,\n    \"unsafe_schedules\": 48\n  },\n  \"property\": \"At most one worker is active\",\n  \"python\": \"3.12.14\",\n  \"schedules_expected\": 256,\n  \"status\": \"safety_failure\",\n  \"workers\": [\n    \"A\",\n    \"B\"\n  ]\n}\n",
+      "sha256": "1d5ef557c7ce5cfb2e9c25eab450c5e728dd4c54a9790ba311ee14b9204772df"
+    },
+    "verification/evidence/instruction-replay.json": {
+      "content": "{\n  \"commands\": [\n    {\n      \"command\": [\n        \"python3\",\n        \"--version\"\n      ],\n      \"duration_seconds\": 0.001512,\n      \"exit_code\": 0,\n      \"expected_exit_code\": 0,\n      \"stderr\": \"\",\n      \"stdout\": \"Python 3.12.14\\n\"\n    },\n    {\n      \"command\": [\n        \"python3\",\n        \"-B\",\n        \"verification/check_lease.py\",\n        \"--output\",\n        \"verification/evidence/current.json\"\n      ],\n      \"duration_seconds\": 0.058326,\n      \"exit_code\": 1,\n      \"expected_exit_code\": 1,\n      \"stderr\": \"\",\n      \"stdout\": \"{\\n  \\\"bound\\\": 8,\\n  \\\"completed\\\": true,\\n  \\\"correspondence\\\": {\\n    \\\"first_mismatch\\\": null,\\n    \\\"holds\\\": true,\\n    \\\"mismatched_schedules\\\": 0,\\n    \\\"schedules_checked\\\": 256\\n  },\\n  \\\"exit_code\\\": 1,\\n  \\\"implementation\\\": {\\n    \\\"counterexample\\\": [\\n      {\\n        \\\"action\\\": \\\"checked\\\",\\n        \\\"active\\\": [],\\n        \\\"owner\\\": null,\\n        \\\"step\\\": 1,\\n        \\\"worker\\\": \\\"A\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"checked\\\",\\n        \\\"active\\\": [],\\n        \\\"owner\\\": null,\\n        \\\"step\\\": 2,\\n        \\\"worker\\\": \\\"B\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"claimed\\\",\\n        \\\"active\\\": [],\\n        \\\"owner\\\": \\\"A\\\",\\n        \\\"step\\\": 3,\\n        \\\"worker\\\": \\\"A\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"working\\\",\\n        \\\"active\\\": [\\n          \\\"A\\\"\\n        ],\\n        \\\"owner\\\": \\\"A\\\",\\n        \\\"step\\\": 4,\\n        \\\"worker\\\": \\\"A\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"claimed\\\",\\n        \\\"active\\\": [\\n          \\\"A\\\"\\n        ],\\n        \\\"owner\\\": \\\"B\\\",\\n        \\\"step\\\": 5,\\n        \\\"worker\\\": \\\"B\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"working\\\",\\n        \\\"active\\\": [\\n          \\\"A\\\",\\n          \\\"B\\\"\\n        ],\\n        \\\"owner\\\": \\\"B\\\",\\n        \\\"step\\\": 6,\\n        \\\"worker\\\": \\\"B\\\"\\n      }\\n    ],\\n    \\\"holds\\\": false,\\n    \\\"observations_checked\\\": 2048,\\n    \\\"replay\\\": {\\n      \\\"matches_exploration\\\": true,\\n      \\\"schedule\\\": [\\n        \\\"A\\\",\\n        \\\"B\\\",\\n        \\\"A\\\",\\n        \\\"A\\\",\\n        \\\"B\\\",\\n        \\\"B\\\"\\n      ],\\n      \\\"trace\\\": [\\n        {\\n          \\\"action\\\": \\\"checked\\\",\\n          \\\"active\\\": [],\\n          \\\"owner\\\": null,\\n          \\\"step\\\": 1,\\n          \\\"worker\\\": \\\"A\\\"\\n        },\\n        {\\n          \\\"action\\\": \\\"checked\\\",\\n          \\\"active\\\": [],\\n          \\\"owner\\\": null,\\n          \\\"step\\\": 2,\\n          \\\"worker\\\": \\\"B\\\"\\n        },\\n        {\\n          \\\"action\\\": \\\"claimed\\\",\\n          \\\"active\\\": [],\\n          \\\"owner\\\": \\\"A\\\",\\n          \\\"step\\\": 3,\\n          \\\"worker\\\": \\\"A\\\"\\n        },\\n        {\\n          \\\"action\\\": \\\"working\\\",\\n          \\\"active\\\": [\\n            \\\"A\\\"\\n          ],\\n          \\\"owner\\\": \\\"A\\\",\\n          \\\"step\\\": 4,\\n          \\\"worker\\\": \\\"A\\\"\\n        },\\n        {\\n          \\\"action\\\": \\\"claimed\\\",\\n          \\\"active\\\": [\\n            \\\"A\\\"\\n          ],\\n          \\\"owner\\\": \\\"B\\\",\\n          \\\"step\\\": 5,\\n          \\\"worker\\\": \\\"B\\\"\\n        },\\n        {\\n          \\\"action\\\": \\\"working\\\",\\n          \\\"active\\\": [\\n            \\\"A\\\",\\n            \\\"B\\\"\\n          ],\\n          \\\"owner\\\": \\\"B\\\",\\n          \\\"step\\\": 6,\\n          \\\"worker\\\": \\\"B\\\"\\n        }\\n      ],\\n      \\\"violates_safety\\\": true\\n    },\\n    \\\"schedules_checked\\\": 256,\\n    \\\"unsafe_schedules\\\": 48\\n  },\\n  \\\"inputs\\\": {\\n    \\\"checker_sha256\\\": \\\"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\\\",\\n    \\\"contract_sha256\\\": \\\"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\\\",\\n    \\\"implementation\\\": {\\n      \\\"path\\\": \\\"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py\\\",\\n      \\\"sha256\\\": \\\"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\\\"\\n    },\\n    \\\"model\\\": {\\n      \\\"path\\\": \\\"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py\\\",\\n      \\\"sha256\\\": \\\"62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e\\\"\\n    }\\n  },\\n  \\\"method\\\": \\\"Exhaustive finite schedules of actual Python and model\\\",\\n  \\\"model\\\": {\\n    \\\"counterexample\\\": [\\n      {\\n        \\\"action\\\": \\\"checked\\\",\\n        \\\"active\\\": [],\\n        \\\"owner\\\": null,\\n        \\\"step\\\": 1,\\n        \\\"worker\\\": \\\"A\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"checked\\\",\\n        \\\"active\\\": [],\\n        \\\"owner\\\": null,\\n        \\\"step\\\": 2,\\n        \\\"worker\\\": \\\"B\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"claimed\\\",\\n        \\\"active\\\": [],\\n        \\\"owner\\\": \\\"A\\\",\\n        \\\"step\\\": 3,\\n        \\\"worker\\\": \\\"A\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"working\\\",\\n        \\\"active\\\": [\\n          \\\"A\\\"\\n        ],\\n        \\\"owner\\\": \\\"A\\\",\\n        \\\"step\\\": 4,\\n        \\\"worker\\\": \\\"A\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"claimed\\\",\\n        \\\"active\\\": [\\n          \\\"A\\\"\\n        ],\\n        \\\"owner\\\": \\\"B\\\",\\n        \\\"step\\\": 5,\\n        \\\"worker\\\": \\\"B\\\"\\n      },\\n      {\\n        \\\"action\\\": \\\"working\\\",\\n        \\\"active\\\": [\\n          \\\"A\\\",\\n          \\\"B\\\"\\n        ],\\n        \\\"owner\\\": \\\"B\\\",\\n        \\\"step\\\": 6,\\n        \\\"worker\\\": \\\"B\\\"\\n      }\\n    ],\\n    \\\"holds\\\": false,\\n    \\\"observations_checked\\\": 2048,\\n    \\\"schedules_checked\\\": 256,\\n    \\\"unsafe_schedules\\\": 48\\n  },\\n  \\\"property\\\": \\\"At most one worker is active\\\",\\n  \\\"python\\\": \\\"3.12.14\\\",\\n  \\\"schedules_expected\\\": 256,\\n  \\\"status\\\": \\\"safety_failure\\\",\\n  \\\"workers\\\": [\\n    \\\"A\\\",\\n    \\\"B\\\"\\n  ]\\n}\\n\"\n    },\n    {\n      \"command\": [\n        \"python3\",\n        \"-B\",\n        \"verification/rehearse.py\",\n        \"--output\",\n        \"verification/evidence/rehearsal.json\"\n      ],\n      \"duration_seconds\": 0.314283,\n      \"exit_code\": 0,\n      \"expected_exit_code\": 0,\n      \"stderr\": \"\",\n      \"stdout\": \"{\\\"cases\\\": {\\\"broken_real_source_current_model\\\": {\\\"exit_code\\\": 1, \\\"status\\\": \\\"safety_failure\\\"}, \\\"broken_real_source_stale_model\\\": {\\\"exit_code\\\": 2, \\\"status\\\": \\\"correspondence_drift\\\"}, \\\"current_after\\\": {\\\"exit_code\\\": 1, \\\"status\\\": \\\"safety_failure\\\"}, \\\"current_before\\\": {\\\"exit_code\\\": 1, \\\"status\\\": \\\"safety_failure\\\"}, \\\"restored_valid_control\\\": {\\\"exit_code\\\": 0, \\\"status\\\": \\\"bounded_pass\\\"}, \\\"valid_control\\\": {\\\"exit_code\\\": 0, \\\"status\\\": \\\"bounded_pass\\\"}}, \\\"completed\\\": true, \\\"error\\\": null, \\\"evidence\\\": \\\"verification/evidence/rehearsal.json\\\"}\\n\"\n    },\n    {\n      \"command\": [\n        \"python3\",\n        \"-B\",\n        \"verification/check_record.py\"\n      ],\n      \"duration_seconds\": 0.023258,\n      \"exit_code\": 0,\n      \"expected_exit_code\": 0,\n      \"stderr\": \"\",\n      \"stdout\": \"{\\\"checked_sha256\\\": {\\\".agents/skills/verify-lease/SKILL.md\\\": \\\"7f0979400b8a7fafcb4cbd70cde85737565918a16fae4da02d4cd7bb646fa6b7\\\", \\\"SPEC.md\\\": \\\"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\\\", \\\"lease.py\\\": \\\"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\\\", \\\"verification/check_lease.py\\\": \\\"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\\\", \\\"verification/check_record.py\\\": \\\"f1c0baf2a26d16bbfbf5446495bbf048f961fa2a516aea259ad61b79ac32681d\\\", \\\"verification/model.py\\\": \\\"62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e\\\", \\\"verification/rehearse.py\\\": \\\"692b351b630ad8ca317edd43d4f5d86e72ba0bc51cee5e39778868ff6ccf576d\\\"}, \\\"failures\\\": [], \\\"fresh\\\": true, \\\"meaning\\\": \\\"Record freshness only; inspect current.json for safety result\\\"}\\n\"\n    }\n  ],\n  \"completed\": true,\n  \"independent_reader\": false,\n  \"independent_reader_limit\": \"Reviewer spawn failed: agent thread limit reached\",\n  \"matched_expected_outcomes\": true,\n  \"procedure\": \".agents/skills/verify-lease/SKILL.md\"\n}\n",
+      "sha256": "9de66e6c7b97f24bf70ce95271a6e8119515ed863ad1c065df21229ae7866df1"
+    },
+    "verification/evidence/previous-coverage.json": {
+      "content": "{\n  \"property\": \"At most one worker is active\",\n  \"covered_symbols\": [\n    \"lease.Lease\",\n    \"lease.work\"\n  ],\n  \"bound\": {\n    \"workers\": [\n      \"A\",\n      \"B\"\n    ],\n    \"next_calls\": 8\n  },\n  \"synchronization\": {\n    \"basis\": \"source-sha256\",\n    \"files\": {\n      \"lease.py\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\"\n    },\n    \"source_copy\": \"verification/last-synced/lease.py\",\n    \"note\": \"This exported project has no Git history; this is a content record, not a commit.\"\n  }\n}\n",
+      "sha256": "ac364e74007a8c1c1f727cc8253b9aeef1c1822c901f4749f50362eccf4b54c8"
+    },
+    "verification/evidence/previous-lease.py.txt": {
+      "content": "from dataclasses import dataclass, field\nfrom typing import Optional\n\n\n@dataclass\nclass Lease:\n    owner: Optional[str] = None\n    active: set[str] = field(default_factory=set)\n\n\ndef work(lease, worker):\n    if lease.owner is not None:\n        return\n    lease.owner = worker\n    yield \"claimed\"\n    lease.active.add(worker)\n    yield \"working\"\n    lease.active.remove(worker)\n    lease.owner = None\n    yield \"released\"\n",
+      "sha256": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+    },
+    "verification/evidence/record-check.json": {
+      "content": "{\n  \"checked_sha256\": {\n    \".agents/skills/verify-lease/SKILL.md\": \"7f0979400b8a7fafcb4cbd70cde85737565918a16fae4da02d4cd7bb646fa6b7\",\n    \"SPEC.md\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n    \"lease.py\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\",\n    \"verification/check_lease.py\": \"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\",\n    \"verification/check_record.py\": \"f1c0baf2a26d16bbfbf5446495bbf048f961fa2a516aea259ad61b79ac32681d\",\n    \"verification/model.py\": \"62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e\",\n    \"verification/rehearse.py\": \"692b351b630ad8ca317edd43d4f5d86e72ba0bc51cee5e39778868ff6ccf576d\"\n  },\n  \"failures\": [],\n  \"fresh\": true,\n  \"meaning\": \"Record freshness only; inspect current.json for safety result\"\n}\n",
+      "sha256": "4dbaccd81886cc628ca97f8be30881e9c5426d822abede6f34f76afed366105a"
+    },
+    "verification/evidence/rehearsal.json": {
+      "content": "{\n  \"baseline_restored\": true,\n  \"cases\": {\n    \"broken_real_source_current_model\": {\n      \"command\": [\n        \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n        \"-B\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py\",\n        \"--source\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/lease.py\",\n        \"--model\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/broken_model.py\"\n      ],\n      \"duration_seconds\": 0.045802,\n      \"exit_code\": 1,\n      \"result\": {\n        \"bound\": 8,\n        \"completed\": true,\n        \"correspondence\": {\n          \"first_mismatch\": null,\n          \"holds\": true,\n          \"mismatched_schedules\": 0,\n          \"schedules_checked\": 256\n        },\n        \"exit_code\": 1,\n        \"implementation\": {\n          \"counterexample\": [\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 1,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 2,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [],\n              \"owner\": \"A\",\n              \"step\": 3,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"A\",\n              \"step\": 4,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 5,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\",\n                \"B\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 6,\n              \"worker\": \"B\"\n            }\n          ],\n          \"holds\": false,\n          \"observations_checked\": 2048,\n          \"replay\": {\n            \"matches_exploration\": true,\n            \"schedule\": [\n              \"A\",\n              \"B\",\n              \"A\",\n              \"A\",\n              \"B\",\n              \"B\"\n            ],\n            \"trace\": [\n              {\n                \"action\": \"checked\",\n                \"active\": [],\n                \"owner\": null,\n                \"step\": 1,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"checked\",\n                \"active\": [],\n                \"owner\": null,\n                \"step\": 2,\n                \"worker\": \"B\"\n              },\n              {\n                \"action\": \"claimed\",\n                \"active\": [],\n                \"owner\": \"A\",\n                \"step\": 3,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"working\",\n                \"active\": [\n                  \"A\"\n                ],\n                \"owner\": \"A\",\n                \"step\": 4,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"claimed\",\n                \"active\": [\n                  \"A\"\n                ],\n                \"owner\": \"B\",\n                \"step\": 5,\n                \"worker\": \"B\"\n              },\n              {\n                \"action\": \"working\",\n                \"active\": [\n                  \"A\",\n                  \"B\"\n                ],\n                \"owner\": \"B\",\n                \"step\": 6,\n                \"worker\": \"B\"\n              }\n            ],\n            \"violates_safety\": true\n          },\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 48\n        },\n        \"inputs\": {\n          \"checker_sha256\": \"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\",\n          \"contract_sha256\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n          \"implementation\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/lease.py\",\n            \"sha256\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\"\n          },\n          \"model\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/broken_model.py\",\n            \"sha256\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\"\n          }\n        },\n        \"method\": \"Exhaustive finite schedules of actual Python and model\",\n        \"model\": {\n          \"counterexample\": [\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 1,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 2,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [],\n              \"owner\": \"A\",\n              \"step\": 3,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"A\",\n              \"step\": 4,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 5,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\",\n                \"B\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 6,\n              \"worker\": \"B\"\n            }\n          ],\n          \"holds\": false,\n          \"observations_checked\": 2048,\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 48\n        },\n        \"property\": \"At most one worker is active\",\n        \"python\": \"3.12.14\",\n        \"schedules_expected\": 256,\n        \"status\": \"safety_failure\",\n        \"workers\": [\n          \"A\",\n          \"B\"\n        ]\n      },\n      \"stderr\": \"\"\n    },\n    \"broken_real_source_stale_model\": {\n      \"command\": [\n        \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n        \"-B\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py\",\n        \"--source\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/lease.py\",\n        \"--model\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/valid_model.py\"\n      ],\n      \"duration_seconds\": 0.045053,\n      \"exit_code\": 2,\n      \"result\": {\n        \"bound\": 8,\n        \"completed\": true,\n        \"correspondence\": {\n          \"first_mismatch\": {\n            \"implementation\": {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 1,\n              \"worker\": \"A\"\n            },\n            \"model\": {\n              \"action\": \"claimed\",\n              \"active\": [],\n              \"owner\": \"A\",\n              \"step\": 1,\n              \"worker\": \"A\"\n            },\n            \"schedule\": [\n              \"A\",\n              \"A\",\n              \"A\",\n              \"A\",\n              \"A\",\n              \"A\",\n              \"A\",\n              \"A\"\n            ],\n            \"step\": 1\n          },\n          \"holds\": false,\n          \"mismatched_schedules\": 256,\n          \"schedules_checked\": 256\n        },\n        \"exit_code\": 2,\n        \"implementation\": {\n          \"counterexample\": [\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 1,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 2,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [],\n              \"owner\": \"A\",\n              \"step\": 3,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"A\",\n              \"step\": 4,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 5,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\",\n                \"B\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 6,\n              \"worker\": \"B\"\n            }\n          ],\n          \"holds\": false,\n          \"observations_checked\": 2048,\n          \"replay\": {\n            \"matches_exploration\": true,\n            \"schedule\": [\n              \"A\",\n              \"B\",\n              \"A\",\n              \"A\",\n              \"B\",\n              \"B\"\n            ],\n            \"trace\": [\n              {\n                \"action\": \"checked\",\n                \"active\": [],\n                \"owner\": null,\n                \"step\": 1,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"checked\",\n                \"active\": [],\n                \"owner\": null,\n                \"step\": 2,\n                \"worker\": \"B\"\n              },\n              {\n                \"action\": \"claimed\",\n                \"active\": [],\n                \"owner\": \"A\",\n                \"step\": 3,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"working\",\n                \"active\": [\n                  \"A\"\n                ],\n                \"owner\": \"A\",\n                \"step\": 4,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"claimed\",\n                \"active\": [\n                  \"A\"\n                ],\n                \"owner\": \"B\",\n                \"step\": 5,\n                \"worker\": \"B\"\n              },\n              {\n                \"action\": \"working\",\n                \"active\": [\n                  \"A\",\n                  \"B\"\n                ],\n                \"owner\": \"B\",\n                \"step\": 6,\n                \"worker\": \"B\"\n              }\n            ],\n            \"violates_safety\": true\n          },\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 48\n        },\n        \"inputs\": {\n          \"checker_sha256\": \"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\",\n          \"contract_sha256\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n          \"implementation\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/lease.py\",\n            \"sha256\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\"\n          },\n          \"model\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/valid_model.py\",\n            \"sha256\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\"\n          }\n        },\n        \"method\": \"Exhaustive finite schedules of actual Python and model\",\n        \"model\": {\n          \"counterexample\": null,\n          \"holds\": true,\n          \"observations_checked\": 2048,\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 0\n        },\n        \"property\": \"At most one worker is active\",\n        \"python\": \"3.12.14\",\n        \"schedules_expected\": 256,\n        \"status\": \"correspondence_drift\",\n        \"workers\": [\n          \"A\",\n          \"B\"\n        ]\n      },\n      \"stderr\": \"\"\n    },\n    \"current_after\": {\n      \"command\": [\n        \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n        \"-B\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py\",\n        \"--source\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py\",\n        \"--model\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py\"\n      ],\n      \"duration_seconds\": 0.045329,\n      \"exit_code\": 1,\n      \"result\": {\n        \"bound\": 8,\n        \"completed\": true,\n        \"correspondence\": {\n          \"first_mismatch\": null,\n          \"holds\": true,\n          \"mismatched_schedules\": 0,\n          \"schedules_checked\": 256\n        },\n        \"exit_code\": 1,\n        \"implementation\": {\n          \"counterexample\": [\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 1,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 2,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [],\n              \"owner\": \"A\",\n              \"step\": 3,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"A\",\n              \"step\": 4,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 5,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\",\n                \"B\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 6,\n              \"worker\": \"B\"\n            }\n          ],\n          \"holds\": false,\n          \"observations_checked\": 2048,\n          \"replay\": {\n            \"matches_exploration\": true,\n            \"schedule\": [\n              \"A\",\n              \"B\",\n              \"A\",\n              \"A\",\n              \"B\",\n              \"B\"\n            ],\n            \"trace\": [\n              {\n                \"action\": \"checked\",\n                \"active\": [],\n                \"owner\": null,\n                \"step\": 1,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"checked\",\n                \"active\": [],\n                \"owner\": null,\n                \"step\": 2,\n                \"worker\": \"B\"\n              },\n              {\n                \"action\": \"claimed\",\n                \"active\": [],\n                \"owner\": \"A\",\n                \"step\": 3,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"working\",\n                \"active\": [\n                  \"A\"\n                ],\n                \"owner\": \"A\",\n                \"step\": 4,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"claimed\",\n                \"active\": [\n                  \"A\"\n                ],\n                \"owner\": \"B\",\n                \"step\": 5,\n                \"worker\": \"B\"\n              },\n              {\n                \"action\": \"working\",\n                \"active\": [\n                  \"A\",\n                  \"B\"\n                ],\n                \"owner\": \"B\",\n                \"step\": 6,\n                \"worker\": \"B\"\n              }\n            ],\n            \"violates_safety\": true\n          },\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 48\n        },\n        \"inputs\": {\n          \"checker_sha256\": \"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\",\n          \"contract_sha256\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n          \"implementation\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py\",\n            \"sha256\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\"\n          },\n          \"model\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py\",\n            \"sha256\": \"62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e\"\n          }\n        },\n        \"method\": \"Exhaustive finite schedules of actual Python and model\",\n        \"model\": {\n          \"counterexample\": [\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 1,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 2,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [],\n              \"owner\": \"A\",\n              \"step\": 3,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"A\",\n              \"step\": 4,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 5,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\",\n                \"B\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 6,\n              \"worker\": \"B\"\n            }\n          ],\n          \"holds\": false,\n          \"observations_checked\": 2048,\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 48\n        },\n        \"property\": \"At most one worker is active\",\n        \"python\": \"3.12.14\",\n        \"schedules_expected\": 256,\n        \"status\": \"safety_failure\",\n        \"workers\": [\n          \"A\",\n          \"B\"\n        ]\n      },\n      \"stderr\": \"\"\n    },\n    \"current_before\": {\n      \"command\": [\n        \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n        \"-B\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py\",\n        \"--source\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py\",\n        \"--model\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py\"\n      ],\n      \"duration_seconds\": 0.042503,\n      \"exit_code\": 1,\n      \"result\": {\n        \"bound\": 8,\n        \"completed\": true,\n        \"correspondence\": {\n          \"first_mismatch\": null,\n          \"holds\": true,\n          \"mismatched_schedules\": 0,\n          \"schedules_checked\": 256\n        },\n        \"exit_code\": 1,\n        \"implementation\": {\n          \"counterexample\": [\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 1,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 2,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [],\n              \"owner\": \"A\",\n              \"step\": 3,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"A\",\n              \"step\": 4,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 5,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\",\n                \"B\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 6,\n              \"worker\": \"B\"\n            }\n          ],\n          \"holds\": false,\n          \"observations_checked\": 2048,\n          \"replay\": {\n            \"matches_exploration\": true,\n            \"schedule\": [\n              \"A\",\n              \"B\",\n              \"A\",\n              \"A\",\n              \"B\",\n              \"B\"\n            ],\n            \"trace\": [\n              {\n                \"action\": \"checked\",\n                \"active\": [],\n                \"owner\": null,\n                \"step\": 1,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"checked\",\n                \"active\": [],\n                \"owner\": null,\n                \"step\": 2,\n                \"worker\": \"B\"\n              },\n              {\n                \"action\": \"claimed\",\n                \"active\": [],\n                \"owner\": \"A\",\n                \"step\": 3,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"working\",\n                \"active\": [\n                  \"A\"\n                ],\n                \"owner\": \"A\",\n                \"step\": 4,\n                \"worker\": \"A\"\n              },\n              {\n                \"action\": \"claimed\",\n                \"active\": [\n                  \"A\"\n                ],\n                \"owner\": \"B\",\n                \"step\": 5,\n                \"worker\": \"B\"\n              },\n              {\n                \"action\": \"working\",\n                \"active\": [\n                  \"A\",\n                  \"B\"\n                ],\n                \"owner\": \"B\",\n                \"step\": 6,\n                \"worker\": \"B\"\n              }\n            ],\n            \"violates_safety\": true\n          },\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 48\n        },\n        \"inputs\": {\n          \"checker_sha256\": \"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\",\n          \"contract_sha256\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n          \"implementation\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/lease.py\",\n            \"sha256\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\"\n          },\n          \"model\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/model.py\",\n            \"sha256\": \"62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e\"\n          }\n        },\n        \"method\": \"Exhaustive finite schedules of actual Python and model\",\n        \"model\": {\n          \"counterexample\": [\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 1,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"checked\",\n              \"active\": [],\n              \"owner\": null,\n              \"step\": 2,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [],\n              \"owner\": \"A\",\n              \"step\": 3,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"A\",\n              \"step\": 4,\n              \"worker\": \"A\"\n            },\n            {\n              \"action\": \"claimed\",\n              \"active\": [\n                \"A\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 5,\n              \"worker\": \"B\"\n            },\n            {\n              \"action\": \"working\",\n              \"active\": [\n                \"A\",\n                \"B\"\n              ],\n              \"owner\": \"B\",\n              \"step\": 6,\n              \"worker\": \"B\"\n            }\n          ],\n          \"holds\": false,\n          \"observations_checked\": 2048,\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 48\n        },\n        \"property\": \"At most one worker is active\",\n        \"python\": \"3.12.14\",\n        \"schedules_expected\": 256,\n        \"status\": \"safety_failure\",\n        \"workers\": [\n          \"A\",\n          \"B\"\n        ]\n      },\n      \"stderr\": \"\"\n    },\n    \"restored_valid_control\": {\n      \"command\": [\n        \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n        \"-B\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py\",\n        \"--source\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/lease.py\",\n        \"--model\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/valid_model.py\"\n      ],\n      \"duration_seconds\": 0.043985,\n      \"exit_code\": 0,\n      \"result\": {\n        \"bound\": 8,\n        \"completed\": true,\n        \"correspondence\": {\n          \"first_mismatch\": null,\n          \"holds\": true,\n          \"mismatched_schedules\": 0,\n          \"schedules_checked\": 256\n        },\n        \"exit_code\": 0,\n        \"implementation\": {\n          \"counterexample\": null,\n          \"holds\": true,\n          \"observations_checked\": 2048,\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 0\n        },\n        \"inputs\": {\n          \"checker_sha256\": \"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\",\n          \"contract_sha256\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n          \"implementation\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/lease.py\",\n            \"sha256\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\"\n          },\n          \"model\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/valid_model.py\",\n            \"sha256\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\"\n          }\n        },\n        \"method\": \"Exhaustive finite schedules of actual Python and model\",\n        \"model\": {\n          \"counterexample\": null,\n          \"holds\": true,\n          \"observations_checked\": 2048,\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 0\n        },\n        \"property\": \"At most one worker is active\",\n        \"python\": \"3.12.14\",\n        \"schedules_expected\": 256,\n        \"status\": \"bounded_pass\",\n        \"workers\": [\n          \"A\",\n          \"B\"\n        ]\n      },\n      \"stderr\": \"\"\n    },\n    \"valid_control\": {\n      \"command\": [\n        \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n        \"-B\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/check_lease.py\",\n        \"--source\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/lease.py\",\n        \"--model\",\n        \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/valid_model.py\"\n      ],\n      \"duration_seconds\": 0.052344,\n      \"exit_code\": 0,\n      \"result\": {\n        \"bound\": 8,\n        \"completed\": true,\n        \"correspondence\": {\n          \"first_mismatch\": null,\n          \"holds\": true,\n          \"mismatched_schedules\": 0,\n          \"schedules_checked\": 256\n        },\n        \"exit_code\": 0,\n        \"implementation\": {\n          \"counterexample\": null,\n          \"holds\": true,\n          \"observations_checked\": 2048,\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 0\n        },\n        \"inputs\": {\n          \"checker_sha256\": \"448880bdf8f178dfd2db09fd57e1a4cc00db55773dbc70bdd64773f23bf040dd\",\n          \"contract_sha256\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n          \"implementation\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/lease.py\",\n            \"sha256\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\"\n          },\n          \"model\": {\n            \"path\": \"/workspace/scratch/1c94ccd3e38c/review-work/trials/formal-maintain-candidate/work/verification/evidence/lease-rehearsal-c1mhrc02/valid_model.py\",\n            \"sha256\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\"\n          }\n        },\n        \"method\": \"Exhaustive finite schedules of actual Python and model\",\n        \"model\": {\n          \"counterexample\": null,\n          \"holds\": true,\n          \"observations_checked\": 2048,\n          \"schedules_checked\": 256,\n          \"unsafe_schedules\": 0\n        },\n        \"property\": \"At most one worker is active\",\n        \"python\": \"3.12.14\",\n        \"schedules_expected\": 256,\n        \"status\": \"bounded_pass\",\n        \"workers\": [\n          \"A\",\n          \"B\"\n        ]\n      },\n      \"stderr\": \"\"\n    }\n  },\n  \"completed\": true,\n  \"fixtures\": {\n    \"broken_source\": {\n      \"sha256\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\",\n      \"text\": \"from dataclasses import dataclass, field\\nfrom typing import Optional\\n\\n\\n@dataclass\\nclass Lease:\\n    owner: Optional[str] = None\\n    active: set[str] = field(default_factory=set)\\n\\n\\ndef work(lease, worker):\\n    if lease.owner is not None:\\n        return\\n    yield \\\"checked\\\"\\n    lease.owner = worker\\n    yield \\\"claimed\\\"\\n    lease.active.add(worker)\\n    yield \\\"working\\\"\\n    lease.active.remove(worker)\\n    lease.owner = None\\n    yield \\\"released\\\"\\n\"\n    },\n    \"mutation\": \"Insert yield checked between owner test and owner assignment\",\n    \"valid_source\": {\n      \"sha256\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\",\n      \"text\": \"from dataclasses import dataclass, field\\nfrom typing import Optional\\n\\n\\n@dataclass\\nclass Lease:\\n    owner: Optional[str] = None\\n    active: set[str] = field(default_factory=set)\\n\\n\\ndef work(lease, worker):\\n    if lease.owner is not None:\\n        return\\n    lease.owner = worker\\n    yield \\\"claimed\\\"\\n    lease.active.add(worker)\\n    yield \\\"working\\\"\\n    lease.active.remove(worker)\\n    lease.owner = None\\n    yield \\\"released\\\"\\n\"\n    }\n  },\n  \"protected_after\": {\n    \"SPEC.md\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n    \"lease.py\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\"\n  },\n  \"protected_before\": {\n    \"SPEC.md\": \"502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948\",\n    \"lease.py\": \"55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6\"\n  },\n  \"temporary_resources_removed\": true\n}\n",
+      "sha256": "17a161368159456b3f3d7ecbfb6fd904f18631fbedf9755859f198c6a7ed2ea5"
+    },
+    "verification/last-synced/lease.py": {
+      "content": "from dataclasses import dataclass, field\nfrom typing import Optional\n\n\n@dataclass\nclass Lease:\n    owner: Optional[str] = None\n    active: set[str] = field(default_factory=set)\n\n\ndef work(lease, worker):\n    if lease.owner is not None:\n        return\n    yield \"checked\"\n    lease.owner = worker\n    yield \"claimed\"\n    lease.active.add(worker)\n    yield \"working\"\n    lease.active.remove(worker)\n    lease.owner = None\n    yield \"released\"\n",
+      "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+    },
+    "verification/model.py": {
+      "content": "\"\"\"Executable transition model; correspondence is checked against real code.\n\nSPEC.md defines cooperative scheduling: everything between yields is atomic.\nThis model is not an independent proof of lease.py. check_lease.py also runs\nlease.py itself and compares the complete observable traces within the bound.\n\"\"\"\n\nfrom dataclasses import dataclass, field\nfrom typing import Optional\n\n\n@dataclass\nclass Lease:\n    owner: Optional[str] = None\n    active: set[str] = field(default_factory=set)\n\n\ndef work(lease, worker):\n    if lease.owner is not None:\n        return\n    # The owner test and write are now separate scheduler steps in lease.work.\n    yield \"checked\"\n    lease.owner = worker\n    yield \"claimed\"\n    lease.active.add(worker)\n    yield \"working\"\n    lease.active.remove(worker)\n    lease.owner = None\n    yield \"released\"\n",
+      "sha256": "62ea2cb2b83fec17405a0e9b3aaab8b545d7ac601836ced61793390346b9f96e"
+    },
+    "verification/rehearse.py": {
+      "content": "\"\"\"Rehearse the documented procedure using isolated real Python source files.\n\nThe valid control is the preserved pre-change implementation. The broken case\nadds the same check/claim yield responsible for the current product finding.\nNo fixture overwrites the real lease.py, SPEC.md, model or synchronization copy.\n\"\"\"\n\nimport argparse\nimport hashlib\nimport json\nfrom pathlib import Path\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\n\nROOT = Path(__file__).resolve().parents[1]\nCHECKER = ROOT / \"verification/check_lease.py\"\n\n\ndef digest(path):\n    return hashlib.sha256(Path(path).read_bytes()).hexdigest()\n\n\ndef invoke(source, model):\n    command = [sys.executable, \"-B\", str(CHECKER), \"--source\", str(source),\n               \"--model\", str(model)]\n    started = time.monotonic()\n    process = subprocess.run(command, cwd=ROOT, text=True, capture_output=True,\n                             timeout=10)\n    result = json.loads(process.stdout)\n    return {\"command\": command, \"exit_code\": process.returncode,\n            \"duration_seconds\": round(time.monotonic() - started, 6),\n            \"stderr\": process.stderr, \"result\": result}\n\n\ndef expect(case, status, exit_code, actual_holds, correspondence):\n    result = case[\"result\"]\n    if (case[\"exit_code\"] != exit_code or result[\"exit_code\"] != exit_code\n            or result[\"status\"] != status or not result[\"completed\"]\n            or result[\"implementation\"][\"holds\"] is not actual_holds\n            or result[\"correspondence\"][\"holds\"] is not correspondence\n            or result[\"implementation\"][\"schedules_checked\"] != 256\n            or result[\"model\"][\"schedules_checked\"] != 256\n            or result[\"correspondence\"][\"schedules_checked\"] != 256):\n        raise AssertionError(\"Unexpected outcome in \" + \" \".join(case[\"command\"]))\n\n\ndef rehearse():\n    protected = [\"lease.py\", \"SPEC.md\"]\n    before = {path: digest(ROOT / path) for path in protected}\n    evidence = ROOT / \"verification/evidence\"\n    evidence.mkdir(exist_ok=True)\n    result = {\"completed\": False, \"protected_before\": before, \"cases\": {}}\n    try:\n        # Preserve a known valid starting point instead of pretending current\n        # production is safe. This is an isolated sensitivity control, not a fix.\n        valid_text = (evidence / \"previous-lease.py.txt\").read_text()\n        anchor = \"        return\\n    lease.owner = worker\\n\"\n        if valid_text.count(anchor) != 1:\n            raise AssertionError(\"Historical valid control no longer matches mutation anchor\")\n        broken_text = valid_text.replace(\n            anchor, '        return\\n    yield \"checked\"\\n    lease.owner = worker\\n')\n        result[\"fixtures\"] = {\n            \"valid_source\": {\"text\": valid_text,\n                             \"sha256\": hashlib.sha256(valid_text.encode()).hexdigest()},\n            \"broken_source\": {\"text\": broken_text,\n                              \"sha256\": hashlib.sha256(broken_text.encode()).hexdigest()},\n            \"mutation\": \"Insert yield checked between owner test and owner assignment\",\n        }\n        cases = result[\"cases\"]\n        cases[\"current_before\"] = invoke(ROOT / \"lease.py\", ROOT / \"verification/model.py\")\n        with tempfile.TemporaryDirectory(prefix=\"lease-rehearsal-\", dir=evidence) as directory:\n            scratch = Path(directory)\n            source = scratch / \"lease.py\"\n            valid_model = scratch / \"valid_model.py\"\n            broken_model = scratch / \"broken_model.py\"\n            source.write_text(valid_text)\n            valid_model.write_text(valid_text)\n            broken_model.write_text(broken_text)\n            cases[\"valid_control\"] = invoke(source, valid_model)\n            expect(cases[\"valid_control\"], \"bounded_pass\", 0, True, True)\n            source.write_text(broken_text)\n            cases[\"broken_real_source_stale_model\"] = invoke(source, valid_model)\n            expect(cases[\"broken_real_source_stale_model\"], \"correspondence_drift\", 2,\n                   False, False)\n            cases[\"broken_real_source_current_model\"] = invoke(source, broken_model)\n            expect(cases[\"broken_real_source_current_model\"], \"safety_failure\", 1,\n                   False, True)\n            replay = cases[\"broken_real_source_current_model\"][\"result\"][\"implementation\"][\"replay\"]\n            if not replay[\"matches_exploration\"] or not replay[\"violates_safety\"]:\n                raise AssertionError(\"The bad control did not replay the safety violation\")\n            source.write_text(valid_text)\n            cases[\"restored_valid_control\"] = invoke(source, valid_model)\n            expect(cases[\"restored_valid_control\"], \"bounded_pass\", 0, True, True)\n            if source.read_text() != valid_text:\n                raise AssertionError(\"Isolated source was not restored exactly\")\n        result[\"temporary_resources_removed\"] = not Path(directory).exists()\n        cases[\"current_after\"] = invoke(ROOT / \"lease.py\", ROOT / \"verification/model.py\")\n        if cases[\"current_before\"][\"result\"] != cases[\"current_after\"][\"result\"]:\n            raise AssertionError(\"Current baseline changed during rehearsal\")\n        if not cases[\"current_after\"][\"result\"][\"completed\"]:\n            raise AssertionError(\"Current baseline did not finish\")\n        result[\"protected_after\"] = {path: digest(ROOT / path) for path in protected}\n        if before != result[\"protected_after\"]:\n            raise AssertionError(\"Protected production or contract file changed\")\n        result[\"baseline_restored\"] = True\n        result[\"completed\"] = True\n    except Exception as error:\n        result[\"error\"] = {\"type\": type(error).__name__, \"message\": str(error)}\n    return result\n\n\ndef main():\n    parser = argparse.ArgumentParser(description=__doc__)\n    parser.add_argument(\"--output\", type=Path,\n                        default=ROOT / \"verification/evidence/rehearsal.json\")\n    args = parser.parse_args()\n    result = rehearse()\n    args.output.parent.mkdir(parents=True, exist_ok=True)\n    args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + \"\\n\")\n    print(json.dumps({\"completed\": result[\"completed\"], \"evidence\": str(args.output),\n                      \"cases\": {name: {\"exit_code\": case[\"exit_code\"],\n                                       \"status\": case[\"result\"][\"status\"]}\n                                for name, case in result[\"cases\"].items()},\n                      \"error\": result.get(\"error\")}, sort_keys=True))\n    return 0 if result[\"completed\"] else 1\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+      "sha256": "692b351b630ad8ca317edd43d4f5d86e72ba0bc51cee5e39778868ff6ccf576d"
+    }
+  }
+}

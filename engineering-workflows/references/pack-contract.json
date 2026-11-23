@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "version": "2.2.0",
+  "version": "2.3.0",
   "expected_skill_count": 7,
   "skills": [
     {
@@ -16,7 +16,8 @@
       "required_files": [
         "SKILL.md",
         "agents/openai.yaml",
-        "LICENSE"
+        "LICENSE",
+        "references/routing.md"
       ],
       "user_request_required": false
     },
@@ -44,7 +45,9 @@
         "SKILL.md",
         "agents/openai.yaml",
         "LICENSE",
-        "references/testing.md"
+        "references/testing.md",
+        "references/application.md",
+        "references/formal.md"
       ],
       "user_request_required": false
     },
@@ -116,7 +119,8 @@
     "references/coordination.md",
     "references/delivery.md",
     "references/methods.md",
-    "references/notes.md"
+    "references/notes.md",
+    "references/routing.md"
   ],
   "review_policy": "Task-level proportional scrutiny; explicit stricter conditions remain binding. See references/contract.md."
 }

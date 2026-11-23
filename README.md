@@ -1,6 +1,6 @@
 # Engineering Workflows
 
-Engineering Workflows **2.2.0** provides seven agent skills for carrying software
+Engineering Workflows **2.3.0** provides seven agent skills for carrying software
 work from a clear goal to a verified result. See the [review notes](REVIEW.md)
 for the changes and verification results.
 
@@ -24,6 +24,43 @@ One lead is responsible for the result; specialists receive specific assignments
 Campaign and Configure require direct user intent, including an ordinary
 natural-language request. Task size or routine capability discovery alone does
 not select them.
+
+## How the workflow connects
+
+Workflows keeps responsibility for a mixed task and selects the needed methods
+as the evidence changes. It first discovers relevant project instructions and
+verification skills, then uses the [phase routes](engineering-workflows/references/routing.md).
+Small tasks stay small; a route does not require every specialist on every change.
+
+| During the task | Guidance and evidence |
+| --- | --- |
+| Understand and design | Trace callers, state, trust boundaries and indirect contracts. Use Check for consequential assumptions and Arena for a comparison that can change the decision. |
+| Build, repair or refactor | Establish observable acceptance and preservation conditions. Reproduce the relevant defect where practical and pin behavior before structural changes. |
+| Test real behavior | Load Verify's testing or application guidance before preparing checks. Reuse the project's control skill; inspect persisted and forbidden effects and retain evidence after cleanup. |
+| Check a difficult invariant | Load Verify's formal guidance. Choose a suitable method, establish correspondence with actual code and atomicity, run the obligations and demonstrate fault sensitivity. |
+| Improve measured behavior | Use Measure before and after edits. Verify correct, equal useful work and comparable conditions before interpreting a number. |
+| Review and deliver | Check the integrated result and refresh stale evidence. Status, repairs, opening a PR and merging are distinct requested endpoints. |
+
+Verify can create and maintain reusable project-local application and formal
+verification skills. Their instructions cover actual commands, checked scope,
+evidence and maintenance. Formal records identify the code and its correspondence
+to the model; rerunning a stale model does not establish current behavior.
+
+Example requests:
+
+- “Give this CLI a reusable verification skill and demonstrate it from empty data.”
+- “Check whether these workers can both hold the lease; state the explored bounds.”
+- “Bring the verification model in line with the changed code; report product bugs.”
+- “Refactor this module while preserving serialized output and existing consumers.”
+- “Compare these benchmarks and investigate whether they perform equal useful work.”
+
+The [pstack review and adaptation decisions](docs/PSTACK_REVIEW.md) explain the
+source comparison and every component's disposition. The
+[evaluation report](docs/EVALUATION.md) separates instruction coverage, executed
+controls, fresh agent trials and integrations that were not exercised. The
+[review follow-up](docs/REVIEW_FOLLOWUP.md) records outcome-transition trials and
+continuous integration. Pstack is a reference for the design; installing it is
+not a dependency of this pack.
 
 ## Agent setup
 
@@ -158,7 +195,7 @@ ENGINEERING_PACK_TEST_ROOT="$ENGINEERING_SKILLS_DIR" \
 ```
 
 A successful validation reports `"valid": true`, `"skill_count": 7`,
-`"version": "2.2.0"`, and an empty `errors` list. These checks cover files,
+`"version": "2.3.0"`, and an empty `errors` list. These checks cover files,
 schemas, references, and declared routing. Host registration and live agent
 behavior need the separate check below.
 
@@ -204,6 +241,7 @@ With the validation environment activated, run these from the repository root:
 ```bash
 python engineering-workflows/scripts/validate_pack.py --root .
 python -m unittest discover -s engineering-workflows/scripts -p 'test_*.py' -v
+python -m unittest discover -s evals -p 'test_*.py' -v
 ```
 
 The tests exercise the resolver, Git snapshot helper, pack structure, and
@@ -213,6 +251,13 @@ does not establish behavioral correctness. The [evaluation kit](evals/README.md)
 prepares isolated tasks and checks their results. Keep evaluator expectations
 out of the runner workspace. The kit stays at repository level and is not part
 of the seven installed skill folders.
+
+[The Validate workflow](.github/workflows/validate.yml) runs these three commands
+on pushes and pull requests with Python 3.12, a read-only token and action
+versions pinned to commits. Its unittest steps use a temporary directory outside
+the checkout. The workflow checks pack structure and evaluation helpers; agent
+behavior and scope transitions still need separately recorded trials. Inspect
+the run attached to the current revision before relying on its result.
 
 If you install the pack into this checkout's own host directory, use links.
 Copied skills nested inside the source tree create duplicate active skill names

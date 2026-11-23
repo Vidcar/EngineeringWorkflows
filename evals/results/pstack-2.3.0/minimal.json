@@ -1,0 +1,22 @@
+{
+  "acceptance": {
+    "decision": "accepted",
+    "guidance_read_provenance": "Runner reported Workflows and its small mechanical edit rule; parent inspected the exact output and executed four cases.",
+    "kind": "manual small-edit trial",
+    "observed": "Exact local accumulator-to-result rename; four direct cases passed; only TASK.md and totals.py present."
+  },
+  "parent_checks": {},
+  "reports": [],
+  "schema_version": 1,
+  "trial": "minimal",
+  "workspace_files": {
+    "TASK.md": {
+      "content": "Rename the local variable accumulator to result in totals.py. Preserve behavior and leave the change local.\n",
+      "sha256": "02c58ae59e5e9344c40821535b98442176bb34c45c04af7b4065898ab5d8d65a"
+    },
+    "totals.py": {
+      "content": "def total(values):\n    result = sum(values)\n    return result\n",
+      "sha256": "940258094617a7da97b66458c0086fbdd6142048fd20bda8909b3caa77ac0e37"
+    }
+  }
+}

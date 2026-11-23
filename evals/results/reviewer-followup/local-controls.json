@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "kind": "local_control_evidence",
+  "paths_relative_to": "/workspace/scratch/1c94ccd3e38c",
+  "pack": {
+    "sha256": "1ff13510b6d19bef82b48f18ee27a0b6d4c7598a7adfb7bcc1c9331bedcde9c3",
+    "identity_source": "Supplied follow-up archival brief"
+  },
+  "runs": {
+    "initial": {
+      "source_root": "review-work/followup/control-runs",
+      "run_metadata": {
+        "cwd": "/workspace/scratch/1c94ccd3e38c/EngineeringWorkflows",
+        "TMPDIR": "/workspace/scratch/1c94ccd3e38c/review-work/tmp",
+        "results": [
+          {
+            "name": "validator",
+            "command": [
+              "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+              "-B",
+              "engineering-workflows/scripts/validate_pack.py",
+              "--root",
+              "."
+            ],
+            "exit_code": 0,
+            "stdout_file": "validator.stdout.txt",
+            "stderr_file": "validator.stderr.txt"
+          },
+          {
+            "name": "pack-tests",
+            "command": [
+              "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+              "-B",
+              "-m",
+              "unittest",
+              "discover",
+              "-s",
+              "engineering-workflows/scripts",
+              "-p",
+              "test_*.py",
+              "-v"
+            ],
+            "exit_code": 0,
+            "stdout_file": "pack-tests.stdout.txt",
+            "stderr_file": "pack-tests.stderr.txt",
+            "tests_run": 57
+          },
+          {
+            "name": "eval-controls",
+            "command": [
+              "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+              "-B",
+              "-m",
+              "unittest",
+              "discover",
+              "-s",
+              "evals",
+              "-p",
+              "test_*.py",
+              "-v"
+            ],
+            "exit_code": 0,
+            "stdout_file": "eval-controls.stdout.txt",
+            "stderr_file": "eval-controls.stderr.txt",
+            "tests_run": 23
+          }
+        ]
+      },
+      "files": {
+        "eval-controls.stderr.txt": {
+          "sha256": "501a41c20cb8e083b16094a8754b2ee59714c50b9c847c98ab3f71976dce0657",
+          "content": "test_changed_evaluator_bytes_require_a_fresh_run (test_run.EvaluationControls.test_changed_evaluator_bytes_require_a_fresh_run) ... ok\ntest_empty_selection_fixture_has_tests_outside_requested_pattern (test_run.EvaluationControls.test_empty_selection_fixture_has_tests_outside_requested_pattern) ... ok\ntest_first_turn_checkpoint_retains_scope_violation (test_run.EvaluationControls.test_first_turn_checkpoint_retains_scope_violation) ... ok\ntest_mock_only_test_is_rejected_and_real_regression_is_accepted (test_run.EvaluationControls.test_mock_only_test_is_rejected_and_real_regression_is_accepted) ... ok\ntest_prepare_excludes_evaluator_materials_and_refuses_overwrite (test_run.EvaluationControls.test_prepare_excludes_evaluator_materials_and_refuses_overwrite) ... ok\ntest_read_only_case_detects_edits_and_additions (test_run.EvaluationControls.test_read_only_case_detects_edits_and_additions) ... ok\ntest_repair_requires_contract_and_fault_sensitive_tests (test_run.EvaluationControls.test_repair_requires_contract_and_fault_sensitive_tests) ... ok\ntest_repeated_checks_keep_reports_and_probe_evidence (test_run.EvaluationControls.test_repeated_checks_keep_reports_and_probe_evidence) ... ok\ntest_aggregation_benchmark_checks_equal_work_and_records_paired_samples (test_workflows.WorkflowControls.test_aggregation_benchmark_checks_equal_work_and_records_paired_samples) ... ok\ntest_aggregation_probe_accepts_correct_work_and_rejects_semantic_faults (test_workflows.WorkflowControls.test_aggregation_probe_accepts_correct_work_and_rejects_semantic_faults) ... ok\ntest_all_workflow_tasks_hide_judge_materials (test_workflows.WorkflowControls.test_all_workflow_tasks_hide_judge_materials) ... ok\ntest_candidate_module_does_not_shadow_trusted_probe (test_workflows.WorkflowControls.test_candidate_module_does_not_shadow_trusted_probe) ... ok\ntest_dynamic_saved_routes_accept_bridge_and_reject_removed_exports (test_workflows.WorkflowControls.test_dynamic_saved_routes_accept_bridge_and_reject_removed_exports) ... ok\ntest_empty_notes_store_persistence_and_duplicate_fault (test_workflows.WorkflowControls.test_empty_notes_store_persistence_and_duplicate_fault) ... ok\ntest_incomplete_conversion_is_not_equal_work (test_workflows.WorkflowControls.test_incomplete_conversion_is_not_equal_work) ... ok\ntest_manual_report_preserves_failed_artifacts_and_requires_judgment (test_workflows.WorkflowControls.test_manual_report_preserves_failed_artifacts_and_requires_judgment) ... ok\ntest_measure_to_improve_checkpoint_allows_only_the_second_turn_to_change_work (test_workflows.WorkflowControls.test_measure_to_improve_checkpoint_allows_only_the_second_turn_to_change_work) ... ok\ntest_measure_to_improve_checkpoint_retains_first_turn_edits_additions_and_removals (test_workflows.WorkflowControls.test_measure_to_improve_checkpoint_retains_first_turn_edits_additions_and_removals) ... ok\ntest_measure_to_improve_frozen_inputs_cannot_be_changed (test_workflows.WorkflowControls.test_measure_to_improve_frozen_inputs_cannot_be_changed) ... ok\ntest_measurement_is_read_only_even_when_the_candidate_is_incorrect (test_workflows.WorkflowControls.test_measurement_is_read_only_even_when_the_candidate_is_incorrect) ... ok\ntest_new_probe_identity_rejects_changed_evaluator (test_workflows.WorkflowControls.test_new_probe_identity_rejects_changed_evaluator) ... ok\ntest_real_lease_baseline_holds_and_split_claim_is_detected (test_workflows.WorkflowControls.test_real_lease_baseline_holds_and_split_claim_is_detected) ... ok\ntest_stale_model_passes_until_atomicity_is_updated (test_workflows.WorkflowControls.test_stale_model_passes_until_atomicity_is_updated) ... ok\n\n----------------------------------------------------------------------\nRan 23 tests in 5.153s\n\nOK\n"
+        },
+        "eval-controls.stdout.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "content": ""
+        },
+        "pack-tests.stderr.txt": {
+          "sha256": "a84e3dde6851ae12b3fd54d1f9b142dbe7d99cd1e094b2ad19451e82f60b2935",
+          "content": "test_directory_aliases_and_roots_do_not_duplicate_skill (test_helpers.ResolverTests.test_directory_aliases_and_roots_do_not_duplicate_skill) ... ok\ntest_directory_link_cycle_terminates_and_keeps_disabled_hidden (test_helpers.ResolverTests.test_directory_link_cycle_terminates_and_keeps_disabled_hidden) ... ok\ntest_directory_symlink_preserves_depth_limit (test_helpers.ResolverTests.test_directory_symlink_preserves_depth_limit) ... ok\ntest_directory_symlink_resolves_canonical_skill (test_helpers.ResolverTests.test_directory_symlink_resolves_canonical_skill) ... ok\ntest_directory_symlinks_to_distinct_skills_are_duplicates (test_helpers.ResolverTests.test_directory_symlinks_to_distinct_skills_are_duplicates) ... ok\ntest_duplicate_active_skill_is_rejected (test_helpers.ResolverTests.test_duplicate_active_skill_is_rejected) ... ok\ntest_generated_folder_and_top_level_uninstalled (test_helpers.ResolverTests.test_generated_folder_and_top_level_uninstalled) ... ok\ntest_missing_name_has_no_directory_fallback (test_helpers.ResolverTests.test_missing_name_has_no_directory_fallback) ... ok\ntest_nested_uninstalled_does_not_hide_active_duplicate (test_helpers.ResolverTests.test_nested_uninstalled_does_not_hide_active_duplicate) ... ok\ntest_repeated_root_does_not_create_false_duplicate (test_helpers.ResolverTests.test_repeated_root_does_not_create_false_duplicate) ... ok\ntest_shallower_alias_keeps_descendants_within_depth_limit (test_helpers.ResolverTests.test_shallower_alias_keeps_descendants_within_depth_limit) ... ok\ntest_symlinked_skill_file_is_not_active (test_helpers.ResolverTests.test_symlinked_skill_file_is_not_active) ... ok\ntest_base_identity_is_part_of_snapshot (test_helpers.SnapshotTests.test_base_identity_is_part_of_snapshot) ... ok\ntest_deletion_is_recorded (test_helpers.SnapshotTests.test_deletion_is_recorded) ... ok\ntest_dirty_and_untracked_bytes_are_included (test_helpers.SnapshotTests.test_dirty_and_untracked_bytes_are_included) ... ok\ntest_ignored_outputs_need_separate_identity (test_helpers.SnapshotTests.test_ignored_outputs_need_separate_identity) ... ok\ntest_index_executable_mode_is_part_of_snapshot (test_helpers.SnapshotTests.test_index_executable_mode_is_part_of_snapshot) ... ok\ntest_index_only_change_has_distinct_identity (test_helpers.SnapshotTests.test_index_only_change_has_distinct_identity) ... ok\ntest_invalid_base_fails (test_helpers.SnapshotTests.test_invalid_base_fails) ... ok\ntest_named_comparison_base_moving_changes_identity (test_helpers.SnapshotTests.test_named_comparison_base_moving_changes_identity) ... ok\ntest_non_repository_fails (test_helpers.SnapshotTests.test_non_repository_fails) ... ok\ntest_parent_symlink_is_rejected (test_helpers.SnapshotTests.test_parent_symlink_is_rejected) ... ok\ntest_repository_path_preserves_trailing_ascii_space (test_helpers.SnapshotTests.test_repository_path_preserves_trailing_ascii_space) ... ok\ntest_repository_path_preserves_trailing_nonbreaking_space (test_helpers.SnapshotTests.test_repository_path_preserves_trailing_nonbreaking_space) ... ok\ntest_same_content_new_head_changes_identity (test_helpers.SnapshotTests.test_same_content_new_head_changes_identity) ... ok\ntest_symlink_is_hashed_without_following_target (test_helpers.SnapshotTests.test_symlink_is_hashed_without_following_target) ... ok\ntest_unchanged_snapshot_is_stable (test_helpers.SnapshotTests.test_unchanged_snapshot_is_stable) ... ok\ntest_worktree_executable_mode_is_part_of_snapshot (test_helpers.SnapshotTests.test_worktree_executable_mode_is_part_of_snapshot) ... ok\ntest_canonical_installed_structure (test_pack.CanonicalPackTests.test_canonical_installed_structure) ... ok\ntest_admin_cannot_drop_user_request_requirement (test_pack.PackFixtureTests.test_admin_cannot_drop_user_request_requirement) ... ok\ntest_admin_must_allow_natural_language_selection (test_pack.PackFixtureTests.test_admin_must_allow_natural_language_selection) ... ok\ntest_broken_markdown_link_is_rejected (test_pack.PackFixtureTests.test_broken_markdown_link_is_rejected) ... ok\ntest_complete_pack_with_directory_symlinks_passes (test_pack.PackFixtureTests.test_complete_pack_with_directory_symlinks_passes) ... ok\ntest_copies_with_generated_directory_names_pass (test_pack.PackFixtureTests.test_copies_with_generated_directory_names_pass) ... ok\ntest_count_cannot_hide_a_missing_skill (test_pack.PackFixtureTests.test_count_cannot_hide_a_missing_skill) ... ok\ntest_cycle_is_rejected (test_pack.PackFixtureTests.test_cycle_is_rejected) ... ok\ntest_duplicate_active_name_is_rejected (test_pack.PackFixtureTests.test_duplicate_active_name_is_rejected) ... ok\ntest_duplicate_edge_is_rejected (test_pack.PackFixtureTests.test_duplicate_edge_is_rejected) ... ok\ntest_escaping_markdown_link_is_rejected_even_if_target_exists (test_pack.PackFixtureTests.test_escaping_markdown_link_is_rejected_even_if_target_exists) ... ok\ntest_explicit_only_automatic_call_is_rejected (test_pack.PackFixtureTests.test_explicit_only_automatic_call_is_rejected) ... ok\ntest_malformed_auto_calls_returns_error (test_pack.PackFixtureTests.test_malformed_auto_calls_returns_error) ... ok\ntest_malformed_ui_returns_error (test_pack.PackFixtureTests.test_malformed_ui_returns_error) ... ok\ntest_missing_icon_is_rejected (test_pack.PackFixtureTests.test_missing_icon_is_rejected) ... ok\ntest_missing_phase_routes_are_rejected (test_pack.PackFixtureTests.test_missing_phase_routes_are_rejected) ... ok\ntest_missing_reference_is_rejected (test_pack.PackFixtureTests.test_missing_reference_is_rejected) ... ok\ntest_older_verify_cannot_hide_missing_lifecycle_guides (test_pack.PackFixtureTests.test_older_verify_cannot_hide_missing_lifecycle_guides) ... ok\ntest_reference_definition_link_is_checked (test_pack.PackFixtureTests.test_reference_definition_link_is_checked) ... ok\ntest_schema_version_is_checked (test_pack.PackFixtureTests.test_schema_version_is_checked) ... ok\ntest_support_cannot_be_redeclared_user_request_only (test_pack.PackFixtureTests.test_support_cannot_be_redeclared_user_request_only) ... ok\ntest_unknown_callee_is_rejected (test_pack.PackFixtureTests.test_unknown_callee_is_rejected) ... ok\ntest_unsafe_required_file_is_rejected (test_pack.PackFixtureTests.test_unsafe_required_file_is_rejected) ... ok\ntest_user_request_only_automatic_call_is_rejected (test_pack.PackFixtureTests.test_user_request_only_automatic_call_is_rejected) ... ok\ntest_user_request_requirement_must_be_boolean (test_pack.PackFixtureTests.test_user_request_requirement_must_be_boolean) ... ok\ntest_verify_without_testing_guide_is_rejected (test_pack.PackFixtureTests.test_verify_without_testing_guide_is_rejected) ... ok\ntest_wrong_native_policy_is_rejected (test_pack.PackFixtureTests.test_wrong_native_policy_is_rejected) ... ok\ntest_yaml_bad_policy_type_is_rejected (test_pack.PackFixtureTests.test_yaml_bad_policy_type_is_rejected) ... ok\ntest_yaml_duplicate_key_is_rejected (test_pack.PackFixtureTests.test_yaml_duplicate_key_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 57 tests in 2.044s\n\nOK\n"
+        },
+        "pack-tests.stdout.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "content": ""
+        },
+        "results.json": {
+          "sha256": "d3fcf3df28fbe1ba9a602b3ac0c671d28692b670c35badf0d746b7ce8fe370cd",
+          "content": "{\n  \"cwd\": \"/workspace/scratch/1c94ccd3e38c/EngineeringWorkflows\",\n  \"TMPDIR\": \"/workspace/scratch/1c94ccd3e38c/review-work/tmp\",\n  \"results\": [\n    {\n      \"name\": \"validator\",\n      \"command\": [\n        \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n        \"-B\",\n        \"engineering-workflows/scripts/validate_pack.py\",\n        \"--root\",\n        \".\"\n      ],\n      \"exit_code\": 0,\n      \"stdout_file\": \"validator.stdout.txt\",\n      \"stderr_file\": \"validator.stderr.txt\"\n    },\n    {\n      \"name\": \"pack-tests\",\n      \"command\": [\n        \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n        \"-B\",\n        \"-m\",\n        \"unittest\",\n        \"discover\",\n        \"-s\",\n        \"engineering-workflows/scripts\",\n        \"-p\",\n        \"test_*.py\",\n        \"-v\"\n      ],\n      \"exit_code\": 0,\n      \"stdout_file\": \"pack-tests.stdout.txt\",\n      \"stderr_file\": \"pack-tests.stderr.txt\",\n      \"tests_run\": 57\n    },\n    {\n      \"name\": \"eval-controls\",\n      \"command\": [\n        \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n        \"-B\",\n        \"-m\",\n        \"unittest\",\n        \"discover\",\n        \"-s\",\n        \"evals\",\n        \"-p\",\n        \"test_*.py\",\n        \"-v\"\n      ],\n      \"exit_code\": 0,\n      \"stdout_file\": \"eval-controls.stdout.txt\",\n      \"stderr_file\": \"eval-controls.stderr.txt\",\n      \"tests_run\": 23\n    }\n  ]\n}\n"
+        },
+        "validator.stderr.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "content": ""
+        },
+        "validator.stdout.txt": {
+          "sha256": "062a2629b7a749747dd509ed613497c7c1ca236b9efb4b460fbbb178c3375e91",
+          "content": "{\n  \"valid\": true,\n  \"schema_version\": 3,\n  \"version\": \"2.3.0\",\n  \"skill_count\": 7,\n  \"explicit_only\": [],\n  \"user_request_only\": [\n    \"engineering-campaign\",\n    \"engineering-configure\"\n  ],\n  \"automatic_edges\": 17,\n  \"errors\": [],\n  \"limit\": \"Checks installed files, schemas, declared policies and graph; semantic consistency and host registration require separate verification.\"\n}\n"
+        }
+      }
+    },
+    "corrected": {
+      "source_root": "review-work/followup/control-runs-corrected",
+      "run_metadata": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "evals",
+          "-p",
+          "test_*.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "tests_run": 23,
+        "TMPDIR": "/workspace/scratch/1c94ccd3e38c/review-work/tmp",
+        "evaluator_sha256": {
+          "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+          "workflow_cases.py": "a6836a74df08a46750a79fcb1601e4eecf9908b0c7a84c6f20b838497f103832",
+          "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+          "workflow_probe.py": "0ac398a83e873062a994b9e5c65cc63f48bac324c61afd4f2f84c13ba712c2d2",
+          "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+          "test_workflows.py": "d87a1aabcdd341f5c956abacdf6dcf5ea99478dae5299c6f1906f3af794ac609"
+        }
+      },
+      "files": {
+        "results.json": {
+          "sha256": "052e43032195e2ad5ae58a9b2c269e1562ff7947759072b61e944dc988043fc5",
+          "content": "{\n  \"command\": [\n    \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3\",\n    \"-B\",\n    \"-m\",\n    \"unittest\",\n    \"discover\",\n    \"-s\",\n    \"evals\",\n    \"-p\",\n    \"test_*.py\",\n    \"-v\"\n  ],\n  \"exit_code\": 0,\n  \"tests_run\": 23,\n  \"TMPDIR\": \"/workspace/scratch/1c94ccd3e38c/review-work/tmp\",\n  \"evaluator_sha256\": {\n    \"cases.py\": \"b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5\",\n    \"workflow_cases.py\": \"a6836a74df08a46750a79fcb1601e4eecf9908b0c7a84c6f20b838497f103832\",\n    \"probe.py\": \"870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2\",\n    \"workflow_probe.py\": \"0ac398a83e873062a994b9e5c65cc63f48bac324c61afd4f2f84c13ba712c2d2\",\n    \"run.py\": \"509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d\",\n    \"test_workflows.py\": \"d87a1aabcdd341f5c956abacdf6dcf5ea99478dae5299c6f1906f3af794ac609\"\n  }\n}\n"
+        },
+        "stderr.txt": {
+          "sha256": "e518e3cf0fd5ce00f85b5a5c4c9084f199ba4d0ca4695fc1be9ed49734245317",
+          "content": "test_changed_evaluator_bytes_require_a_fresh_run (test_run.EvaluationControls.test_changed_evaluator_bytes_require_a_fresh_run) ... ok\ntest_empty_selection_fixture_has_tests_outside_requested_pattern (test_run.EvaluationControls.test_empty_selection_fixture_has_tests_outside_requested_pattern) ... ok\ntest_first_turn_checkpoint_retains_scope_violation (test_run.EvaluationControls.test_first_turn_checkpoint_retains_scope_violation) ... ok\ntest_mock_only_test_is_rejected_and_real_regression_is_accepted (test_run.EvaluationControls.test_mock_only_test_is_rejected_and_real_regression_is_accepted) ... ok\ntest_prepare_excludes_evaluator_materials_and_refuses_overwrite (test_run.EvaluationControls.test_prepare_excludes_evaluator_materials_and_refuses_overwrite) ... ok\ntest_read_only_case_detects_edits_and_additions (test_run.EvaluationControls.test_read_only_case_detects_edits_and_additions) ... ok\ntest_repair_requires_contract_and_fault_sensitive_tests (test_run.EvaluationControls.test_repair_requires_contract_and_fault_sensitive_tests) ... ok\ntest_repeated_checks_keep_reports_and_probe_evidence (test_run.EvaluationControls.test_repeated_checks_keep_reports_and_probe_evidence) ... ok\ntest_aggregation_benchmark_checks_equal_work_and_records_paired_samples (test_workflows.WorkflowControls.test_aggregation_benchmark_checks_equal_work_and_records_paired_samples) ... ok\ntest_aggregation_probe_accepts_correct_work_and_rejects_semantic_faults (test_workflows.WorkflowControls.test_aggregation_probe_accepts_correct_work_and_rejects_semantic_faults) ... ok\ntest_all_workflow_tasks_hide_judge_materials (test_workflows.WorkflowControls.test_all_workflow_tasks_hide_judge_materials) ... ok\ntest_candidate_module_does_not_shadow_trusted_probe (test_workflows.WorkflowControls.test_candidate_module_does_not_shadow_trusted_probe) ... ok\ntest_dynamic_saved_routes_accept_bridge_and_reject_removed_exports (test_workflows.WorkflowControls.test_dynamic_saved_routes_accept_bridge_and_reject_removed_exports) ... ok\ntest_empty_notes_store_persistence_and_duplicate_fault (test_workflows.WorkflowControls.test_empty_notes_store_persistence_and_duplicate_fault) ... ok\ntest_incomplete_conversion_is_not_equal_work (test_workflows.WorkflowControls.test_incomplete_conversion_is_not_equal_work) ... ok\ntest_manual_report_preserves_failed_artifacts_and_requires_judgment (test_workflows.WorkflowControls.test_manual_report_preserves_failed_artifacts_and_requires_judgment) ... ok\ntest_measure_to_improve_checkpoint_allows_only_the_second_turn_to_change_work (test_workflows.WorkflowControls.test_measure_to_improve_checkpoint_allows_only_the_second_turn_to_change_work) ... ok\ntest_measure_to_improve_checkpoint_retains_first_turn_edits_additions_and_removals (test_workflows.WorkflowControls.test_measure_to_improve_checkpoint_retains_first_turn_edits_additions_and_removals) ... ok\ntest_measure_to_improve_frozen_inputs_cannot_be_changed (test_workflows.WorkflowControls.test_measure_to_improve_frozen_inputs_cannot_be_changed) ... ok\ntest_measurement_is_read_only_even_when_the_candidate_is_incorrect (test_workflows.WorkflowControls.test_measurement_is_read_only_even_when_the_candidate_is_incorrect) ... ok\ntest_new_probe_identity_rejects_changed_evaluator (test_workflows.WorkflowControls.test_new_probe_identity_rejects_changed_evaluator) ... ok\ntest_real_lease_baseline_holds_and_split_claim_is_detected (test_workflows.WorkflowControls.test_real_lease_baseline_holds_and_split_claim_is_detected) ... ok\ntest_stale_model_passes_until_atomicity_is_updated (test_workflows.WorkflowControls.test_stale_model_passes_until_atomicity_is_updated) ... ok\n\n----------------------------------------------------------------------\nRan 23 tests in 5.532s\n\nOK\n"
+        },
+        "stdout.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "content": ""
+        }
+      }
+    }
+  },
+  "corrected_evaluator_identity_check": {
+    "source_root": "EngineeringWorkflows/evals",
+    "files": {
+      "cases.py": {
+        "recorded_sha256": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+        "source_sha256": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+        "matches": true
+      },
+      "workflow_cases.py": {
+        "recorded_sha256": "a6836a74df08a46750a79fcb1601e4eecf9908b0c7a84c6f20b838497f103832",
+        "source_sha256": "a6836a74df08a46750a79fcb1601e4eecf9908b0c7a84c6f20b838497f103832",
+        "matches": true
+      },
+      "probe.py": {
+        "recorded_sha256": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+        "source_sha256": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+        "matches": true
+      },
+      "workflow_probe.py": {
+        "recorded_sha256": "0ac398a83e873062a994b9e5c65cc63f48bac324c61afd4f2f84c13ba712c2d2",
+        "source_sha256": "0ac398a83e873062a994b9e5c65cc63f48bac324c61afd4f2f84c13ba712c2d2",
+        "matches": true
+      },
+      "run.py": {
+        "recorded_sha256": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+        "source_sha256": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+        "matches": true
+      },
+      "test_workflows.py": {
+        "recorded_sha256": "d87a1aabcdd341f5c956abacdf6dcf5ea99478dae5299c6f1906f3af794ac609",
+        "source_sha256": "d87a1aabcdd341f5c956abacdf6dcf5ea99478dae5299c6f1906f3af794ac609",
+        "matches": true
+      }
+    },
+    "all_match": true
+  },
+  "notes": [
+    "The initial 23 evaluator controls preceded the confirmed fixture defects. Their successful execution is retained as historical evidence and does not establish that the original fixture was sound.",
+    "The corrected 23-control run validates the final evaluator controls; its recorded source identities match the final evaluator files.",
+    "The 57-test pack suite and pack content were unchanged; the original pack-test and validator metadata and stdout/stderr are retained.",
+    "No new tests were run for this archive, and no manual workflow acceptance decisions are included."
+  ]
+}

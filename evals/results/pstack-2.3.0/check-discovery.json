@@ -1,0 +1,182 @@
+{
+  "acceptance": {
+    "decision": "accepted",
+    "guidance_read_provenance": "Runner reported reading Check, critical-review, shared contract, Verify/formal/testing and .agents/skills/verify-lease/SKILL.md. Parent independently compared all files and reproduced product failure.",
+    "kind": "manual read-only variant of formal-maintain; not standard case scoring",
+    "observed": "Discovered existing verify-lease project skill, ran stale model, identified changed atomicity and reproduced actual failure through in-memory implementation rebinding. Eight project files unchanged.",
+    "parent_checks": [
+      "check-discovery-product.json",
+      "check-discovery-preservation.json"
+    ],
+    "runner_reproduction_command": "PYTHONDONTWRITEBYTECODE=1 python - <<'PY'\nimport json\nimport sys\nfrom pathlib import Path\nsys.path.insert(0, str(Path('verification').resolve()))\nimport check_lease\nfrom lease import Lease, work\ncheck_lease.Lease = Lease\ncheck_lease.work = work\nresult = check_lease.check()\nprint(json.dumps(result, sort_keys=True))\nraise SystemExit(0 if result['holds'] else 1)\nPY"
+  },
+  "parent_checks": {
+    "check-discovery-preservation.json": {
+      "all_files_unchanged": true,
+      "counterexample": [
+        {
+          "action": "checked",
+          "active": [],
+          "owner": null,
+          "worker": "A"
+        },
+        {
+          "action": "checked",
+          "active": [],
+          "owner": null,
+          "worker": "B"
+        },
+        {
+          "action": "claimed",
+          "active": [],
+          "owner": "A",
+          "worker": "A"
+        },
+        {
+          "action": "working",
+          "active": [
+            "A"
+          ],
+          "owner": "A",
+          "worker": "A"
+        },
+        {
+          "action": "claimed",
+          "active": [
+            "A"
+          ],
+          "owner": "B",
+          "worker": "B"
+        },
+        {
+          "action": "working",
+          "active": [
+            "A",
+            "B"
+          ],
+          "owner": "B",
+          "worker": "B"
+        }
+      ],
+      "protected_files": 8
+    },
+    "check-discovery-product.json": {
+      "bound": 8,
+      "counterexample": [
+        {
+          "action": "checked",
+          "active": [],
+          "owner": null,
+          "worker": "A"
+        },
+        {
+          "action": "checked",
+          "active": [],
+          "owner": null,
+          "worker": "B"
+        },
+        {
+          "action": "claimed",
+          "active": [],
+          "owner": "A",
+          "worker": "A"
+        },
+        {
+          "action": "working",
+          "active": [
+            "A"
+          ],
+          "owner": "A",
+          "worker": "A"
+        },
+        {
+          "action": "claimed",
+          "active": [
+            "A"
+          ],
+          "owner": "B",
+          "worker": "B"
+        },
+        {
+          "action": "working",
+          "active": [
+            "A",
+            "B"
+          ],
+          "owner": "B",
+          "worker": "B"
+        }
+      ],
+      "holds": false,
+      "schedules_checked": 77,
+      "successful": true
+    }
+  },
+  "prepared_fixture_record": {
+    "baseline": {
+      ".agents/skills/verify-lease/SKILL.md": "a1d62e0cf7f2c5f23dd57b115302dcee1fbd3fe7cc5994c9dad59677a5fd1583",
+      "SPEC.md": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+      "TASK.md": "dd6e1fc1babef07f422bad2ef1657c8c62915594cdca7ac7a603d4e51cce7eab",
+      "lease.py": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6",
+      "verification/check_lease.py": "1094668c5234d35ddb6d8eb0662366cc6f28005fa49d0a2f560df289d6aef49a",
+      "verification/coverage.json": "ac364e74007a8c1c1f727cc8253b9aeef1c1822c901f4749f50362eccf4b54c8",
+      "verification/last-synced/lease.py": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913",
+      "verification/model.py": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+    },
+    "case": "formal-maintain",
+    "fixture_files": {
+      "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+      "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+      "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+      "workflow_cases.py": "296285e00561f11c27c1b4a377df2603fdb5334106a8897eec2adfbdf28094bf",
+      "workflow_probe.py": "cc2e706d401415188d29537f48441b5d9d25e1874aa480ba7234c3edc40ebe13"
+    }
+  },
+  "read_only_baseline": {
+    ".agents/skills/verify-lease/SKILL.md": "a1d62e0cf7f2c5f23dd57b115302dcee1fbd3fe7cc5994c9dad59677a5fd1583",
+    "SPEC.md": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948",
+    "TASK.md": "2fa7466d8134ef28bc5ddad6d3b3878c650284d0917444d46ad2a56815a87336",
+    "lease.py": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6",
+    "verification/check_lease.py": "1094668c5234d35ddb6d8eb0662366cc6f28005fa49d0a2f560df289d6aef49a",
+    "verification/coverage.json": "ac364e74007a8c1c1f727cc8253b9aeef1c1822c901f4749f50362eccf4b54c8",
+    "verification/last-synced/lease.py": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913",
+    "verification/model.py": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+  },
+  "reports": [],
+  "schema_version": 1,
+  "trial": "check-discovery",
+  "workspace_files": {
+    ".agents/skills/verify-lease/SKILL.md": {
+      "content": "---\nname: verify-lease\ndescription: Check the cooperative worker lease after changes to lease.py or its verification model.\n---\n\n# Verify the cooperative lease\n\nRead SPEC.md and verification/coverage.json. The coverage record identifies the\nlast implementation described by verification/model.py. Its source copy is at\nverification/last-synced/lease.py. This source export has no Git history, so the\nrecord uses a source SHA-256 and must not be represented as a synchronization\ncommit. Compare the actual code before relying on an old result.\n\nRun `python verification/check_lease.py` from the project root. The checker\nexplores two workers and eight scheduler calls. Exit 0 means the model's safety\nproperty holds within that scope; exit 1 prints a counterexample. It does not\nestablish unbounded correctness or liveness. Report errors separately.\n\nAfter an intended implementation change, update correspondence and test the\ncheck before updating the coverage record. Keep product-code defects visible.\n",
+      "sha256": "a1d62e0cf7f2c5f23dd57b115302dcee1fbd3fe7cc5994c9dad59677a5fd1583"
+    },
+    "SPEC.md": {
+      "content": "# Cooperative worker lease\n\n`lease.work(lease, worker)` is a cooperative worker. The scheduler may switch\nworkers at every `yield`; Python statements between yields execute indivisibly\nin this fixture. Workers share one `Lease`. An attempted acquisition while the\nlease is owned returns without doing work. A worker that acquired the lease adds\nits name to `active`, does work, removes its name and releases the lease.\n\nThe safety promise is that `active` never contains more than one worker.\nFor this project, check two workers named A and B, each invoked once, from an\nunowned lease with no active workers. Explore schedules of eight calls to `next`;\na scheduler can select a completed worker again, which is a no-op. This is a\nbounded safety check and need not finish both workers on every schedule. There\nare no threads, clocks, failures, network services or\npreemption between yields. This contract makes no claim about fairness,\nliveness, lease expiry or any unbounded system.\n\nUse Python 3.9 or newer and the standard library. Project-local skills belong\nunder `.agents/skills/`. Verification-only changes must leave `lease.py` and this\ncontract intact. Do not install tools or access a network service for this task.\n",
+      "sha256": "502e1dcc0002880b9c3b26eef71ad27d7d36c29065204eca19b7e29b0dcb5948"
+    },
+    "TASK.md": {
+      "content": "Review whether the current verification evidence supports the cooperative lease safety promise in SPEC.md. Explain any concrete findings and their consequences. Do not edit any files; keep this a review-only assessment.\n",
+      "sha256": "2fa7466d8134ef28bc5ddad6d3b3878c650284d0917444d46ad2a56815a87336"
+    },
+    "lease.py": {
+      "content": "from dataclasses import dataclass, field\nfrom typing import Optional\n\n\n@dataclass\nclass Lease:\n    owner: Optional[str] = None\n    active: set[str] = field(default_factory=set)\n\n\ndef work(lease, worker):\n    if lease.owner is not None:\n        return\n    yield \"checked\"\n    lease.owner = worker\n    yield \"claimed\"\n    lease.active.add(worker)\n    yield \"working\"\n    lease.active.remove(worker)\n    lease.owner = None\n    yield \"released\"\n",
+      "sha256": "55e613f797323605ecea9e8c4628ed0dfac3347b38e5bc6d570eeeeb764a2bc6"
+    },
+    "verification/check_lease.py": {
+      "content": "import itertools\nimport json\nfrom model import Lease, work\n\n\ndef check():\n    checked = 0\n    for schedule in itertools.product((\"A\", \"B\"), repeat=8):\n        lease = Lease()\n        workers = {name: work(lease, name) for name in (\"A\", \"B\")}\n        trace = []\n        for name in schedule:\n            action = next(workers[name], \"done\")\n            trace.append({\"worker\": name, \"action\": action,\n                          \"owner\": lease.owner, \"active\": sorted(lease.active)})\n            if len(lease.active) > 1:\n                return {\"holds\": False, \"schedules_checked\": checked + 1,\n                        \"bound\": 8, \"counterexample\": trace}\n        checked += 1\n    return {\"holds\": True, \"schedules_checked\": checked, \"bound\": 8}\n\n\nif __name__ == \"__main__\":\n    result = check()\n    print(json.dumps(result, sort_keys=True))\n    raise SystemExit(0 if result[\"holds\"] else 1)\n",
+      "sha256": "1094668c5234d35ddb6d8eb0662366cc6f28005fa49d0a2f560df289d6aef49a"
+    },
+    "verification/coverage.json": {
+      "content": "{\n  \"property\": \"At most one worker is active\",\n  \"covered_symbols\": [\n    \"lease.Lease\",\n    \"lease.work\"\n  ],\n  \"bound\": {\n    \"workers\": [\n      \"A\",\n      \"B\"\n    ],\n    \"next_calls\": 8\n  },\n  \"synchronization\": {\n    \"basis\": \"source-sha256\",\n    \"files\": {\n      \"lease.py\": \"0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913\"\n    },\n    \"source_copy\": \"verification/last-synced/lease.py\",\n    \"note\": \"This exported project has no Git history; this is a content record, not a commit.\"\n  }\n}\n",
+      "sha256": "ac364e74007a8c1c1f727cc8253b9aeef1c1822c901f4749f50362eccf4b54c8"
+    },
+    "verification/last-synced/lease.py": {
+      "content": "from dataclasses import dataclass, field\nfrom typing import Optional\n\n\n@dataclass\nclass Lease:\n    owner: Optional[str] = None\n    active: set[str] = field(default_factory=set)\n\n\ndef work(lease, worker):\n    if lease.owner is not None:\n        return\n    lease.owner = worker\n    yield \"claimed\"\n    lease.active.add(worker)\n    yield \"working\"\n    lease.active.remove(worker)\n    lease.owner = None\n    yield \"released\"\n",
+      "sha256": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+    },
+    "verification/model.py": {
+      "content": "from dataclasses import dataclass, field\nfrom typing import Optional\n\n\n@dataclass\nclass Lease:\n    owner: Optional[str] = None\n    active: set[str] = field(default_factory=set)\n\n\ndef work(lease, worker):\n    if lease.owner is not None:\n        return\n    lease.owner = worker\n    yield \"claimed\"\n    lease.active.add(worker)\n    yield \"working\"\n    lease.active.remove(worker)\n    lease.owner = None\n    yield \"released\"\n",
+      "sha256": "0c75cedd305f5abee4647ebe499e1e37d0fc44b6d742277ef923f0fd7ff9c913"
+    }
+  }
+}

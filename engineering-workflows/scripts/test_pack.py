@@ -139,6 +139,23 @@ class PackFixtureTests(unittest.TestCase):
         (verify / "references/testing.md").unlink()
         self.assert_rejected("engineering-verify: required file missing/unsafe: references/testing.md")
 
+    def test_older_verify_cannot_hide_missing_lifecycle_guides(self):
+        verify = self.paths["engineering-verify"]
+        entrypoint = verify / "SKILL.md"
+        _, frontmatter, _ = entrypoint.read_text(encoding="utf-8").split("---\n", 2)
+        entrypoint.write_text(f"---\n{frontmatter}---\n\n# Engineering Verify\n", encoding="utf-8")
+        for relative in ("references/application.md", "references/formal.md"):
+            with self.subTest(reference=relative):
+                path = verify / relative
+                original = path.read_bytes()
+                path.unlink()
+                self.assert_rejected(f"engineering-verify: required file missing/unsafe: {relative}")
+                path.write_bytes(original)
+
+    def test_missing_phase_routes_are_rejected(self):
+        (self.core / "references/routing.md").unlink()
+        self.assert_rejected("routing.md")
+
     def test_missing_reference_is_rejected(self):
         (self.core / "references/contract.md").unlink()
         self.assert_rejected("contract.md")

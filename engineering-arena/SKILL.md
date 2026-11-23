@@ -11,6 +11,9 @@ skill. Keep the current lead, assignment and budget; use Workflows to own a new
 request that includes implementation or delivery. Report missing shared guidance
 and continue useful work within the agreed scope.
 
+Use alternatives to resolve an actual choice. Do not reopen a supported decision
+without new evidence, an unresolved tradeoff or a user request.
+
 1. Define the decision, common inputs, requirements and comparison criteria before
    generating alternatives. Identify the actual source, including uncommitted and
    new files. Start with two independent candidates and one fresh review unless

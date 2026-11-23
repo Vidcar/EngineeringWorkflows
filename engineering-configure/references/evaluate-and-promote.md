@@ -22,6 +22,19 @@ process when installation or a persistent personal-skill update is requested.
    Use Arena for alternatives, Measure for quantitative comparisons, Check for
    judgment or Verify for specific checks, within the current assignment.
 
+For workflow routing changes, observe whether the agent discovers the relevant
+project skill, loads the needed method before acting, respects the assignment and
+produces the right evidence. A recited skill name or a structural link is not a
+behavioral result. Include a small task that should finish without new machinery.
+For generated verification instructions, give a fresh agent only the project and
+those instructions and observe a real rerun. For maintenance, include stale
+documentation or model correspondence alongside a real product failure.
+
+Keep the complete recommendation and upstream adopt/adapt/defer decisions with a
+requested review package. Distinguish instruction coverage, executable fixture
+controls, actual agent trials and integrations that were not exercised. Missing
+host capabilities limit the claim; they do not justify invented execution.
+
 ## Validate the candidate
 
 Inspect the combined pack after edits, including references, metadata and routing.

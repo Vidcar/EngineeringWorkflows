@@ -6,6 +6,8 @@ import sys
 import unittest
 from pathlib import Path
 
+from workflow_probe import probe as workflow_probe
+
 
 def probe(work, mode):
     sys.path.insert(0, str(work))
@@ -38,7 +40,7 @@ def probe(work, mode):
         deliver(outbox, "b", "hello")
         assert outbox == [("a", "hello"), ("b", "hello")], outbox
     else:
-        raise ValueError("Unknown probe")
+        return workflow_probe(work, mode)
     return {"successful": True}
 
 

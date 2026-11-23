@@ -1,5 +1,7 @@
 """Evaluator materials. Copy only each case's files and prompt to the runner."""
 
+from workflow_cases import WORKFLOW_CASES
+
 GOOD_BILLING = "def total(amounts):\n    return sum(amounts)\n"
 BAD_BILLING = "def total(amounts):\n    return sum(amounts) + 1\n"
 BILLING_SPEC = """# Invoice totals
@@ -174,3 +176,5 @@ class ProfileTests(unittest.TestCase):
         ],
     },
 }
+
+CASES.update(WORKFLOW_CASES)

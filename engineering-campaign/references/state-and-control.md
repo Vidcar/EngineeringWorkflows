@@ -19,6 +19,13 @@ Create a schedule only when requested. Choose sequential or parallel work from
 the dependencies and actual host capacity. One integrator assembles the result.
 Use the first representative unit to check dispatch, verification and delivery.
 
+For a requested issue queue, retain the originating report and concrete artifact
+identity. Check relevant existing issues, active owners and proposed fixes before
+dispatching a competing repair. Similar symptoms do not establish a duplicate.
+Validate an existing fix against the relevant baseline and patched behavior when
+that is the requested unit. Intake, implementation, tracker writes and messaging
+remain separate permissions; a queue does not grant the latter two.
+
 ## Replace writers safely
 
 Record each writer's starting content and owned resources. Before replacement,

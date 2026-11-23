@@ -1,7 +1,7 @@
 interface:
   display_name: "Engineering Verify"
-  short_description: "Write useful tests and check real behaviour"
-  default_prompt: "Use $engineering-verify to check this behaviour and report what the evidence shows."
+  short_description: "Test behaviour and maintain verification workflows"
+  default_prompt: "Use $engineering-verify to check this behaviour, reuse relevant project verification, and report the evidence and limits."
   icon_small: "assets/icon.svg"
   icon_large: "assets/icon.svg"
 policy:

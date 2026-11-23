@@ -1,9 +1,10 @@
 # Try the skills on real tasks
 
-These seven small Python cases test how an agent handles requirements, mocks,
-retries, empty test selections, review scope and a later request to fix a finding.
-They use the standard library. Keep this directory with the pack's source; agents
-using an installed skill do not need to load it.
+These thirteen small Python cases test how an agent handles requirements, mocks,
+retries, empty test selections, review scope, verification assets, measurement
+validity, a measurement-to-implementation follow-up and refactoring. They use Python 3.9 or newer and the standard library;
+no network, service or tool installation is needed. Keep this directory with the
+pack's source; agents using an installed skill do not need to load it.
 
 ## Run a case
 
@@ -32,22 +33,29 @@ python evals/run.py check /tmp/engineering-trial-01
 python evals/run.py check /tmp/engineering-trial-01 --execute
 ```
 
-The first command compares files. The second also runs the repair or test-authoring
-probes: independent contract examples and a temporary copy with the original defect
-or reference repair. It checks that tests execute, pass where appropriate, and fail
-on the relevant wrong behaviour. It leaves the submitted workspace's production
-code intact. Each invocation writes to a new `checks/check-*/` directory beside
-`work/`. The command output includes `report_path`. Any probe results and logs for
-that check are stored next to its report, so rechecking preserves earlier evidence.
+The first command compares files. The second also runs applicable independent
+behavior probes. For repair and test-authoring cases it checks contract examples
+and a temporary copy with the original defect or reference repair, including that
+tests execute, pass where appropriate, and fail on the relevant wrong behaviour.
+For the six workflow cases below it probes product behavior, leaving judgment
+of the authored verification assets and the agent's decisions to a reviewer.
+Each invocation writes to a new `checks/check-*/` directory beside `work/`. The
+command output includes `report_path`. Probe results and logs are stored next to
+the report. Workflow cases also snapshot submitted artifacts and record their
+hashes and the evaluator's Python runtime, preserving failed attempts when later
+attempts change the workspace. Probes leave submitted production files intact.
 
 `--execute` runs candidate Python code. Use a disposable environment with no secrets,
 no network and no access to production resources. The helper provides a timeout,
-not an operating-system sandbox. Read-only cases are judged from file changes,
-the trace and the response; the helper does not rerun their task commands.
+not an operating-system sandbox. The original read-only cases are judged from
+file changes, the trace and the response; their task commands are not rerun. The
+read-only measurement case and the two-turn measurement case have independent
+correctness probes.
 
 ## Judge the result
 
-Open the report at `report_path`. Inspect the relevant case in `cases.py`, the
+Open the report at `report_path`. Inspect the relevant case in `cases.py` or
+`workflow_cases.py`, the
 actual changes and the agent's trace. A report of `needs_review` means objective
 checks passed or were not applicable. Confirm that the agent executed the checks
 it claims, used the right expectations, stayed within scope and reported limits.
@@ -59,7 +67,7 @@ zero discovered tests provide no passing evidence; additional correctly selected
 checks are useful if reported accurately. Its local runner deliberately returns
 zero when the selection is empty, so the case works across Python versions.
 
-For `review-to-fix`, finish and save the first turn before running:
+For `review-to-fix` and `measure-to-improve`, finish and save the first turn before running:
 
 ```bash
 python evals/run.py checkpoint /tmp/engineering-trial-01
@@ -73,11 +81,156 @@ Compare baseline and candidate under equivalent conditions. Run affected cases
 after instruction changes and add a case when a real failure reveals a gap.
 Repeat a trial to resolve a specific uncertainty; do not discard unsuccessful runs.
 
+## Workflow cases and acceptance review
+
+The task workspaces contain ordinary project files and a user request. Judge-only
+rubrics, expected outcomes and faulty control variants stay in this directory.
+All six cases can be prepared independently; use a new target for each attempt.
+
+| Case | Real fixture and independent probe | Required manual acceptance |
+| --- | --- | --- |
+| `formal-create` | Two real cooperative workers share one lease. All 256 schedules of eight calls are explored; the correct implementation maintains exclusive activity. | Follow the generated project skill, run its authored checker, inspect source correspondence and scope, and demonstrate that a relevant code mutation is detected and the original state restored. A passing evaluator probe does not validate that authored checker. |
+| `formal-maintain` | An old abstract checker passes, but current code separates observation from acquisition with a yield. A six-step real-code schedule puts both workers in the protected activity. The source export includes a truthful SHA-256 baseline and its source copy. | Find the existing skill, compare synchronization evidence, update verification to current atomicity, replay the counterexample on current code and report the product defect without repairing production or weakening its property. Distinguish model drift, current failure and a verified synchronization record. |
+| `application-create` | A persistent notes CLI starts without a store. Nine real process invocations verify empty listing, persistence, idempotent add, rejected conflicting write, preservation of another note, repeated removal and cleanup. | Create and rehearse a discoverable project skill with launch/environment checks, feature-driving commands, state-effect observations and cleanup ownership. Preserve useful evidence outside disposable state. Run the fresh-agent reuse step below. |
+| `measured-comparison` | A supplied benchmark uses the full input count for throughput while the candidate returns only one tenth of a large workload. Independent output comparison rejects equal work. A project benchmark skill is present but unnamed in the task. | Discover and read that skill during direct measurement work; assess completed work and correctness before claiming speedup. Report observed timing honestly, reject the unsupported throughput conclusion and keep all files unchanged. |
+| `measure-to-improve` | A correct account-summary implementation and frozen reference start identical. A deterministic workload and frozen benchmark validate completed outputs before reporting six alternating pairs of two calls. The independent probe checks eight cases per implementation, including duplicate/missing accounts, signed totals, fresh output dictionaries, unchanged inputs and changed inputs on later calls. | Complete the first measurement-only turn without changing any files. Checkpoint it, then deliver the second request to the same conversation. Confirm the actual transition from Measure to Workflows, a useful production optimization, preserved contract, and credible before/after results from the same harness. Correctness alone does not establish any of those process or performance outcomes. |
+| `refactor-contract` | Formatting must remain byte-identical through public imports and persisted dynamic routes. Ten independent examples exercise both call paths and input preservation. | Inspect consumers, capture behavior before editing, consolidate the implementation, keep the public bridge needed by saved routes and show before/after equivalence evidence. |
+
+The cooperative lease is deliberately small enough for exhaustive offline checks.
+It establishes bounded safety under the fixture's explicit atomicity, initial state
+and scheduler assumptions. It does not test a theorem prover installation, arbitrary
+thread interleavings, liveness, distributed failures or unbounded correctness. A
+source hash is a content synchronization record, not a fabricated Git commit.
+
+For these cases, `independent_observation_matches_case` means the real fixture
+matches the expected observation. For example, it is true when the maintenance
+fixture's current implementation **violates** its safety promise. It does not mean
+the product is safe or the agent succeeded. `project_skill_present` is only a file
+presence check; even an inadequate stub still needs manual review. The helper never
+assigns a semantic pass based on policy keywords, a skill count or a confident report.
+
+### Prepare repeatable trials
+
+Choose a trial directory outside the checkout. Set `TMPDIR` explicitly when the
+host otherwise places temporary files inside the checkout. Replace this example
+path with a writable external location; do not reuse an existing prepared target.
+
+```bash
+TRIAL_ROOT=/absolute/path/outside/the/checkout/engineering-trials
+mkdir -p "$TRIAL_ROOT/tmp"
+export TMPDIR="$TRIAL_ROOT/tmp"
+export PYTHONDONTWRITEBYTECODE=1
+
+python -B evals/run.py prepare formal-create "$TRIAL_ROOT/formal-create-01"
+python -B evals/run.py prepare formal-maintain "$TRIAL_ROOT/formal-maintain-01"
+python -B evals/run.py prepare application-create "$TRIAL_ROOT/application-create-01"
+python -B evals/run.py prepare measured-comparison "$TRIAL_ROOT/measured-comparison-01"
+python -B evals/run.py prepare measure-to-improve "$TRIAL_ROOT/measure-to-improve-01"
+python -B evals/run.py prepare refactor-contract "$TRIAL_ROOT/refactor-contract-01"
+
+# After each fresh agent has finished its task:
+python -B evals/run.py check "$TRIAL_ROOT/formal-create-01" --execute
+```
+
+Record the actual `python --version`, loaded skill catalog and content digest,
+tools, model/host information the environment exposes, and any filesystem or
+network limits in each trial's `conditions.json`. Record omissions explicitly.
+Fixture identity covers `cases.py`, `workflow_cases.py`, `probe.py`,
+`workflow_probe.py` and `run.py`; changes to any of them require a fresh trial.
+Changing a recorded digest to keep an old trial scoreable would invalidate it.
+
+### Continue measurement into an authorized implementation change
+
+`measure-to-improve` is one conversation with two actual user turns. Give the
+agent only the prepared first-turn request and workspace, without the second
+prompt, case rubric or evaluator code. The first turn asks for measurement and
+requires every file to remain unchanged. Its project skill is discoverable under
+`.agents/skills/`, but the request does not name it or suggest an optimization.
+Save the first response, tool trace and actual benchmark output outside `work/`.
+Then run:
+
+```bash
+python -B evals/run.py checkpoint "$TRIAL_ROOT/measure-to-improve-01"
+```
+
+Preserve the checkpoint and deliver its `next_prompt` as the next user message
+in the same conversation. That request authorizes improvement of `candidate.py`
+and justified tests or local evidence. The contract, reference, deterministic
+workload, benchmark, supplied measurement skill and original task file remain
+protected. A missing checkpoint fails the final objective checks; a recorded
+first-turn edit, addition or removal still fails after it is restored later.
+The snapshot cannot reveal an edit reverted before the checkpoint, so the trace
+remains necessary for scope review.
+
+The benchmark uses 6,000 rows with 160 populated accounts, 173 requests including
+duplicates and missing accounts, and signed deltas. Each implementation receives
+one warm-up. It then alternates execution order across six paired samples, each
+containing two calls. Every timed result is checked after timing, with input
+preservation and completed-summary counts also recorded. Output includes the
+actual populated-account count, raw pairs, medians and ranges, runtime and source hashes. These observations permit
+a local comparison; they do not establish statistical significance or performance
+on all workloads. Helper controls deliberately impose no speedup threshold.
+
+After the second turn, run the usual `check --execute`. Human acceptance requires
+evidence that the first turn actually followed measurement guidance, that the
+follow-up moved implementation work to Workflows, and that the agent made a
+useful optimization while preserving behavior. Inspect real skill reads, code
+changes, checks and comparable before/after timing output. A no-op can pass the
+correctness probe and still fail this review. Correctness expectations in the
+independent probe come from hand-worked examples and arithmetic-series data,
+separate from the frozen benchmark's reference-derived workload output.
+
+### Reuse the created application skill
+
+`prepare application-create` prints `fresh_agent_followup` outside the task
+workspace. After judging the creation run, give a separate, minimally briefed
+agent the produced project workspace and that followup request. Preserve the
+creation trace and snapshot first. The new agent should discover and follow the
+project skill, launch real CLI processes, check the requested persistent effects
+and keep evidence after deleting only state it created. Compare product and
+verification-asset hashes before and after this reuse; they should be unchanged.
+Record the reuse conditions and trace separately. If using a copy, include all
+generated project files and skill paths, but no evaluator files or creation trace.
+
+Assess whether the procedure works from its own instructions. Repeating the
+creation agent's final command in the same session is not evidence that a fresh
+agent can discover and use the asset. Creation and reuse can have different
+outcomes; preserve and report both.
+
+### Judge authored verification independently
+
+For `formal-create`, after the agent finishes, follow its project skill on a
+disposable copy. Insert a yield between the ownership check and assignment in
+the actual implementation, rerun the authored procedure and require a violation
+with a real-code replay. Restore the original implementation and verify that the
+baseline result returns. A hand-edited model that fails while the skill cannot
+notice the corresponding production mutation is incomplete coverage.
+
+For `formal-maintain`, save the initial model result, current implementation hash
+and old source record before editing. A current checker should expose the seeded
+race while `lease.py` remains byte-identical. Inspect a reported trace against the
+real generator transitions; unsupported assertions in the final answer are not
+replay evidence. A truthful failing result can satisfy this verification task.
+
+For all cases, record manual outcomes as accepted, rejected or inconclusive with
+specific evidence and limits. The complete case-specific rubrics are in
+`workflow_cases.py`. Keep failed and incomplete outputs rather than replacing
+them with the best successful run.
+
 ## Check the fixture helper
 
 ```bash
 python -m unittest discover -s evals -p 'test_*.py' -v
 ```
 
-These tests use known good and bad artifacts to check preparation and scoring.
-They do not run agents or establish that the skill pack improves agent behaviour.
+The eight original controls remain. Fifteen workflow controls execute correct and
+broken lease, notes, conversion and rendering variants; replay the real lease
+counterexample; check stale source correspondence; preserve failed snapshots;
+and verify scope, fixture identity and trusted probe module resolution. The
+aggregation controls accept the baseline and a valid optimization, reject skipped
+rows, dropped nonpositive deltas, shared output dictionaries and reused output buffers, validate paired
+measurement output, protect frozen files and retain first-turn scope violations.
+These tests verify fixture validity and
+the helper, not skill effectiveness. They do not run agents or establish that
+the skill pack improves agent behaviour. Only separately recorded agent trials
+can support claims about discovery, routing, authored assets or their reuse.

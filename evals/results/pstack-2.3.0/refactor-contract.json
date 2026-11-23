@@ -1,0 +1,107 @@
+{
+  "acceptance": {
+    "decision": "accepted",
+    "guidance_read_provenance": "Runner reported reading Workflows, contract/routing/methods/coordination/delivery, Verify and testing/application references; parent inspected resulting code and independently executed probe.",
+    "kind": "standard workflow case, evaluator v2",
+    "observed": "Only handlers.py changed and reports.py added. Shared serializer with public wrappers; dispatcher/routes unchanged. Parent independent probe passes ten examples via public imports and persisted dynamic dispatch.",
+    "runner_before_after_observation": {
+      "output_digest_each_run": "ed852b1f857fdfcd7a3ecd423072bead163a627cba2d3d3433df271ab819ab48",
+      "renders_each_run": 32,
+      "source": "Runner final report; full inline command/tool transcript not archived."
+    }
+  },
+  "parent_checks": {},
+  "prepared_fixture_record": {
+    "baseline": {
+      "SPEC.md": "9162d4cddb474d6c7c515eaea987f82181696cf49318eab9553f3b5516ae5d42",
+      "TASK.md": "3aecda58c4c3f8e0247640290b76d9db48ecd49de9234804703e5c5d8451a70c",
+      "dispatch.py": "3b1af6d922353f60b5e68c4c42c9f9a6cc777227f06a8701df7338cd484ee4e1",
+      "handlers.py": "5740f93dec80dc2876195c71852224eb26f3fe444cd002af6654169f06b6c929",
+      "routes.json": "7036af6e7413b872725a38ed1264256470eef5d02ed067b6993a49ef2e2763a9"
+    },
+    "case": "refactor-contract",
+    "fixture_files": {
+      "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+      "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+      "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+      "workflow_cases.py": "296285e00561f11c27c1b4a377df2603fdb5334106a8897eec2adfbdf28094bf",
+      "workflow_probe.py": "cc2e706d401415188d29537f48441b5d9d25e1874aa480ba7234c3edc40ebe13"
+    }
+  },
+  "reports": [
+    {
+      "artifact_hashes": {
+        "SPEC.md": "9162d4cddb474d6c7c515eaea987f82181696cf49318eab9553f3b5516ae5d42",
+        "TASK.md": "3aecda58c4c3f8e0247640290b76d9db48ecd49de9234804703e5c5d8451a70c",
+        "dispatch.py": "3b1af6d922353f60b5e68c4c42c9f9a6cc777227f06a8701df7338cd484ee4e1",
+        "handlers.py": "5966866daa7fae564db267e08083a496a0bff19946a7d602b77c66567612cd96",
+        "reports.py": "961f871b2ac97909c7add7cf8ead74b629c09c071b0883c6d621846c315d105d",
+        "routes.json": "7036af6e7413b872725a38ed1264256470eef5d02ed067b6993a49ef2e2763a9"
+      },
+      "artifact_snapshot": "/workspace/scratch/1c94ccd3e38c/review-work/trials/refactor-contract-candidate/checks/check-ljorup3j/artifacts",
+      "case": "refactor-contract",
+      "changed_files": [
+        "handlers.py",
+        "reports.py"
+      ],
+      "code_probes_executed": true,
+      "limit": "This report does not prove that the agent ran checks or respected scope throughout. Inspect its trace and final response.",
+      "manual_review_required": [
+        "The agent inspects direct and dynamically resolved consumers before changing public names and records a behavior baseline.",
+        "Duplicated formatting is consolidated while saved routes and public import paths continue to work.",
+        "Before/after evidence includes byte-identical serialized outputs and unchanged inputs, not merely successful imports or compilation.",
+        "Compatibility code that serves the explicit persisted/public contract is preserved; unrelated changes are absent."
+      ],
+      "objective_checks": {
+        "independent_observation_matches_case": true,
+        "protected_files_unchanged": true
+      },
+      "observations": {
+        "independent_behavior": {
+          "examples_checked": 10,
+          "paths": [
+            "public imports",
+            "persisted dynamic routes"
+          ],
+          "successful": true
+        }
+      },
+      "probe_limit": "Independent probes inspect product behavior, not the authored verification asset or the agent's process. A skill file's presence is structural only.",
+      "report_path": "/workspace/scratch/1c94ccd3e38c/review-work/trials/refactor-contract-candidate/checks/check-ljorup3j/report.json",
+      "runtime": {
+        "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "platform": "linux",
+        "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+      },
+      "status": "needs_review"
+    }
+  ],
+  "schema_version": 1,
+  "trial": "refactor-contract",
+  "workspace_files": {
+    "SPEC.md": {
+      "content": "# Saved rendering routes\n\nExisting handlers.render_invoice and handlers.render_receipt import paths are public and appear in persisted route records. Preserve them. Positive integer pence become a two-decimal amount string. Output JSON uses sorted keys, compact separators, kind, id and amount, with no newline. Rendering must not mutate its input. Python 3.9+, standard library.\n",
+      "sha256": "9162d4cddb474d6c7c515eaea987f82181696cf49318eab9553f3b5516ae5d42"
+    },
+    "TASK.md": {
+      "content": "Consolidate the duplicated rendering in handlers.py into reports.py. Preserve the existing serialized output and callers, including saved routes. Keep the change local and show the evidence that behavior is preserved.\n",
+      "sha256": "3aecda58c4c3f8e0247640290b76d9db48ecd49de9234804703e5c5d8451a70c"
+    },
+    "dispatch.py": {
+      "content": "import importlib\nimport json\nfrom pathlib import Path\n\n\ndef render_saved_route(name, item):\n    routes = json.loads(Path(__file__).with_name(\"routes.json\").read_text())\n    module, symbol = routes[name].rsplit(\".\", 1)\n    return getattr(importlib.import_module(module), symbol)(item)\n",
+      "sha256": "3b1af6d922353f60b5e68c4c42c9f9a6cc777227f06a8701df7338cd484ee4e1"
+    },
+    "handlers.py": {
+      "content": "\"\"\"Public rendering entrypoints retained for saved route compatibility.\"\"\"\n\nimport reports\n\n\ndef render_invoice(item):\n    return reports.render_report(\"invoice\", item)\n\n\ndef render_receipt(item):\n    return reports.render_report(\"receipt\", item)\n",
+      "sha256": "5966866daa7fae564db267e08083a496a0bff19946a7d602b77c66567612cd96"
+    },
+    "reports.py": {
+      "content": "\"\"\"Shared JSON report rendering.\"\"\"\n\nimport json\n\n\ndef render_report(kind, item):\n    return json.dumps(\n        {\n            \"kind\": kind,\n            \"id\": item[\"id\"],\n            \"amount\": f'{item[\"pence\"] // 100}.{item[\"pence\"] % 100:02d}',\n        },\n        sort_keys=True,\n        separators=(\",\", \":\"),\n    )\n",
+      "sha256": "961f871b2ac97909c7add7cf8ead74b629c09c071b0883c6d621846c315d105d"
+    },
+    "routes.json": {
+      "content": "{\"invoice\":\"handlers.render_invoice\",\"receipt\":\"handlers.render_receipt\"}\n",
+      "sha256": "7036af6e7413b872725a38ed1264256470eef5d02ed067b6993a49ef2e2763a9"
+    }
+  }
+}

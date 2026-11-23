@@ -34,7 +34,7 @@ def save(path, value):
 
 def fixture_identity():
     return {name: hashlib.sha256((HERE / name).read_bytes()).hexdigest()
-            for name in ("cases.py", "probe.py", "run.py")}
+            for name in ("cases.py", "workflow_cases.py", "probe.py", "workflow_probe.py", "run.py")}
 
 
 def prepare(case_id, target):
@@ -51,7 +51,10 @@ def prepare(case_id, target):
         path.write_text(content)
     save(target / "run.json", {"case": case_id, "baseline": inventory(work),
                                "fixture_files": fixture_identity()})
-    return {"case": case_id, "workspace": str(work), "prompt": case["prompt"]}
+    result = {"case": case_id, "workspace": str(work), "prompt": case["prompt"]}
+    if "followup_prompt" in case:
+        result["fresh_agent_followup"] = case["followup_prompt"]
+    return result
 
 
 def load_run(target):
@@ -121,6 +124,8 @@ def check(target, run_code=False):
     check_dir = Path(tempfile.mkdtemp(prefix="check-", dir=checks_dir))
     report_path = check_dir / "report.json"
     observations = {}
+    if case.get("needs_skill"):
+        checks["project_skill_present"] = any(work.glob(".agents/skills/*/SKILL.md"))
     if run_code and case["kind"] in {"repair", "test-only"}:
         # These probes run candidate code. The surrounding environment supplies isolation.
         suite = execute(work, "suite", check_dir / "candidate-suite.json")
@@ -145,15 +150,31 @@ def check(target, run_code=False):
             checks["tests_detect_original_defect"] = assertion_failure(control)
         else:
             checks["tests_pass_with_reference_repair"] = completed_pass(control)
-    changed = changes(record, inventory(work))
+    if run_code and case.get("probe"):
+        observation = execute(work, case["probe"], check_dir / "behavior-probe.json")
+        observations["independent_behavior"] = observation
+        checks["independent_observation_matches_case"] = all(
+            observation.get(name) == value for name, value in case["probe_expect"].items())
+    current = inventory(work)
+    changed = changes(record, current)
     checks["protected_files_unchanged"] = not any(name in protected for name in changed)
+    if case["protected"] == "all":
+        checks["no_files_added_or_removed"] = not changed
     report = {"case": record["case"], "report_path": str(report_path),
               "changed_files": changed,
               "objective_checks": checks, "observations": observations,
-              "code_probes_executed": run_code and case["kind"] in {"repair", "test-only"},
+              "code_probes_executed": bool(run_code and (
+                  case["kind"] in {"repair", "test-only"} or case.get("probe"))),
               "manual_review_required": case["review"],
               "status": "failed_checks" if not all(checks.values()) else "needs_review",
               "limit": "This report does not prove that the agent ran checks or respected scope throughout. Inspect its trace and final response."}
+    if case["kind"] == "manual":
+        snapshot = check_dir / "artifacts"
+        shutil.copytree(work, snapshot, ignore=shutil.ignore_patterns("__pycache__", ".git"))
+        report.update({"artifact_snapshot": str(snapshot), "artifact_hashes": current,
+                       "runtime": {"python": sys.version, "executable": sys.executable,
+                                   "platform": sys.platform},
+                       "probe_limit": "Independent probes inspect product behavior, not the authored verification asset or the agent's process. A skill file's presence is structural only."})
     save(report_path, report)
     return report
 

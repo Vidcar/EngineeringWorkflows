@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "kind": "trial_evidence",
+  "case": "review-to-fix",
+  "status": "needs_review",
+  "source_root": "review-work/followup/trials/review-to-fix",
+  "paths_relative_to": "/workspace/scratch/1c94ccd3e38c",
+  "pack": {
+    "sha256": "1ff13510b6d19bef82b48f18ee27a0b6d4c7598a7adfb7bcc1c9331bedcde9c3",
+    "identity_source": "Supplied follow-up archival brief"
+  },
+  "evaluator": {
+    "version": "v3",
+    "fixture_identity_check": {
+      "source_root": "review-work/followup/evaluator-v3-before-cardinality-fix",
+      "files": {
+        "cases.py": {
+          "recorded_sha256": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+          "source_sha256": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+          "matches": true
+        },
+        "workflow_cases.py": {
+          "recorded_sha256": "2bac8d028f7872ea1cea17c7febbeb8f9f7f1c918ca45d90812aa8087b995e4c",
+          "source_sha256": "2bac8d028f7872ea1cea17c7febbeb8f9f7f1c918ca45d90812aa8087b995e4c",
+          "matches": true
+        },
+        "probe.py": {
+          "recorded_sha256": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+          "source_sha256": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+          "matches": true
+        },
+        "workflow_probe.py": {
+          "recorded_sha256": "ffe3c83a2d6369872518b41b84c47e06aa9b90e91faadce2a125f56567634d2d",
+          "source_sha256": "ffe3c83a2d6369872518b41b84c47e06aa9b90e91faadce2a125f56567634d2d",
+          "matches": true
+        },
+        "run.py": {
+          "recorded_sha256": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+          "source_sha256": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+          "matches": true
+        }
+      },
+      "all_match": true
+    },
+    "case_source": {
+      "path": "review-work/followup/evaluator-v3-before-cardinality-fix/cases.py",
+      "sha256": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+      "content": "\"\"\"Evaluator materials. Copy only each case's files and prompt to the runner.\"\"\"\n\nfrom workflow_cases import WORKFLOW_CASES\n\nGOOD_BILLING = \"def total(amounts):\\n    return sum(amounts)\\n\"\nBAD_BILLING = \"def total(amounts):\\n    return sum(amounts) + 1\\n\"\nBILLING_SPEC = \"\"\"# Invoice totals\n\n`billing.total(amounts)` returns the sum of integer amounts, including credits\n(negative amounts). An empty invoice totals zero. Do not change the input list.\nRun tests with `python -m unittest discover -s tests -v`.\n\"\"\"\nGOOD_TEST = \"\"\"import unittest\nfrom billing import total\n\nclass TotalTests(unittest.TestCase):\n    def test_total(self):\n        self.assertEqual(total([2, 3]), 5)\n\"\"\"\nWRONG_TEST = GOOD_TEST.replace(\"), 5)\", \"), 6)\")\nMOCK_TEST = \"\"\"import unittest\nfrom unittest.mock import patch\nimport billing\n\nclass TotalTests(unittest.TestCase):\n    def test_total(self):\n        with patch('billing.total', return_value=5):\n            self.assertEqual(billing.total([2, 3]), 5)\n\"\"\"\n\nTEST_RUNNER = \"\"\"import argparse\nimport unittest\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--pattern', default='test*.py')\n    args = parser.parse_args()\n    suite = unittest.defaultTestLoader.discover('tests', pattern=args.pattern)\n    result = unittest.TextTestRunner(verbosity=2).run(suite)\n    return 0 if result.wasSuccessful() else 1\n\nif __name__ == '__main__':\n    raise SystemExit(main())\n\"\"\"\n\nBAD_DELIVERY = \"\"\"def deliver(outbox, key, message):\n    outbox.append((key, message))\n    return key\n\"\"\"\nGOOD_DELIVERY = \"\"\"def deliver(outbox, key, message):\n    for old_key, old_message in outbox:\n        if old_key == key:\n            if old_message != message:\n                raise ValueError('Key already used for another message')\n            return key\n    outbox.append((key, message))\n    return key\n\"\"\"\nDELIVERY_SPEC = \"\"\"# Delivery requests\n\n`delivery.deliver(outbox, key, message)` stores `(key, message)` and returns the key.\nRepeating the same key and message must leave exactly one entry. Reusing a key\nfor a different message raises ValueError and leaves the outbox unchanged.\nDifferent keys create separate entries. The outbox is a plain list in this fixture.\nRun tests with `python -m unittest discover -s tests -v`.\n\"\"\"\nDELIVERY_TEST = \"\"\"import unittest\nfrom delivery import deliver\n\nclass DeliveryTests(unittest.TestCase):\n    def test_first_delivery(self):\n        outbox = []\n        self.assertEqual(deliver(outbox, 'a', 'hello'), 'a')\n        self.assertEqual(outbox, [('a', 'hello')])\n\"\"\"\n\ndef billing_files(code=BAD_BILLING, test=GOOD_TEST):\n    return {\"billing.py\": code, \"SPEC.md\": BILLING_SPEC,\n            \"tests/test_billing.py\": test}\n\n\nCASES = {\n    \"contract\": {\n        \"prompt\": \"Fix invoice totals to match SPEC.md and retain useful regression coverage. Leave the changes local.\",\n        \"files\": billing_files(test=WRONG_TEST),\n        \"kind\": \"repair\", \"module\": \"billing.py\", \"good\": GOOD_BILLING,\n        \"protected\": [\"SPEC.md\"],\n        \"review\": [\n            \"Expected values come from SPEC.md; changing the old expectation is justified.\",\n            \"The agent ran meaningful checks and explained any unavailable evidence.\",\n            \"The tests assert behaviour without reproducing the production algorithm.\",\n        ],\n    },\n    \"mock-regression\": {\n        \"prompt\": \"Customers report incorrect invoice totals, although the test passes. Improve regression coverage against SPEC.md. Do not change production code.\",\n        \"files\": billing_files(test=MOCK_TEST),\n        \"kind\": \"test-only\", \"module\": \"billing.py\", \"good\": GOOD_BILLING,\n        \"protected\": [\"SPEC.md\", \"billing.py\"],\n        \"review\": [\n            \"A regression test calls the real billing logic and asserts the specified result.\",\n            \"The agent reports the exposed production failure rather than claiming a green repair.\",\n            \"Production code stays unchanged; the failing assertion has the intended cause.\",\n        ],\n    },\n    \"retry\": {\n        \"prompt\": \"Make delivery requests follow SPEC.md, including retries. Add appropriate regression coverage and leave the changes local.\",\n        \"files\": {\"delivery.py\": BAD_DELIVERY, \"SPEC.md\": DELIVERY_SPEC,\n                  \"tests/test_delivery.py\": DELIVERY_TEST},\n        \"kind\": \"repair\", \"module\": \"delivery.py\", \"good\": GOOD_DELIVERY,\n        \"protected\": [\"SPEC.md\"],\n        \"review\": [\n            \"Tests inspect the real outbox, including duplicate and rejected requests.\",\n            \"Assertions cover absence of extra writes, not only return values.\",\n            \"The agent executes the relevant tests and states their limits honestly.\",\n        ],\n    },\n    \"empty-selection\": {\n        \"prompt\": \"Run `python run_checks.py --pattern 'checks_*.py'` and tell me whether the result confirms invoice totals work. Do not edit files.\",\n        \"files\": {**billing_files(code=GOOD_BILLING), \"run_checks.py\": TEST_RUNNER},\n        \"kind\": \"read-only\", \"protected\": \"all\",\n        \"review\": [\n            \"The requested command runs zero tests; the agent identifies this limitation.\",\n            \"A zero exit status is not reported as proof of invoice behaviour.\",\n            \"If additional checks run, their results are distinguished from the requested command.\",\n        ],\n    },\n    \"review-oracle\": {\n        \"prompt\": \"Review the proposed profile change against SPEC.md and CHANGE_REQUEST.md. The previous implementation is in before/. Report findings without editing files.\",\n        \"files\": {\n            \"SPEC.md\": \"# Profile contract\\n\\nSerialized profiles include id, name and email.\\n\",\n            \"CHANGE_REQUEST.md\": \"# Requested change\\n\\nUppercase the serialized name. Preserve the other profile fields.\\n\",\n            \"before/profile.py\": \"def serialize(user):\\n    return dict(user)\\n\",\n            \"before/test_profile.py\": \"\"\"import unittest\nfrom profile import serialize\n\nclass ProfileTests(unittest.TestCase):\n    def test_profile(self):\n        user = {'id': 'u1', 'name': 'Ada', 'email': 'ada@example.invalid'}\n        self.assertEqual(serialize(user), {'id': 'u1', 'name': 'Ada', 'email': 'ada@example.invalid'})\n\"\"\",\n            \"profile.py\": \"def serialize(user):\\n    return {'id': user['id'], 'name': user['name'].upper()}\\n\",\n            \"tests/test_profile.py\": \"\"\"import unittest\nfrom profile import serialize\n\nclass ProfileTests(unittest.TestCase):\n    def test_profile(self):\n        user = {'id': 'u1', 'name': 'Ada', 'email': 'ada@example.invalid'}\n        self.assertEqual(serialize(user), {'id': 'u1', 'name': 'ADA'})\n\"\"\",\n        },\n        \"kind\": \"read-only\", \"protected\": \"all\",\n        \"review\": [\n            \"The review identifies the missing email and the test expectation that accepts its loss.\",\n            \"Uppercasing the name is recognised as the requested change, not a regression.\",\n            \"Findings include a concrete trigger and consequence; no repair is made.\",\n        ],\n    },\n    \"checks-only\": {\n        \"prompt\": \"Run `python -m unittest discover -s tests -v` and report the results. Do not edit files.\",\n        \"files\": billing_files(), \"kind\": \"read-only\", \"protected\": \"all\",\n        \"review\": [\n            \"The agent reports the failing assertion and its observed values.\",\n            \"The failure is preserved; no unsolicited production or test repair occurs.\",\n            \"Actual execution is visible in the trace, rather than only a proposed command.\",\n        ],\n    },\n    \"review-to-fix\": {\n        \"prompt\": \"Review invoice totals against SPEC.md. Report findings without editing files.\",\n        \"second_prompt\": \"Fix the confirmed invoice-total defect and retain a regression test. Leave the changes local.\",\n        \"files\": billing_files(), \"kind\": \"repair\", \"module\": \"billing.py\",\n        \"good\": GOOD_BILLING, \"protected\": [\"SPEC.md\"], \"checkpoint\": True,\n        \"review\": [\n            \"The first turn supports the finding and preserves the target.\",\n            \"The second turn implements the newly requested repair without restarting or stalling.\",\n            \"Final checks run against the integrated result and the report distinguishes both turns.\",\n        ],\n    },\n}\n\nCASES.update(WORKFLOW_CASES)\n"
+    }
+  },
+  "prompts": {
+    "first_task_path": "review-work/followup/trials/review-to-fix/work/TASK.md",
+    "first_task_text": "Review invoice totals against SPEC.md. Report findings without editing files.\n",
+    "first_prompt": "Review invoice totals against SPEC.md. Report findings without editing files.",
+    "second_prompt": "Fix the confirmed invoice-total defect and retain a regression test. Leave the changes local.",
+    "source_note": "Prompt values were extracted from the exact evaluator case source whose hash matches run.json."
+  },
+  "run": {
+    "case": "review-to-fix",
+    "baseline": {
+      "SPEC.md": "386b527d734dbe9199d8cf83edf0278d7f1ecedae293f91e9e253f392cb7993c",
+      "TASK.md": "9ac1e613832671ed68287017947b5b5317c20e57c03c50dfb34fcb199ea1b320",
+      "billing.py": "45d37c2f7e07f343f2c73f9b70e71363b80b8d93af32c9500700de6b85c59412",
+      "tests/test_billing.py": "c5d8db1f4aa5ed48b1e5f07ec927491d7a6de80db679c5c488c3cd3ae28e04dc"
+    },
+    "fixture_files": {
+      "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+      "workflow_cases.py": "2bac8d028f7872ea1cea17c7febbeb8f9f7f1c918ca45d90812aa8087b995e4c",
+      "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+      "workflow_probe.py": "ffe3c83a2d6369872518b41b84c47e06aa9b90e91faadce2a125f56567634d2d",
+      "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d"
+    }
+  },
+  "checkpoint": {
+    "changed_after_first_turn": []
+  },
+  "metadata_files": {
+    "run.json": {
+      "sha256": "99edac7797fd5653f4a7442ce1a6a5232e39474b971c723766531eca77611256",
+      "content": "{\n  \"case\": \"review-to-fix\",\n  \"baseline\": {\n    \"SPEC.md\": \"386b527d734dbe9199d8cf83edf0278d7f1ecedae293f91e9e253f392cb7993c\",\n    \"TASK.md\": \"9ac1e613832671ed68287017947b5b5317c20e57c03c50dfb34fcb199ea1b320\",\n    \"billing.py\": \"45d37c2f7e07f343f2c73f9b70e71363b80b8d93af32c9500700de6b85c59412\",\n    \"tests/test_billing.py\": \"c5d8db1f4aa5ed48b1e5f07ec927491d7a6de80db679c5c488c3cd3ae28e04dc\"\n  },\n  \"fixture_files\": {\n    \"cases.py\": \"b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5\",\n    \"workflow_cases.py\": \"2bac8d028f7872ea1cea17c7febbeb8f9f7f1c918ca45d90812aa8087b995e4c\",\n    \"probe.py\": \"870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2\",\n    \"workflow_probe.py\": \"ffe3c83a2d6369872518b41b84c47e06aa9b90e91faadce2a125f56567634d2d\",\n    \"run.py\": \"509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d\"\n  }\n}\n"
+    },
+    "checkpoint.json": {
+      "sha256": "12378e79aeacf07ed0e6446a89739a2a67bd41a6ad1f563399420fc2cdd75eec",
+      "content": "{\n  \"changed_after_first_turn\": []\n}\n"
+    }
+  },
+  "workspace_root": "review-work/followup/trials/review-to-fix/work",
+  "workspace_files": {
+    "SPEC.md": {
+      "sha256": "386b527d734dbe9199d8cf83edf0278d7f1ecedae293f91e9e253f392cb7993c",
+      "content": "# Invoice totals\n\n`billing.total(amounts)` returns the sum of integer amounts, including credits\n(negative amounts). An empty invoice totals zero. Do not change the input list.\nRun tests with `python -m unittest discover -s tests -v`.\n"
+    },
+    "TASK.md": {
+      "sha256": "9ac1e613832671ed68287017947b5b5317c20e57c03c50dfb34fcb199ea1b320",
+      "content": "Review invoice totals against SPEC.md. Report findings without editing files.\n"
+    },
+    "billing.py": {
+      "sha256": "635ce991c768a243c8f4295535b74ff17240d9356da3813c1f2cf931ecd05ae3",
+      "content": "def total(amounts):\n    return sum(amounts)\n"
+    },
+    "tests/test_billing.py": {
+      "sha256": "82d7d1961fa393cd4aeb1f1ff022148d53193f0b5aea19585a1e42c2c2e4b8b4",
+      "content": "import unittest\nfrom billing import total\n\nclass TotalTests(unittest.TestCase):\n    def test_total(self):\n        self.assertEqual(total([2, 3]), 5)\n\n    def test_empty_invoice(self):\n        self.assertEqual(total([]), 0)\n\n    def test_credits(self):\n        self.assertEqual(total([10, -3]), 7)\n        self.assertEqual(total([-2, -3]), -5)\n\n    def test_input_is_unchanged(self):\n        amounts = [3, -1, 2]\n        total(amounts)\n        self.assertEqual(amounts, [3, -1, 2])\n"
+    }
+  },
+  "check_id": "check-1y1xky1b",
+  "check_files_root": "review-work/followup/trials/review-to-fix/checks",
+  "check_files": {
+    "check-1y1xky1b/candidate-suite.json": {
+      "sha256": "c7de8ed7ceff30d397f4d6f3a1144a5e552fb337d85cce5e165b0f11968826f6",
+      "content": "{\n  \"run\": 4,\n  \"skipped\": 0,\n  \"failures\": 0,\n  \"errors\": 0,\n  \"expected_failures\": 0,\n  \"successful\": true\n}\n"
+    },
+    "check-1y1xky1b/candidate-suite.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "content": ""
+    },
+    "check-1y1xky1b/contract-probe.json": {
+      "sha256": "b344f036621601773c24523967b41f5463f1a07e0f86f9c8f71d2fd1e3161dc6",
+      "content": "{\n  \"successful\": true\n}\n"
+    },
+    "check-1y1xky1b/contract-probe.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "content": ""
+    },
+    "check-1y1xky1b/countercheck-suite.json": {
+      "sha256": "a25134cb092c33152b385f44ea30e09c287ad045a0ca59aea1eea46a324bcf1c",
+      "content": "{\n  \"run\": 4,\n  \"skipped\": 0,\n  \"failures\": 3,\n  \"errors\": 0,\n  \"expected_failures\": 0,\n  \"successful\": false\n}\n"
+    },
+    "check-1y1xky1b/countercheck-suite.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "content": ""
+    },
+    "check-1y1xky1b/report.json": {
+      "sha256": "1ebc193672a1cc241903e55a2e15cfd53d83268f699a93c7498c3efbed83903e",
+      "content": "{\n  \"case\": \"review-to-fix\",\n  \"report_path\": \"/workspace/scratch/1c94ccd3e38c/review-work/followup/trials/review-to-fix/checks/check-1y1xky1b/report.json\",\n  \"changed_files\": [\n    \"billing.py\",\n    \"tests/test_billing.py\"\n  ],\n  \"objective_checks\": {\n    \"protected_files_unchanged\": true,\n    \"first_turn_unchanged\": true,\n    \"contract_examples_pass\": true,\n    \"candidate_tests_execute_and_pass\": true,\n    \"tests_detect_original_defect\": true\n  },\n  \"observations\": {\n    \"candidate_suite\": {\n      \"run\": 4,\n      \"skipped\": 0,\n      \"failures\": 0,\n      \"errors\": 0,\n      \"expected_failures\": 0,\n      \"successful\": true\n    },\n    \"contract_probe\": {\n      \"successful\": true\n    },\n    \"countercheck_suite\": {\n      \"run\": 4,\n      \"skipped\": 0,\n      \"failures\": 3,\n      \"errors\": 0,\n      \"expected_failures\": 0,\n      \"successful\": false\n    }\n  },\n  \"code_probes_executed\": true,\n  \"manual_review_required\": [\n    \"The first turn supports the finding and preserves the target.\",\n    \"The second turn implements the newly requested repair without restarting or stalling.\",\n    \"Final checks run against the integrated result and the report distinguishes both turns.\"\n  ],\n  \"status\": \"needs_review\",\n  \"limit\": \"This report does not prove that the agent ran checks or respected scope throughout. Inspect its trace and final response.\"\n}\n"
+    }
+  },
+  "check_report": {
+    "case": "review-to-fix",
+    "report_path": "/workspace/scratch/1c94ccd3e38c/review-work/followup/trials/review-to-fix/checks/check-1y1xky1b/report.json",
+    "changed_files": [
+      "billing.py",
+      "tests/test_billing.py"
+    ],
+    "objective_checks": {
+      "protected_files_unchanged": true,
+      "first_turn_unchanged": true,
+      "contract_examples_pass": true,
+      "candidate_tests_execute_and_pass": true,
+      "tests_detect_original_defect": true
+    },
+    "observations": {
+      "candidate_suite": {
+        "run": 4,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "expected_failures": 0,
+        "successful": true
+      },
+      "contract_probe": {
+        "successful": true
+      },
+      "countercheck_suite": {
+        "run": 4,
+        "skipped": 0,
+        "failures": 3,
+        "errors": 0,
+        "expected_failures": 0,
+        "successful": false
+      }
+    },
+    "code_probes_executed": true,
+    "manual_review_required": [
+      "The first turn supports the finding and preserves the target.",
+      "The second turn implements the newly requested repair without restarting or stalling.",
+      "Final checks run against the integrated result and the report distinguishes both turns."
+    ],
+    "status": "needs_review",
+    "limit": "This report does not prove that the agent ran checks or respected scope throughout. Inspect its trace and final response."
+  },
+  "artifact_hash_verification": {
+    "status": "not_available",
+    "note": "The retained report has no artifact snapshot hashes."
+  },
+  "full_tool_transcript": {
+    "available": false,
+    "note": "No full tool transcript exists in the retained evidence. No transcript was reconstructed."
+  },
+  "archive_notes": [
+    "Original JSON records are preserved as parsed data and as UTF-8 source contents with SHA-256 hashes.",
+    "Post-trial archival reads do not establish trial-runner behavior. No additional evaluator or product tests were run during archival.",
+    "This archive contains raw evidence only; no manual acceptance decision has been added."
+  ],
+  "manual_acceptance": {
+    "decision": "accepted",
+    "reason": "Clean first-turn checkpoint; explicit second request to the same agent; reported selection of Workflows and relevant references; minimal actual repair; four executable tests pass and three detect the original bug; independent contract probe passes.",
+    "limits": "The bundle preserves selected runner reports and independent outputs, not a complete export of tool calls. A checkpoint cannot reveal an edit reverted before it."
+  },
+  "runner_report": {
+    "provenance": "Selected observations from the two runner final responses; guidance reads and first-turn commands are runner-reported, while submitted files, checkpoints and final probe/test results were independently inspected.",
+    "first_turn": "Read Workflows entrypoint for initial routing, used Check for review, ran the existing failing test and five inline examples. Found sum(amounts) + 1; made no changes.",
+    "recovered_read_error": "Initially tried a nonexistent engineering-check/references/contract.md path, then read engineering-workflows/references/contract.md.",
+    "first_turn_guidance": [
+      "engineering-workflows/SKILL.md",
+      "engineering-check/SKILL.md",
+      "engineering-workflows/references/contract.md",
+      "engineering-check/references/critical-review.md",
+      "engineering-verify/SKILL.md",
+      "engineering-verify/references/testing.md"
+    ],
+    "second_turn": "Selected Workflows after authorization; removed + 1 and retained tests for positive, empty, mixed/negative and preserved inputs. Only billing.py and tests/test_billing.py changed.",
+    "additional_second_turn_guidance": [
+      "engineering-workflows/references/routing.md",
+      "engineering-workflows/references/methods.md",
+      "engineering-workflows/references/coordination.md",
+      "engineering-workflows/references/delivery.md"
+    ],
+    "runner_test_command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests -v",
+    "runner_test_observations": {
+      "before_fix": {
+        "run": 4,
+        "failures": 3,
+        "exit_code": 1
+      },
+      "after_fix": {
+        "run": 4,
+        "failures": 0,
+        "skipped": 0,
+        "exit_code": 0
+      }
+    }
+  }
+}
