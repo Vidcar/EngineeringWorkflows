@@ -12,7 +12,8 @@ continue useful work within the agreed scope.
 Handle requests for checks or verification assets. Workflows leads requests that
 also change production code. When supporting another lead, keep the assigned
 scope, allowed writes and budget; return evidence without invoking other engineering
-skills. Follow the shared contract when the user changes the requested outcome.
+skills. For user-directed scope changes, follow "When the user changes the
+outcome" in the shared contract.
 
 1. Identify the behaviour to check, the expected result and its source. Identify
    the actual code, including dirty or new files, and the relevant environment,

@@ -1,5 +1,12 @@
 # Evaluation of the pstack adaptations
 
+This record covers the initial PR candidate at
+[`8b34e17e18a4c87b523e64338b10539415b71a34`](https://github.com/Vidcar/EngineeringWorkflows/commit/8b34e17e18a4c87b523e64338b10539415b71a34).
+The [review follow-up](REVIEW_FOLLOWUP.md) records the later clarification,
+updated candidate identity, two-turn trials and CI. Earlier trials and evaluator
+identities below remain historical evidence; they are not relabeled as runs of
+the changed instructions.
+
 ## Decision and scope
 
 The candidate is suitable for a review PR. Keep the seven entrypoint skills and
@@ -28,10 +35,10 @@ the standard library. No external theorem prover, browser, service, account or
 network dependency was needed by the task fixtures. Python 3.9 compatibility is
 an implementation target, not a separately executed environment in this review.
 
-The 52 candidate skill files were frozen before the behavioral trials. Their
+The initial 52 candidate skill files were frozen before the behavioral trials. Their
 sorted content-hash manifest has digest
 `efab50e5047156e2a31ab7235b600afcd7dd85416fe3df28c86397890154af52`.
-The delivered skill files were compared with that manifest. Documentation and
+The skill files at that revision were compared with that manifest. Documentation and
 evaluation evidence are outside this skill-content digest; the evaluator has its
 own recorded file hashes.
 

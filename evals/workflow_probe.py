@@ -97,6 +97,93 @@ def conversion_probe():
     return {"successful": True, "outputs_equal": equal, "cases": cases}
 
 
+def aggregation_probe():
+    functions = {"Reference": importlib.import_module("reference").summarize,
+                 "Candidate": importlib.import_module("candidate").summarize}
+    examples = [
+        ([], [], []),
+        ([], ["missing", "", "missing"],
+         [{"account": "missing", "count": 0, "total": 0},
+          {"account": "", "count": 0, "total": 0},
+          {"account": "missing", "count": 0, "total": 0}]),
+        ([{"account": "solo", "delta": -4, "extra": [1, 2]}],
+         ["solo", "absent", "solo"],
+         [{"account": "solo", "count": 1, "total": -4},
+          {"account": "absent", "count": 0, "total": 0},
+          {"account": "solo", "count": 1, "total": -4}]),
+        ([{"account": "a", "delta": 7}, {"account": "b", "delta": 0},
+          {"account": "a", "delta": -2}, {"account": "é", "delta": 11},
+          {"account": "", "delta": -9}, {"account": "b", "delta": -5},
+          {"account": "a", "delta": 0}, {"account": "large", "delta": 10 ** 24}],
+         ["b", "a", "é", "", "absent", "a", "large"],
+         [{"account": "b", "count": 2, "total": -5},
+          {"account": "a", "count": 3, "total": 5},
+          {"account": "é", "count": 1, "total": 11},
+          {"account": "", "count": 1, "total": -9},
+          {"account": "absent", "count": 0, "total": 0},
+          {"account": "a", "count": 3, "total": 5},
+          {"account": "large", "count": 1, "total": 10 ** 24}]),
+        ([{"account": "unused", "delta": 31}], [], []),
+    ]
+    # Arithmetic-series expectations are independent of both implementations
+    # and the supplied benchmark's reference-derived workload outputs.
+    rows = []
+    expected_by_account = {}
+    for group in range(61):
+        account = f"group-{group}"
+        count = group % 13 + 1
+        rows.extend({"account": account, "delta": group * 3 - occurrence * 7,
+                     "ignored": {"position": occurrence}}
+                    for occurrence in range(count))
+        expected_by_account[account] = {"account": account, "count": count,
+                                       "total": count * group * 3 - 7 * count * (count - 1) // 2}
+    rows.reverse()
+    accounts = [f"group-{group}" for group in range(60, -1, -1)] + ["group-0", "group-60"]
+    expected = [dict(expected_by_account[account]) for account in accounts]
+    examples.append((rows, accounts, expected))
+
+    def check_call(label, function, rows, accounts, expected):
+        original = copy.deepcopy((rows, accounts))
+        actual = function(rows, accounts)
+        assert isinstance(actual, list) and actual == expected, f"{label} summary differs from contract"
+        assert len({id(item) for item in actual}) == len(actual), f"{label} shares output dictionaries"
+        actual_ids = {id(item) for item in actual}
+        assert (rows, accounts) == original, f"{label} mutated input"
+        if actual:
+            actual[0]["total"] += 123
+        retained_snapshot = copy.deepcopy(actual)
+        repeated = function(rows, accounts)
+        assert repeated == expected, f"{label} reused a modified result"
+        assert actual_ids.isdisjoint(id(item) for item in repeated), f"{label} reuses output dictionaries across calls"
+        assert actual == retained_snapshot, f"{label} changed a retained result"
+        assert (rows, accounts) == original, f"{label} mutated input on a repeated call"
+        return repeated
+
+    for label, function in functions.items():
+        for rows, accounts, expected in examples:
+            check_call(label, function, copy.deepcopy(rows), list(accounts), expected)
+        rows = [{"account": "changed", "delta": 3}]
+        accounts = ["changed", "missing"]
+        retained = check_call(label, function, rows, accounts,
+                              [{"account": "changed", "count": 1, "total": 3},
+                               {"account": "missing", "count": 0, "total": 0}])
+        retained_snapshot = copy.deepcopy(retained)
+        retained_ids = {id(item) for item in retained}
+        rows[0]["delta"] = -17
+        rows.append({"account": "missing", "delta": 4})
+        accounts[:] = ["missing", "changed", "missing"]
+        changed = check_call(label, function, rows, accounts,
+                             [{"account": "missing", "count": 1, "total": 4},
+                              {"account": "changed", "count": 1, "total": -17},
+                              {"account": "missing", "count": 1, "total": 4}])
+        assert retained_ids.isdisjoint(id(item) for item in changed), f"{label} reuses output dictionaries across calls"
+        assert retained == retained_snapshot, f"{label} changed-input call changed a retained result"
+    return {"successful": True, "outputs_equal": True,
+            "cases_checked_per_implementation": len(examples) + 2,
+            "implementations": list(functions), "inputs_unchanged": True,
+            "fresh_output_dictionaries": True, "changed_inputs_rechecked": True}
+
+
 def saved_routes_probe():
     dispatch = importlib.import_module("dispatch").render_saved_route
     handlers = importlib.import_module("handlers")
@@ -124,6 +211,8 @@ def probe(work, mode):
         return notes_probe(work)
     if mode == "conversion":
         return conversion_probe()
+    if mode == "aggregation":
+        return aggregation_probe()
     if mode == "saved_routes":
         return saved_routes_probe()
     raise ValueError(f"Unknown workflow probe: {mode}")

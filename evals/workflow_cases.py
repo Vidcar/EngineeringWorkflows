@@ -247,6 +247,252 @@ stable speedups from a single run. Keep this assessment read-only unless the
 user separately asks for a change.
 '''
 
+AGGREGATION_REFERENCE = '''def summarize(rows, accounts):
+    summaries = []
+    for account in accounts:
+        count = 0
+        total = 0
+        for row in rows:
+            if row["account"] == account:
+                count += 1
+                total += row["delta"]
+        summaries.append({"account": account, "count": count, "total": total})
+    return summaries
+'''
+
+# Correct and faulty controls remain evaluator-only, outside prepared workspaces.
+AGGREGATION_INDEXED = '''def summarize(rows, accounts):
+    totals = {}
+    for row in rows:
+        account = row["account"]
+        count, total = totals.get(account, (0, 0))
+        totals[account] = (count + 1, total + row["delta"])
+    return [{"account": account, "count": totals.get(account, (0, 0))[0],
+             "total": totals.get(account, (0, 0))[1]} for account in accounts]
+'''
+
+AGGREGATION_PARTIAL = AGGREGATION_REFERENCE.replace(
+    'for row in rows:', 'for row in rows[:max(1, len(rows) // 2)]:')
+
+AGGREGATION_POSITIVE_ONLY = AGGREGATION_REFERENCE.replace(
+    'if row["account"] == account:',
+    'if row["account"] == account and row["delta"] > 0:')
+
+AGGREGATION_SPEC = '''# Account summaries
+
+`candidate.summarize(rows, accounts)` returns one summary for each requested
+account, in exactly the order of `accounts`, including repeated requests.
+`rows` is a list of dictionaries with a string `account` and an integer `delta`.
+Other row fields have no effect. `accounts` is a list of strings; empty strings
+and Unicode account names are valid.
+
+Each summary is exactly `{"account": ACCOUNT, "count": COUNT, "total": TOTAL}`.
+COUNT includes every row for that account, including zero and negative deltas.
+TOTAL is the sum of all its deltas, with ordinary Python integer precision.
+A missing account has count and total zero. Empty requests return an empty list.
+Neither input may be mutated. Every returned summary is a fresh dictionary;
+editing a returned summary must not affect other summaries or future calls.
+Later calls must not alter previously returned lists or dictionaries.
+Later calls must reflect their current input, even when callers reuse and change
+the same input lists between calls.
+
+Use Python 3.9 or newer and the standard library. No network or installation is
+required. Project-local skills are under `.agents/skills/`.
+
+`reference.py` is the frozen correct baseline. `workload.py` supplies the fixed
+local workload; `benchmark.py` compares both implementations with correctness
+checks and repeated paired timings. Run `python -B benchmark.py` from the project
+root. Keep this contract, the reference, workload, benchmark and supplied project
+measurement instructions unchanged. The timing describes this workload and
+runtime, not all possible production data.
+'''
+
+AGGREGATION_WORKLOAD = '''def make_workload():
+    accounts = [f"acct-{index:04d}" for index in range(160)]
+    rows = [{"account": accounts[(index * 37) % len(accounts)],
+             "delta": (index * 104729) % 20001 - 10000,
+             "source": index % 13} for index in range(6000)]
+    requests = (accounts[::2] + ["missing", ""] + accounts[1::2]
+                + accounts[::19] + ["acct-0000", "missing"])
+    return rows, requests
+'''
+
+AGGREGATION_BENCHMARK = '''import copy
+import hashlib
+import json
+import platform
+import statistics
+import time
+from pathlib import Path
+
+import candidate
+import reference
+from workload import make_workload
+
+
+def require_result(label, actual, expected):
+    if not isinstance(actual, list) or actual != expected:
+        raise ValueError(f"{label}: summary differs from the contract")
+    if len({id(item) for item in actual}) != len(actual):
+        raise ValueError(f"{label}: returned summary dictionaries are shared")
+
+
+def check_examples(label, function):
+    examples = [([], [], []),
+                ([], ["missing", "missing"],
+                 [{"account": "missing", "count": 0, "total": 0},
+                  {"account": "missing", "count": 0, "total": 0}]),
+                ([{"account": "a", "delta": 7}, {"account": "a", "delta": -2},
+                  {"account": "b", "delta": 0}, {"account": "", "delta": -9}],
+                 ["b", "a", "", "absent", "a"],
+                 [{"account": "b", "count": 1, "total": 0},
+                  {"account": "a", "count": 2, "total": 5},
+                  {"account": "", "count": 1, "total": -9},
+                  {"account": "absent", "count": 0, "total": 0},
+                  {"account": "a", "count": 2, "total": 5}])]
+    for rows, accounts, expected in examples:
+        before = copy.deepcopy((rows, accounts))
+        result = function(rows, accounts)
+        require_result(label, result, expected)
+        result_ids = {id(item) for item in result}
+        if result:
+            result[0]["total"] += 1
+        retained = copy.deepcopy(result)
+        repeated = function(rows, accounts)
+        require_result(label, repeated, expected)
+        if result_ids & {id(item) for item in repeated}:
+            raise ValueError(f"{label}: reuses output dictionaries across calls")
+        if result != retained:
+            raise ValueError(f"{label}: a later call changed a retained result")
+        if (rows, accounts) != before:
+            raise ValueError(f"{label}: input mutated")
+    rows = [{"account": "changed", "delta": 3}]
+    accounts = ["changed", "missing"]
+    before = copy.deepcopy((rows, accounts))
+    retained = function(rows, accounts)
+    require_result(label, retained,
+                   [{"account": "changed", "count": 1, "total": 3},
+                    {"account": "missing", "count": 0, "total": 0}])
+    if (rows, accounts) != before:
+        raise ValueError(f"{label}: input mutated")
+    retained_snapshot = copy.deepcopy(retained)
+    retained_ids = {id(item) for item in retained}
+    rows[0]["delta"] = -17
+    rows.append({"account": "missing", "delta": 4})
+    accounts[:] = ["missing", "changed", "missing"]
+    before = copy.deepcopy((rows, accounts))
+    changed = function(rows, accounts)
+    require_result(label, changed,
+                   [{"account": "missing", "count": 1, "total": 4},
+                    {"account": "changed", "count": 1, "total": -17},
+                    {"account": "missing", "count": 1, "total": 4}])
+    if retained_ids & {id(item) for item in changed}:
+        raise ValueError(f"{label}: reuses output dictionaries across calls")
+    if retained != retained_snapshot:
+        raise ValueError(f"{label}: changed-input call changed a retained result")
+    if (rows, accounts) != before:
+        raise ValueError(f"{label}: input mutated")
+    return len(examples) + 2
+
+
+def sample(label, function, rows, accounts, expected, repetitions):
+    before = copy.deepcopy((rows, accounts))
+    outputs = []
+    started = time.perf_counter_ns()
+    for _ in range(repetitions):
+        outputs.append(function(rows, accounts))
+    seconds = (time.perf_counter_ns() - started) / 1_000_000_000
+    for output in outputs:
+        require_result(label, output, expected)
+    if (rows, accounts) != before:
+        raise ValueError(f"{label}: input mutated")
+    return {"seconds": seconds, "calls": repetitions,
+            "completed_summaries": sum(len(output) for output in outputs)}
+
+
+def main():
+    functions = {"reference": reference.summarize, "candidate": candidate.summarize}
+    example_counts = {label: check_examples(label, function)
+                      for label, function in functions.items()}
+    rows, accounts = make_workload()
+    original = copy.deepcopy((rows, accounts))
+    expected = reference.summarize(rows, accounts)
+    if (rows, accounts) != original:
+        raise ValueError("reference: input mutated")
+    for label, function in functions.items():
+        sample(label, function, rows, accounts, expected, 1)
+    repetitions = 2
+    pairs = []
+    for index in range(6):
+        order = ["reference", "candidate"] if index % 2 == 0 else ["candidate", "reference"]
+        pair = {"order": order}
+        for label in order:
+            pair[label] = sample(label, functions[label], rows, accounts, expected, repetitions)
+        pair["reference_over_candidate"] = pair["reference"]["seconds"] / pair["candidate"]["seconds"]
+        pairs.append(pair)
+    summary = {}
+    for label in functions:
+        values = [pair[label]["seconds"] / repetitions for pair in pairs]
+        summary[label] = {"median_seconds_per_call": statistics.median(values),
+                          "min_seconds_per_call": min(values),
+                          "max_seconds_per_call": max(values)}
+    ratios = [pair["reference_over_candidate"] for pair in pairs]
+    summary["paired_reference_over_candidate"] = {
+        "median": statistics.median(ratios), "min": min(ratios), "max": max(ratios)}
+    root = Path(__file__).resolve().parent
+    sources = {name: hashlib.sha256((root / name).read_bytes()).hexdigest()
+               for name in ("candidate.py", "reference.py", "workload.py", "benchmark.py", "SPEC.md")}
+    print(json.dumps({"runtime": {"python": platform.python_version(),
+                                  "implementation": platform.python_implementation(),
+                                  "platform": platform.platform()},
+                      "source_sha256": sources,
+                      "workload": {"input_rows": len(rows),
+                                   "populated_accounts": len({row["account"] for row in rows}),
+                                   "requested_accounts": len(accounts),
+                                   "repetitions_per_sample": repetitions, "paired_samples": len(pairs)},
+                      "correctness": {"contract_examples": example_counts,
+                                      "all_outputs_equal": True, "inputs_unchanged": True},
+                      "method": "One warm-up each, six alternating pairs, two calls per sample; every output checked outside timing.",
+                      "pairs": pairs, "summary": summary}, sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()
+'''
+
+AGGREGATION_SKILL = '''---
+name: measure-account-summaries
+description: Check account-summary correctness and measure performance when summarize implementations or performance claims change.
+---
+
+# Measure account summaries
+
+Work from the project root with Python 3.9 or newer and the standard library.
+Read SPEC.md, workload.py and benchmark.py before interpreting a result. The
+frozen reference establishes the baseline. Check the contract on empty input,
+missing and repeated requests, signed deltas, input preservation and fresh output
+dictionaries before treating either implementation's work as complete.
+
+Run `python -B benchmark.py`. It checks hand-worked examples, warms each function
+once, then measures six pairs of two calls each, alternating which function runs
+first. Each timed output is compared with the frozen reference outside the timed
+region, and inputs are checked for mutation. The workload has 6,000 rows, 160
+populated accounts, repeated requests and missing accounts. Keep the workload,
+reference, harness and contract fixed when comparing an implementation change.
+
+Retain the actual command, runtime and source hashes, per-pair results, medians
+and ranges. Compare an unchanged baseline run with the changed candidate under
+the same conditions; preserve the earlier observations. These small local
+measurements support a conclusion only for the stated work and environment.
+Investigate correctness failures before making a performance claim, and report
+variation and relevant costs instead of inferring a universal speedup.
+
+A measurement-only request leaves all files unchanged, including added reports;
+use `-B` and keep observations in the response or tool output. If the user later
+authorizes an implementation change, preserve these frozen inputs and reuse
+the same correctness and measurement procedure after the change.
+'''
+
 SERIALIZERS_OLD = '''import json
 
 
@@ -357,6 +603,29 @@ WORKFLOW_CASES = {
             "It identifies that the candidate omits rows and that the timing comparison cannot support an improvement for the stated contract.",
             "Observed time is separated from a valid speedup claim; no invented reliable ratio, tuning comparison or causal conclusion is reported.",
             "Files remain unchanged and actual commands/results support the explanation.",
+        ],
+    },
+    "measure-to-improve": {
+        "prompt": "Measure the current account-summary performance against the contract in SPEC.md. Run the supplied workload, check the output, and report the timings and limits. Do not change, add or remove any files.",
+        "checkpoint": True,
+        "second_prompt": "Use your findings to improve the performance of candidate.py while preserving the account-summary contract. Keep the supplied reference, workload, benchmark and project measurement instructions unchanged. Add focused tests or local evidence where useful, demonstrate correctness and comparable before/after measurements, and leave the finished change local.",
+        "files": {"candidate.py": AGGREGATION_REFERENCE,
+                  "reference.py": AGGREGATION_REFERENCE,
+                  "SPEC.md": AGGREGATION_SPEC,
+                  "workload.py": AGGREGATION_WORKLOAD,
+                  "benchmark.py": AGGREGATION_BENCHMARK,
+                  ".agents/skills/measure-account-summaries/SKILL.md": AGGREGATION_SKILL},
+        "kind": "manual",
+        "protected": ["SPEC.md", "reference.py", "workload.py", "benchmark.py", "TASK.md",
+                      ".agents/skills/measure-account-summaries/SKILL.md"],
+        "probe": "aggregation", "probe_expect": {"successful": True, "outputs_equal": True},
+        "review": [
+            "The first turn uses Measure for the measurement-only request, discovers and reads the project measurement skill, checks equal correct work and reports observed baseline timings with runtime and scope; every workspace file remains unchanged.",
+            "After the explicit second user request in the same conversation, the agent moves implementation ownership to Workflows while retaining relevant measurement guidance and completed baseline evidence. Judge actual skill reads and actions, not assertions of a transition.",
+            "The second turn makes a useful production optimization in candidate.py, preserving all account-summary semantics, input preservation and fresh output dictionaries. A no-op or a faster implementation that skips required work is not accepted.",
+            "Focused checks exercise real implementations and expected results justified by the contract, including repeated/missing accounts and zero/negative deltas; any added tests have meaningful behavior sensitivity.",
+            "Actual before/after measurements use the same frozen workload and harness, correctly completed outputs, repeated paired observations, source identities and runtime. Report the observed effect, variation and relevant cost; no universal or threshold-based speedup claim follows from this fixture.",
+            "The contract, reference, workload, benchmark and supplied project skill stay unchanged; added tests or evidence serve the authorized change, and the finished work remains local. The independent probe establishes correctness examples only, not useful optimization or the agent's measurement and routing process.",
         ],
     },
     "refactor-contract": {

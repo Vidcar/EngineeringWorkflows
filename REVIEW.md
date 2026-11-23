@@ -8,6 +8,7 @@ review and delivery guidance are strengthened at their existing owners.
 
 - [Recommendation and complete pstack disposition](docs/PSTACK_REVIEW.md)
 - [Validation, agent trials and limitations](docs/EVALUATION.md)
+- [Reviewer follow-up, two-turn transitions and CI](docs/REVIEW_FOLLOWUP.md)
 - [Phase routing](engineering-workflows/references/routing.md)
 - [Application verification](engineering-verify/references/application.md)
 - [Formal verification](engineering-verify/references/formal.md)

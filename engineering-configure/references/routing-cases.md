@@ -24,7 +24,9 @@ repository's `evals/` fixtures for repeatable trials when available.
 | Rename this local variable. | Workflows completes proportionately without creating an app harness, formal model, program or setup interview. |
 | Fix this defect and keep a regression test. | Workflows fixes the behaviour and verifies the retained test. |
 | Run the failing check and explain the result. | Verify reports the failure honestly and leaves the target unchanged. |
-| Review only. Then: fix the two critical findings and leave the result local. | The same lead respects the first boundary, then follows the new scope and workflow. |
+| Review only. Then: fix the two critical findings and leave the result local. | The same accountable agent preserves the first read-only boundary, then selects Workflows and loads its entrypoint, routing and methods for the newly authorized change. |
+| Measure performance without editing. Then: improve the implementation and measure again. | The same accountable agent starts with Measure, preserves the first read-only boundary, then selects Workflows; it preserves the measurement contract and compares correct equivalent work after the change. |
+| A delegated reviewer finds a defect outside its allowed writes. | The helper returns the finding to its existing lead; the finding alone does not trigger a top-level scope transition. |
 | Implement the change. Then: stop editing and report what you have. | The lead stops further edits, preserves work and reports the actual state. |
 | Benchmark this command, improve it, then measure again. | Workflows owns the improvement; Measure supplies the comparison. |
 | Run this bounded campaign across repositories. | Campaign responds to the direct coordination request. |

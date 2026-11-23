@@ -15,7 +15,7 @@ the property and the harm of violating it in plain language.
 | Can a bad sequence or interleaving occur? | A small transition model and model checker; TLA+ is one suitable option. |
 | Does implementation code preserve a property across inputs? | A verifier supporting the actual language and relevant semantics. |
 | Must the property hold beyond any explored finite bound? | A proof with the required assumptions and obligations. |
-| Is a suitable verifier unavailable? | Generated-input checks of real code, with the testing fallback and unmet proof request stated explicitly. |
+| Is a suitable verifier unavailable? | Generated-input checks of real code; read [testing](testing.md) and [generated-input methods](methods.md#generated-input-checks), and state the fallback and unmet proof request explicitly. |
 
 Prefer existing tooling and a reproducible, practical runtime. Explain the choice.
 A hand-written duplicate of a function does not verify the implementation.

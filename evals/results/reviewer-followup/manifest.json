@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-11-23",
+  "purpose": "Reviewer follow-up on PR #2: clarify user-directed specialist-to-implementation transitions and add hosted validation.",
+  "baseline_commit": "8b34e17e18a4c87b523e64338b10539415b71a34",
+  "baseline_tree": "80569c181bc06355d971591e582cea04db2f51ed",
+  "candidate": {
+    "digest": "1ff13510b6d19bef82b48f18ee27a0b6d4c7598a7adfb7bcc1c9331bedcde9c3",
+    "digest_encoding": "SHA256 of UTF-8 json.dumps(files, sort_keys=True, separators=(comma,colon))",
+    "files": {
+      "engineering-arena/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-arena/SKILL.md": "807500336642dc88a2f31cd4bda43d67079724eb8b48e906ace9faf975f10362",
+      "engineering-arena/agents/openai.yaml": "7fb3e5f5bd018bfc0fb3529ec08bcf974dbcc39463ad71bdeef6a7b3c4b39593",
+      "engineering-arena/assets/icon.svg": "e9301497fa98ef56aaca7ede0857b9a18dc06c34040f0679c609a6bf49b1d38b",
+      "engineering-arena/references/comparison.md": "4c776fe2931082ea6747d8778ec3798eba7d9bea1fbd4835a28c4f06e0052a62",
+      "engineering-campaign/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-campaign/SKILL.md": "c642a5e865f35f9c53f8ee0536bbbcfc48d09b409ea92d48a215f0eb0f80be55",
+      "engineering-campaign/agents/openai.yaml": "ad24d0a9290e933cbd7f2d7c92ff8c1c525ba59c117637fc5d4c4a3a1d22ac5d",
+      "engineering-campaign/assets/icon.svg": "72343cc4b66256ae7de8474c7cad14e711ad84a94c473732a44f96a56124c42d",
+      "engineering-campaign/references/state-and-control.md": "9861d123d957f9d57a9e413ecc78ea1822958050270de70aa5102fbb5025e7d3",
+      "engineering-check/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-check/SKILL.md": "563b86b75c04996039a032219364235851d07dd7ad0312343d315791229b477c",
+      "engineering-check/agents/openai.yaml": "b372df0d679957ebf93b0f2547ee4e7f1e97d539608f6e60d54796031f644634",
+      "engineering-check/assets/icon.svg": "e9301497fa98ef56aaca7ede0857b9a18dc06c34040f0679c609a6bf49b1d38b",
+      "engineering-check/references/critical-review.md": "9899aca2a0036f658f758c8ce7cb48eaf08dc3fb70755782eef994f825a98c66",
+      "engineering-configure/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-configure/SKILL.md": "c2de61b512772fc59db06d686522661f2fb05fc6d0dd2aae5bf3447c22518b1a",
+      "engineering-configure/agents/openai.yaml": "37575dd59fb4c480818f8ef8cedf40213c6acd6c3a1e6a573deea9377fa261b5",
+      "engineering-configure/assets/icon.svg": "e9301497fa98ef56aaca7ede0857b9a18dc06c34040f0679c609a6bf49b1d38b",
+      "engineering-configure/references/capabilities.md": "16fdc53a4698483b78781060fa0a07de80e416d2878e73a4bc95549c6a81d3ed",
+      "engineering-configure/references/evaluate-and-promote.md": "4a9b7c5c07cc06099331bffae7fe1a01e50226abb69e9638d37de5a8414a86d1",
+      "engineering-configure/references/routing-cases.md": "c945f670c86a74d141deee2592d6d02ee532a69beb2a873f9414c7241bbd0670",
+      "engineering-measure/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-measure/SKILL.md": "41dc6e27271cb1110e15636b097de8ab20458d6379b4c98d3055a48c05880b6c",
+      "engineering-measure/agents/openai.yaml": "c2deb3827859333a41cab0b237cef80412e9e7f73796eb898698e81c5668bfed",
+      "engineering-measure/assets/icon.svg": "e9301497fa98ef56aaca7ede0857b9a18dc06c34040f0679c609a6bf49b1d38b",
+      "engineering-measure/references/measurement.md": "3ae643f3ca6d513b64337a9e15b9ce2b56dff1d7278576b164e950f813b233cc",
+      "engineering-verify/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-verify/SKILL.md": "379c6c5cb551c2c1a7515f800404cdd44251fd040bedb5e1d602570023f7c5b5",
+      "engineering-verify/agents/openai.yaml": "e8b8daae7a8caa74354c28c00cf170488ca3ae956558df05c05f0ea6e0e955de",
+      "engineering-verify/assets/icon.svg": "8936b24f674a1250d999e2c2b5901374fb4240426f32bd1ae340c352a90d617d",
+      "engineering-verify/references/application.md": "639e6009eabe5d2ce03116bd94ae43a223ddea84f514ddfa8a6ce3948ffff971",
+      "engineering-verify/references/bend.md": "787e2f19a0eed8574447eb0ff5226755390a765554a43cf1396fe9a7ecdeb4a6",
+      "engineering-verify/references/formal.md": "f61fd5a0dd65a625630647a02b0f314fe1b2ae12dfe0f3c9d9fdeba680451fea",
+      "engineering-verify/references/methods.md": "474889ea559498c04a31669e37c6e4c058ad302b25a8d24f57ac0b9888f1c668",
+      "engineering-verify/references/testing.md": "7876cf56d9bdd51dd5bcfb9b9d1eaf7075623de4fa0fd88010d9cd6b6205d6de",
+      "engineering-workflows/LICENSE": "b2cd89ed8b1161b3b9e8e4de4fae3b0f24662a8c3fa53cf1d93498c12b55c90d",
+      "engineering-workflows/SKILL.md": "a7f827ec8d9edf0d297241b61d94b5aa596a96f7116fc2f7afd3f6d71a86786a",
+      "engineering-workflows/agents/openai.yaml": "759d4316074ae4667492b00c17f9a30c55e5e42a1376836fc111003cf840bd1c",
+      "engineering-workflows/assets/icon.svg": "8936b24f674a1250d999e2c2b5901374fb4240426f32bd1ae340c352a90d617d",
+      "engineering-workflows/references/contract.md": "0cd3097921ae4f348f8b2a3a71a6f32f72c840ab02e6310399f3dc9068f8c86d",
+      "engineering-workflows/references/coordination.md": "10a864ff8155faa933fc4a882761f5f9b5e26fa56592bdf3f507d8109d54d783",
+      "engineering-workflows/references/delivery.md": "48610a136b9b720f0c8b154a8dd0c4ed55de1678d7a2bbb1f65d5f93d8fb9728",
+      "engineering-workflows/references/methods.md": "2f17e2bb07836085efb11c2c9267927c7cf941b668fb392e67f3b8bf809a9a8c",
+      "engineering-workflows/references/notes.md": "24c42bcadd85466c96c937f92f6ab1eebf146523d3bf6373c15abb3f310c18d1",
+      "engineering-workflows/references/pack-contract.json": "d692199119dab71aad2bc9a55219352b45a54ea70075826266d73862ef5ebbc8",
+      "engineering-workflows/references/routing.md": "a8706b6de6ecc073166d7d74fd013e90fdf779381e985df4832fbdf19fec7297",
+      "engineering-workflows/scripts/resolve_skill.py": "ab1324c408fe383c6a21d709a064d8c9bef2c5b9390e92dd3fd22de430c38bae",
+      "engineering-workflows/scripts/snapshot.py": "44ef3732d8fa816bcbbcff11394c416bb3eae801a80b667a4bcc572f22243121",
+      "engineering-workflows/scripts/test_helpers.py": "96a61a6952898f46fe2bc94e48a00f550925122a52b2e44ad9afc8544bb70adf",
+      "engineering-workflows/scripts/test_pack.py": "465dfd40f2da285ec32b7a0c02b8fbd32756b6477c0c309dec87b1ae983e3468",
+      "engineering-workflows/scripts/validate_pack.py": "02bbaef7ff37d97c863a55576456df68695b1f5a5444db07c9c5c60388678563"
+    },
+    "baseline_commit": "8b34e17e18a4c87b523e64338b10539415b71a34"
+  },
+  "evaluators": {
+    "v2": {
+      "source": "https://github.com/Vidcar/EngineeringWorkflows/tree/8b34e17e18a4c87b523e64338b10539415b71a34/evals",
+      "files": {
+        "README.md": "72b3d124dc22a256f799eabeaf8515ea52f201b5d1d48f3989f8828fb9920035",
+        "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+        "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+        "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+        "test_run.py": "c8b6220fd8f271dbbec36a18122b17c48e4985d6fb8f63f009c25f9d15959200",
+        "test_workflows.py": "00eaa25c63b9cfa7bb5f280429dfd1e28a787ba0bb1f22df66a64436b3a92dac",
+        "workflow_cases.py": "296285e00561f11c27c1b4a377df2603fdb5334106a8897eec2adfbdf28094bf",
+        "workflow_probe.py": "cc2e706d401415188d29537f48441b5d9d25e1874aa480ba7234c3edc40ebe13"
+      },
+      "uses": [
+        "baseline-review-to-fix.json"
+      ]
+    },
+    "v3": {
+      "source": "evaluator-v3.json",
+      "historical": true,
+      "files": {
+        "README.md": "7228fea6d719da8fb25b62c98e389a8549d147c650c9fd7fb998d49fc1cab063",
+        "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+        "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+        "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+        "test_run.py": "c8b6220fd8f271dbbec36a18122b17c48e4985d6fb8f63f009c25f9d15959200",
+        "test_workflows.py": "18fc717ff64d6fe112b51495bcda1a203c9abc7ce5853db4f21791d8c0b17b83",
+        "workflow_cases.py": "2bac8d028f7872ea1cea17c7febbeb8f9f7f1c918ca45d90812aa8087b995e4c",
+        "workflow_probe.py": "ffe3c83a2d6369872518b41b84c47e06aa9b90e91faadce2a125f56567634d2d"
+      },
+      "uses": [
+        "review-to-fix.json",
+        "measurement-incomplete-v3.json"
+      ],
+      "limit": "Aggregation workload cardinality and cross-call output checks were incomplete. Review-to-fix case and billing checks are unaffected."
+    },
+    "v4": {
+      "source": "../../",
+      "files": {
+        "README.md": "5e824ee35dec4dc0e44f90eee140088e39adbe03f3e57d05e408d7e19f47819f",
+        "cases.py": "b258ee1bd03ba2e94b8c6aecfc05aa52a9f462b9f80338e9f23fe145ddf470d5",
+        "probe.py": "870d789dc5703e6fccfde95c3f253a79e8d112c116347f78e449960cb2cf8cb2",
+        "run.py": "509b6b99ba6c4929e48ca5a39770fb45443c4f38cfa91e65b3bc6b1bab21fd8d",
+        "test_run.py": "c8b6220fd8f271dbbec36a18122b17c48e4985d6fb8f63f009c25f9d15959200",
+        "test_workflows.py": "d87a1aabcdd341f5c956abacdf6dcf5ea99478dae5299c6f1906f3af794ac609",
+        "workflow_cases.py": "a6836a74df08a46750a79fcb1601e4eecf9908b0c7a84c6f20b838497f103832",
+        "workflow_probe.py": "0ac398a83e873062a994b9e5c65cc63f48bac324c61afd4f2f84c13ba712c2d2"
+      },
+      "uses": [
+        "measure-to-improve.json"
+      ],
+      "changes": "Correct 160-account workload, actual cardinality reporting, cross-call result preservation/freshness and matching negative controls."
+    }
+  },
+  "trial_decisions": {
+    "baseline-review-to-fix.json": {
+      "decision": "accepted_baseline_observation",
+      "reason": "The pre-clarification agent respected the read-only first turn, then fixed the confirmed invoice-total defect after the explicit follow-up. Four tests pass on the repair and three fail on the original; the protected task/specification remain unchanged."
+    },
+    "review-to-fix.json": {
+      "decision": "accepted",
+      "reason": "Clean first-turn checkpoint; explicit second request to the same agent; reported selection of Workflows and relevant references; minimal actual repair; four executable tests pass and three detect the original bug; independent contract probe passes."
+    },
+    "measurement-incomplete-v3.json": {
+      "decision": "incomplete_fixture_corrected",
+      "reason": "Only the first read-only turn completed. Independent fixture review found a 56-versus-160 populated-account mismatch and a reusable-output false pass. No second prompt was sent. A fresh runner and fresh workspace were used after fixing the fixture."
+    },
+    "measure-to-improve.json": {
+      "decision": "accepted",
+      "reason": "Measurement-only first turn left every file unchanged and used project measurement guidance. The explicit second user turn led the same agent to select Workflows and make a useful one-pass optimization. Frozen inputs were preserved, eight independent probe cases per implementation passed, and independent replay passed four authored tests plus the unchanged benchmark with equivalent completed work."
+    }
+  },
+  "automated_controls": {
+    "pack_validator": {
+      "valid": true,
+      "skills": 7,
+      "automatic_edges": 17
+    },
+    "pack_and_helper_tests_passed": 57,
+    "evaluation_controls_passed": 23,
+    "available_cases": 13,
+    "source": "local-controls.json",
+    "note": "The first 23-control run preceded the two fixture findings. The corrected 23-control run is separately retained. No claim that the initial controls detected those defects."
+  },
+  "independent_reviews": [
+    {
+      "scope": "Changed skill instructions, routing and CI definition",
+      "result": "No material findings; user-directed top-level ownership change and helper assignment limits are coherent. Did not execute the CI job or assess trials."
+    },
+    {
+      "scope": "New measure-to-improve fixture and evaluator controls",
+      "findings": [
+        "Original generator populated only 56 of the described 160 accounts.",
+        "Original benchmark/probe could accept reused result buffers across calls."
+      ],
+      "resolution": "Both corrected before the fresh measurement trial. Targeted independent recheck confirmed full cardinality, rejection of the exact buffer defect and acceptance of valid implementations."
+    },
+    {
+      "scope": "Frozen optimized candidate and tests",
+      "result": "No candidate regression; useful one-pass aggregation. Nonblocking dict-type validation limit reproduced; source inspection and supplementary parent schema check establish actual submitted dictionary output. Frozen evaluator remains unchanged.",
+      "details": "measure-to-improve.json#independent_source_review"
+    }
+  ],
+  "ci": {
+    "workflow": ".github/workflows/validate.yml",
+    "sha256": "a7c622cc88a6a58ccdd90d35fec79883f8f1054e56377f59a923ae49b0ccd19d",
+    "events": [
+      "push",
+      "pull_request"
+    ],
+    "python": "3.12",
+    "dependency": "PyYAML==6.0.3",
+    "permissions": {
+      "contents": "read"
+    },
+    "pins": {
+      "actions/checkout": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "actions/setup-python": "6d4fd22b20465ccc0f7354476588e8df7c9ca0e0"
+    },
+    "pin_provenance": "Root independently fetched official release tag refs from GitHub.",
+    "hosted_results": "https://github.com/Vidcar/EngineeringWorkflows/pull/2/checks",
+    "note": "Bundled logs are local controls, not hosted-job logs. The PR check associated with the published revision is the hosted record."
+  },
+  "conditions": {
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "fresh_conversations": true,
+    "model_override": null,
+    "model_settings": "Inherited session model/effort, no explicit runner override.",
+    "isolation": "Shared filesystem; allowed paths and excluded evaluator materials enforced by task instructions, not an OS boundary.",
+    "provenance": "Original source records and selected runner observations plus independent parent execution; no complete tool-call transcript.",
+    "limits": [
+      "Checkpoints cannot detect transient edits reverted before checkpoint.",
+      "One accepted fresh run per revised transition; no aggregate effectiveness-rate claim.",
+      "Performance scope is one local aggregation workload, not production-wide.",
+      "Earlier nine adaptation trials and pre-clarification baseline retain their original skill/evaluator identities.",
+      "Historical incomplete measurement attempt is preserved, not counted as accepted."
+    ]
+  },
+  "evidence_files": {
+    "baseline-review-to-fix.json": {
+      "sha256": "fdb2da6b9b6a8452df7ecde774be9c4c7063e7bf73f4db81538df785704df759",
+      "bytes": 21504
+    },
+    "evaluator-v3.json": {
+      "sha256": "302fb454c0b421ca161c302fc5c756e75c9f2c6706be6a7160821db844be0888",
+      "bytes": 111907
+    },
+    "local-controls.json": {
+      "sha256": "2d33ea9a84eef1d693702c705edc8556eb5641f862439d5445463bc330fa2451",
+      "bytes": 24756
+    },
+    "measure-to-improve.json": {
+      "sha256": "40d453575784f3a82d4970a11c816f3c9330cf7d78cc65436ab33e936eb30b80",
+      "bytes": 97101
+    },
+    "measurement-incomplete-v3.json": {
+      "sha256": "6c3bb3056c8f465a385d7834ee1e5ef4d54335eddad2fd5c66a3e4a7ae5a712a",
+      "bytes": 52554
+    },
+    "review-to-fix.json": {
+      "sha256": "b7ee53ccefda4fd04c1944dd26f089f659694e90f4ae57042fbbba349ec863c2",
+      "bytes": 22398
+    }
+  }
+}

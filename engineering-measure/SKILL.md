@@ -6,9 +6,10 @@ description: Design or assess benchmarks, performance comparisons and quantitati
 # Measure the result
 
 Own measurement-only requests. When a new request includes implementation or
-improvement, Workflows owns the result. For an existing assignment, keep the lead,
-question, scope, review requirements and budget. Return measurements and limits
-without calling other engineering skills.
+improvement, Workflows owns the result. When supporting another lead, keep its
+question, scope, review requirements and budget; return measurements and limits
+without calling other engineering skills. For user-directed scope changes,
+follow "When the user changes the outcome" in the shared contract.
 
 Resolve `engineering-workflows` by exact catalog name and read its
 `references/contract.md` once per task. Reading it does not call that skill. Report

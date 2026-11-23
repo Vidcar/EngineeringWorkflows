@@ -57,8 +57,10 @@ Example requests:
 The [pstack review and adaptation decisions](docs/PSTACK_REVIEW.md) explain the
 source comparison and every component's disposition. The
 [evaluation report](docs/EVALUATION.md) separates instruction coverage, executed
-controls, fresh agent trials and integrations that were not exercised. Pstack
-is a reference for the design; installing it is not a dependency of this pack.
+controls, fresh agent trials and integrations that were not exercised. The
+[review follow-up](docs/REVIEW_FOLLOWUP.md) records outcome-transition trials and
+continuous integration. Pstack is a reference for the design; installing it is
+not a dependency of this pack.
 
 ## Agent setup
 
@@ -239,6 +241,7 @@ With the validation environment activated, run these from the repository root:
 ```bash
 python engineering-workflows/scripts/validate_pack.py --root .
 python -m unittest discover -s engineering-workflows/scripts -p 'test_*.py' -v
+python -m unittest discover -s evals -p 'test_*.py' -v
 ```
 
 The tests exercise the resolver, Git snapshot helper, pack structure, and
@@ -248,6 +251,13 @@ does not establish behavioral correctness. The [evaluation kit](evals/README.md)
 prepares isolated tasks and checks their results. Keep evaluator expectations
 out of the runner workspace. The kit stays at repository level and is not part
 of the seven installed skill folders.
+
+[The Validate workflow](.github/workflows/validate.yml) runs these three commands
+on pushes and pull requests with Python 3.12, a read-only token and action
+versions pinned to commits. Its unittest steps use a temporary directory outside
+the checkout. The workflow checks pack structure and evaluation helpers; agent
+behavior and scope transitions still need separately recorded trials. Inspect
+the run attached to the current revision before relying on its result.
 
 If you install the pack into this checkout's own host directory, use links.
 Copied skills nested inside the source tree create duplicate active skill names

@@ -1,6 +1,6 @@
 ---
 name: engineering-check
-description: Review a change, design, issue or readiness claim and report supported findings. Use for triage, change-impact analysis, proof quality or an independent assessment. Running checks and maintaining verification assets belong to engineering-verify.
+description: Own review-only assessments of a change, design, issue or readiness claim, including triage, change-impact analysis and proof quality. Support engineering-workflows when implementation is included. Running checks and maintaining verification assets belong to engineering-verify.
 ---
 
 # Review the change
@@ -10,9 +10,9 @@ Resolve `engineering-workflows` by exact catalog name and read its
 continue useful review within the agreed scope.
 
 Keep a review-only target unchanged. Workflows leads requests that also require
-implementation. Keep the same accountable lead when the user changes the
-requested outcome, following the shared contract. A supporting reviewer stays
-within the assignment and does not delegate further unless allowed.
+implementation. For user-directed scope changes, follow "When the user changes
+the outcome" in the shared contract. A supporting reviewer stays within the
+assignment and does not delegate further unless allowed.
 
 1. Establish the decision to be made, acceptance conditions, comparison base,
    actual changed and relevant untracked files, and environment.

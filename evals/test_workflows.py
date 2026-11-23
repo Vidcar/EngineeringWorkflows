@@ -11,8 +11,10 @@ from unittest.mock import patch
 
 import run
 from cases import CASES
-from run import check, execute, inventory, prepare
-from workflow_cases import (LEASE_GOOD, LEASE_SPLIT, MEASURE_REFERENCE,
+from run import check, checkpoint, execute, inventory, prepare
+from workflow_cases import (AGGREGATION_INDEXED, AGGREGATION_PARTIAL,
+                            AGGREGATION_POSITIVE_ONLY, AGGREGATION_REFERENCE,
+                            LEASE_GOOD, LEASE_SPLIT, MEASURE_REFERENCE,
                             NOTES_DUPLICATES, SERIALIZERS_BRIDGE, SERIALIZERS_NEW,
                             WORKFLOW_CASES)
 
@@ -51,6 +53,7 @@ class WorkflowControls(unittest.TestCase):
                                  case["prompt"] + "\n")
                 self.assertNotIn("manual_review_required", (target / "work" / "TASK.md").read_text())
                 self.assertEqual("fresh_agent_followup" in prepared, name == "application-create")
+                self.assertNotIn("second_prompt", prepared)
 
     def test_real_lease_baseline_holds_and_split_claim_is_detected(self):
         target = self.trial("formal-create")
@@ -191,6 +194,185 @@ class WorkflowControls(unittest.TestCase):
         repaired = check(target, run_code=True)
         self.assertFalse(repaired["objective_checks"]["protected_files_unchanged"])
         self.assertEqual(repaired["status"], "failed_checks")
+
+    def test_aggregation_benchmark_checks_equal_work_and_records_paired_samples(self):
+        target = self.trial("measure-to-improve")
+        work = target / "work"
+        original = inventory(work)
+        workload = self.command(target, "-c", "\n".join([
+            "import json",
+            "from workload import make_workload",
+            "rows, accounts = make_workload()",
+            "print(json.dumps(sorted({row['account'] for row in rows})))",
+        ]))
+        self.assertEqual(workload.returncode, 0, workload.stderr)
+        populated = json.loads(workload.stdout)
+        self.assertEqual(len(populated), 160)
+        self.assertEqual(populated, [f"acct-{index:04d}" for index in range(160)])
+        for implementation in (AGGREGATION_REFERENCE, AGGREGATION_INDEXED):
+            if implementation == AGGREGATION_INDEXED:
+                first = checkpoint(target)
+                self.assertEqual(first["changed_after_first_turn"], [])
+                (work / "candidate.py").write_text(implementation)
+            before = inventory(work)
+            observed = self.command(target, "benchmark.py")
+            self.assertEqual(observed.returncode, 0, observed.stderr)
+            measured = json.loads(observed.stdout)
+            self.assertEqual(measured["workload"], {
+                "input_rows": 6000, "populated_accounts": 160, "requested_accounts": 173,
+                "repetitions_per_sample": 2, "paired_samples": 6})
+            self.assertEqual(measured["correctness"], {
+                "contract_examples": {"reference": 5, "candidate": 5},
+                "all_outputs_equal": True, "inputs_unchanged": True})
+            self.assertEqual(len(measured["pairs"]), 6)
+            for index, pair in enumerate(measured["pairs"]):
+                self.assertEqual(pair["order"], ["reference", "candidate"]
+                                 if index % 2 == 0 else ["candidate", "reference"])
+                for label in ("reference", "candidate"):
+                    self.assertEqual(pair[label]["calls"], 2)
+                    self.assertEqual(pair[label]["completed_summaries"], 346)
+                    self.assertGreater(pair[label]["seconds"], 0)
+            self.assertTrue(measured["runtime"]["python"])
+            self.assertEqual(measured["source_sha256"], {
+                name: before[name] for name in (
+                    "candidate.py", "reference.py", "workload.py", "benchmark.py", "SPEC.md")})
+            self.assertEqual(inventory(work), before)
+        report = check(target, run_code=True)
+        self.assertEqual(report["status"], "needs_review", report)
+        self.assertTrue(report["observations"]["independent_behavior"]["outputs_equal"])
+        self.assertEqual(report["changed_files"], ["candidate.py"])
+        self.assertTrue(report["manual_review_required"])
+        self.assertNotEqual(inventory(work)["candidate.py"], original["candidate.py"])
+        # Ratios are observed, never threshold-graded by helper controls.
+
+    def test_aggregation_probe_accepts_correct_work_and_rejects_semantic_faults(self):
+        target = self.trial("measure-to-improve")
+        candidate = target / "work" / "candidate.py"
+        for implementation in (AGGREGATION_REFERENCE, AGGREGATION_INDEXED):
+            candidate.write_text(implementation)
+            observed = self.observe(target, "aggregation")
+            self.assertTrue(observed["successful"], observed)
+            self.assertTrue(observed["outputs_equal"])
+            self.assertEqual(observed["cases_checked_per_implementation"], 8)
+            self.assertTrue(observed["inputs_unchanged"])
+            self.assertTrue(observed["changed_inputs_rechecked"])
+        shared = '''def summarize(rows, accounts):
+    totals = {}
+    for row in rows:
+        entry = totals.setdefault(row["account"],
+                                  {"account": row["account"], "count": 0, "total": 0})
+        entry["count"] += 1
+        entry["total"] += row["delta"]
+    return [totals.get(account, {"account": account, "count": 0, "total": 0})
+            for account in accounts]
+'''
+        reused_buffer = '''buffer = []
+
+
+def summarize(rows, accounts):
+    totals = {}
+    for row in rows:
+        count, total = totals.get(row["account"], (0, 0))
+        totals[row["account"]] = (count + 1, total + row["delta"])
+    del buffer[len(accounts):]
+    while len(buffer) < len(accounts):
+        buffer.append({})
+    for item, account in zip(buffer, accounts):
+        count, total = totals.get(account, (0, 0))
+        item.update(account=account, count=count, total=total)
+    return buffer
+'''
+        for implementation, expected_error in (
+                (AGGREGATION_PARTIAL, "summary differs"),
+                (AGGREGATION_POSITIVE_ONLY, "summary differs"),
+                (shared, "shares output dictionaries"),
+                (reused_buffer, "reuses output dictionaries across calls")):
+            with self.subTest(defect=expected_error, source=implementation):
+                candidate.write_text(implementation)
+                observed = self.observe(target, "aggregation")
+                self.assertFalse(observed["successful"], observed)
+                self.assertIn("AssertionError: Candidate", observed["error"])
+                self.assertIn(expected_error, observed["error"])
+                measured = self.command(target, "benchmark.py")
+                self.assertNotEqual(measured.returncode, 0)
+                self.assertIn("ValueError: candidate:", measured.stderr)
+                self.assertEqual(measured.stdout, "")
+
+    def test_measure_to_improve_checkpoint_allows_only_the_second_turn_to_change_work(self):
+        target = self.trial("measure-to-improve")
+        case = WORKFLOW_CASES["measure-to-improve"]
+        before_checkpoint = check(target)
+        self.assertFalse(before_checkpoint["objective_checks"]["first_turn_unchanged"])
+        first = checkpoint(target)
+        self.assertEqual(first["changed_after_first_turn"], [])
+        self.assertEqual(first["next_prompt"], case["second_prompt"])
+        work = target / "work"
+        (work / "candidate.py").write_text(AGGREGATION_INDEXED)
+        tests = work / "tests"
+        tests.mkdir()
+        (tests / "test_summary.py").write_text(
+            "import unittest\nfrom candidate import summarize\n\n"
+            "class SummaryTests(unittest.TestCase):\n"
+            "    def test_signed_deltas(self):\n"
+            "        self.assertEqual(summarize([{'account': 'a', 'delta': -3},\n"
+            "                                    {'account': 'a', 'delta': 0}], ['a']),\n"
+            "                         [{'account': 'a', 'count': 2, 'total': -3}])\n")
+        result = self.command(target, "-m", "unittest", "discover", "-s", "tests")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Ran 1 test", result.stderr)
+        (work / "local-evidence.txt").write_text(
+            "Scope-allowance control: the signed-delta unittest ran successfully.\n")
+        after = check(target, run_code=True)
+        self.assertTrue(all(after["objective_checks"].values()), after)
+        self.assertEqual(after["status"], "needs_review")
+        self.assertEqual(after["changed_files"], [
+            "candidate.py", "local-evidence.txt", "tests/test_summary.py"])
+
+    def test_measure_to_improve_checkpoint_retains_first_turn_edits_additions_and_removals(self):
+        for violation in ("edit", "addition", "removal"):
+            with self.subTest(violation=violation):
+                target = self.root / violation
+                prepare("measure-to-improve", target)
+                work = target / "work"
+                if violation == "edit":
+                    path = work / "candidate.py"
+                    original = path.read_text()
+                    path.write_text(AGGREGATION_INDEXED)
+                elif violation == "addition":
+                    path = work / "premature-report.txt"
+                    original = None
+                    path.write_text("The first turn did not authorize writing a report.\n")
+                else:
+                    path = work / "reference.py"
+                    original = path.read_text()
+                    path.unlink()
+                first = checkpoint(target)
+                self.assertEqual(first["changed_after_first_turn"], [path.name])
+                if original is None:
+                    path.unlink()
+                else:
+                    path.write_text(original)
+                after_restoration = check(target)
+                self.assertTrue(after_restoration["objective_checks"]["protected_files_unchanged"])
+                self.assertFalse(after_restoration["objective_checks"]["first_turn_unchanged"])
+                self.assertEqual(after_restoration["status"], "failed_checks")
+                with self.assertRaisesRegex(ValueError, "already exists"):
+                    checkpoint(target)
+
+    def test_measure_to_improve_frozen_inputs_cannot_be_changed(self):
+        target = self.trial("measure-to-improve")
+        checkpoint(target)
+        for name in WORKFLOW_CASES["measure-to-improve"]["protected"]:
+            with self.subTest(path=name):
+                path = target / "work" / name
+                original = path.read_text()
+                path.write_text(original + "\n# Unrequested change\n")
+                changed = check(target)
+                self.assertFalse(changed["objective_checks"]["protected_files_unchanged"])
+                self.assertEqual(changed["status"], "failed_checks")
+                path.write_text(original)
+        restored = check(target)
+        self.assertEqual(restored["status"], "needs_review")
 
 
 if __name__ == "__main__":
