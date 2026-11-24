@@ -17,6 +17,10 @@ Distinguish the requested operation:
 - **Merge or release:** complete only when that endpoint is authorised and its
   required conditions are met. A tool's `ready` state alone is insufficient.
 
+For a PR or release, include a brief undo or recovery path in the existing
+description or delivery record. Distinguish a code revert from data and external
+effects; state irreversible effects and any required recovery or forward fix.
+
 Resolve supported review findings and required CI checks on the current change.
 Separate product defects from existing failures and infrastructure problems.
 Retry a transient failure for a stated reason and with a limit. Keep useful checks

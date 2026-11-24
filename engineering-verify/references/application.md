@@ -40,11 +40,12 @@ behaviour. Report setup failures and unexercised paths explicitly.
 
 ## Leave a reusable procedure when warranted
 
-For requested creation or useful ongoing coverage within scope, follow the host's
-supported project-skill authoring process and existing repository conventions.
-Create or update a discoverable area-specific `SKILL.md` with a real name and a
-description stating the application, surface and relevant change triggers. Avoid
-personal installation or hard-coded host/cache locations.
+For requested creation or useful ongoing coverage within scope, prefer the
+project's existing runbook and verification commands. Create or update a
+discoverable area-specific `SKILL.md` when requested or when it materially
+improves discovery. Follow the host's supported authoring process and repository
+conventions; describe the application, surface and relevant change triggers.
+Avoid personal installation or hard-coded host/cache locations.
 
 Include actual launch, readiness, doctor, drive, evidence and cleanup commands;
 dependencies and versions; relevant environment limits; and documented helper

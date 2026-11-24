@@ -44,10 +44,12 @@ procedure against the changed code before rerunning; changing only the model doe
 not demonstrate detection of a real-code regression. Preserve valid controls and
 existing findings. Never weaken a property, domain or model to manufacture success.
 
-When creating durable verification, use the host-supported project location and
-existing conventions. Leave a discoverable `SKILL.md` whose frontmatter names the
-area and change triggers. Its instructions must stand alone for the next agent.
-Include, directly or through an existing coverage record:
+For durable verification, prefer the project's existing runbook and verification
+commands. Create or update a discoverable project `SKILL.md` when requested or
+when it materially improves discovery, following the host's supported authoring
+process and repository conventions. Keep instructions usable by the next agent
+and identify the area and change triggers. Include, directly or through an
+existing coverage record:
 
 - Each property, purpose, source paths/functions, model mapping, assumptions and
   bounds; include relevant shared-state writers rather than only file names.
