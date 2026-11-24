@@ -46,9 +46,10 @@ administration; a large task or a missing tool does not select them.
    resumption. Keep shared interfaces and integration with one owner.
 5. Verify the combined result against the original requirements and preserved
    behaviour through the relevant project skill or real entrypoint. Reconcile
-   changed verification assets with the code they describe. Follow the shared
-   review rules; give Check the concrete change and remaining risks. Ask Verify
-   or Measure a bounded evidence question when their help is useful.
+   affected verification assets with the code they describe, including untouched
+   assets made stale by the change. Follow the shared review rules; give Check the
+   concrete change and remaining risks. Ask Verify or Measure a bounded evidence
+   question when their help is useful.
 6. Remove your temporary work, update instructions affected by the change and
    complete [delivery](references/delivery.md) at the requested finish.
 

@@ -27,10 +27,13 @@ assignment and does not delegate further unless allowed.
 4. Gather evidence that can settle material questions. Use Verify or Measure for
    a specific check when needed. Respect the assignment's allowed effects;
    review alone does not authorise fixes, publication or deployment.
-5. Report actionable findings with the location, trigger, consequence and
-   evidence. State uncertainty, checks not run and remaining risk. A review with
-   no findings applies only to the inspected scope. Settle disagreements with
-   evidence or an explained tradeoff.
+5. Before reporting a candidate finding, check its strongest plausible
+   counterexplanation against the requirements, code and available evidence.
+   Report only supported, actionable findings that remain, with the location,
+   trigger, consequence and evidence; consolidate findings with a common root
+   cause. Preserve supported static findings and state uncertainty, checks not
+   run and remaining risk. A review with no findings applies only to the inspected
+   scope. Settle disagreements with evidence or an explained tradeoff.
 
 Read [critical-review.md](references/critical-review.md) for design, change-impact
 or adversarial review. For verification quality, resolve `engineering-verify` by

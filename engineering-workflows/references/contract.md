@@ -38,13 +38,14 @@ automatic setup step.
 ## Match review to the risk
 
 - **Small mechanical edit:** inspect it and run a relevant direct check.
-- **Ordinary behaviour change:** run meaningful checks and obtain one fresh,
+- **Ordinary behaviour change:** run meaningful checks and obtain a fresh,
   independent final review when delegation is available. A fresh context using
   the same model qualifies; self-review does not. If unavailable, state the limit
   and finish the work otherwise authorised.
-- **Consequential or uncertain change:** name the risk, test costly assumptions
-  early, and get independent review of requirements and maintainability. Add
-  security, migration or concurrency review where the change warrants it.
+- **Consequential or uncertain change:** apply the ordinary behaviour rule, name
+  the risk and test costly assumptions early. Include independent review of
+  requirements and maintainability, plus security, migration or concurrency
+  review where warranted.
 - **Explicit stricter requirements:** satisfy them or report the unmet condition.
   Continue useful work that is independent of the missing review.
 
@@ -54,7 +55,11 @@ and neutral briefs. Keep supported minority findings. Resolve disagreements with
 evidence, a probe or an explained tradeoff. Fix confirmed defects within the
 authorised scope and refresh affected evidence. Read-only assignments report
 findings; helpers return findings beyond their allowed writes to the lead.
-Another review round needs an unresolved finding or a new failure mode.
+
+An independent final review must cover the current integrated result, including
+material repairs. Refresh affected review; reuse evidence that still applies and
+the same independent reviewer when useful. Another review round on unchanged
+work needs an unresolved finding or a new failure mode.
 
 ## Establish what works
 
