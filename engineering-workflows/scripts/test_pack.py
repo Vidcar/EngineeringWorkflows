@@ -12,6 +12,7 @@ import unittest
 from pathlib import Path
 
 from resolve_skill import resolve
+from test_helpers import symlink_or_skip
 from validate_pack import validate
 
 
@@ -64,7 +65,7 @@ class PackFixtureTests(unittest.TestCase):
         installed = Path(self.temp.name) / "installed"
         installed.mkdir()
         for name, source in self.paths.items():
-            (installed / name).symlink_to(source, target_is_directory=True)
+            symlink_or_skip(self, installed / name, source, target_is_directory=True)
         report = validate([installed])
         self.assertTrue(report["valid"], report)
         self.assertEqual(report["skill_count"], 7)

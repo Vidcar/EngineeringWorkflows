@@ -12,8 +12,17 @@ from snapshot import capture
 from resolve_skill import resolve
 
 
-def command(repo, *args):
-    return subprocess.check_output(["git", "-C", str(repo), *args], stderr=subprocess.PIPE)
+def command(repo, *args, input=None):
+    return subprocess.check_output(["git", "-C", str(repo), *args], input=input, stderr=subprocess.PIPE)
+
+
+def symlink_or_skip(test, path, target, *, target_is_directory=False):
+    try:
+        path.symlink_to(target, target_is_directory=target_is_directory)
+    except OSError as error:
+        if getattr(error, "winerror", None) == 1314:
+            test.skipTest("Windows denied permission to create a symbolic link")
+        raise
 
 
 class SnapshotTests(unittest.TestCase):
@@ -35,13 +44,18 @@ class SnapshotTests(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
+    def stage_blob(self, name, data):
+        blob = command(self.repo, "hash-object", "-w", "--stdin", input=data).strip()
+        encoded = os.fsencode(name)
+        entry = b"100644 " + blob + b"\t" + encoded + b"\0"
+        command(self.repo, "-c", "core.protectNTFS=false", "update-index", "-z", "--index-info", input=entry)
+        self.assertIn(encoded, command(self.repo, "ls-files", "-z").split(b"\0"))
+
     def test_unchanged_snapshot_is_stable(self):
         self.assertEqual(capture(self.repo), self.start)
 
     def assert_repository_path_preserves_suffix(self, suffix):
         spaced = self.repo.with_name(self.repo.name + suffix)
-        if spaced.exists():
-            self.skipTest("The filesystem aliases this path to the trimmed name")
         self.repo.rename(spaced)
         self.assertFalse(self.repo.exists())
         self.assertIn(spaced.name, [entry.name for entry in self.root.iterdir()])
@@ -54,8 +68,13 @@ class SnapshotTests(unittest.TestCase):
         self.assertNotEqual(capture(self.repo)["snapshot_id"], current["snapshot_id"])
         self.assertEqual(capture(spaced), current)
 
-    def test_repository_path_preserves_trailing_ascii_space(self):
-        self.assert_repository_path_preserves_suffix(" ")
+    def test_repository_path_handles_trailing_ascii_space(self):
+        spaced = self.repo.with_name(self.repo.name + " ")
+        if spaced.exists():
+            self.assertTrue(spaced.samefile(self.repo))
+            self.assertEqual(capture(spaced), self.start)
+        else:
+            self.assert_repository_path_preserves_suffix(" ")
 
     def test_repository_path_preserves_trailing_nonbreaking_space(self):
         self.assert_repository_path_preserves_suffix("\u00a0")
@@ -110,15 +129,25 @@ class SnapshotTests(unittest.TestCase):
 
     def test_worktree_executable_mode_is_part_of_snapshot(self):
         app = self.repo / "app.txt"
+        was_executable = bool(app.stat().st_mode & 0o111)
         app.chmod(0o755)
-        if not app.stat().st_mode & 0o111:
-            self.skipTest("The filesystem does not expose a working-tree executable bit")
         current = capture(self.repo)
-        self.assertNotEqual(current["content_sha256"], self.start["content_sha256"])
-        self.assertNotEqual(current["snapshot_id"], self.start["snapshot_id"])
+        if bool(app.stat().st_mode & 0o111) != was_executable:
+            self.assertNotEqual(current["content_sha256"], self.start["content_sha256"])
+            self.assertNotEqual(current["snapshot_id"], self.start["snapshot_id"])
+        else:
+            self.assertEqual(current, self.start)
+
+    def test_executable_extension_does_not_supply_windows_worktree_mode(self):
+        app = self.repo / "script.cmd"
+        app.write_bytes(b"fixture")
+        app.chmod(0o755)
+        record = next(file for file in capture(self.repo)["files"] if file["path"] == app.name)
+        self.assertEqual(record["executable"], os.name != "nt" and bool(app.stat().st_mode & 0o111))
 
     def test_index_executable_mode_is_part_of_snapshot(self):
         command(self.repo, "update-index", "--chmod=+x", "app.txt")
+        self.assertTrue(command(self.repo, "ls-files", "--stage", "app.txt").startswith(b"100755 "))
         current = capture(self.repo)
         self.assertEqual(current["content_sha256"], self.start["content_sha256"])
         self.assertNotEqual(current["index_sha256"], self.start["index_sha256"])
@@ -127,22 +156,77 @@ class SnapshotTests(unittest.TestCase):
     def test_symlink_is_hashed_without_following_target(self):
         outside = self.root / "outside.txt"
         outside.write_text("private first")
-        (self.repo / "link").symlink_to(outside)
+        symlink_or_skip(self, self.repo / "link", outside)
         first = capture(self.repo)
         outside.write_text("private second")
         self.assertEqual(capture(self.repo), first)
         self.assertEqual(next(file for file in first["files"] if file["path"] == "link")["kind"], "symlink")
 
-    def test_parent_symlink_is_rejected(self):
+    def test_parent_directory_link_is_rejected(self):
         directory = self.repo / "nested"
         directory.mkdir()
         (directory / "tracked.txt").write_text("tracked")
         command(self.repo, "add", "nested")
         (directory / "tracked.txt").unlink()
         directory.rmdir()
-        directory.symlink_to(self.root)
-        with self.assertRaisesRegex(ValueError, "Parent symlink"):
+
+        outside = self.root / "outside"
+        outside.mkdir()
+        (outside / "tracked.txt").write_text("different bytes outside the repository")
+        if os.name == "nt":
+            result = subprocess.run(
+                ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command",
+                 "$ErrorActionPreference = 'Stop'\n"
+                 "New-Item -ItemType Junction -Path $env:ENGINEERING_TEST_JUNCTION "
+                 "-Target $env:ENGINEERING_TEST_JUNCTION_TARGET | Out-Null"],
+                env={**os.environ, "ENGINEERING_TEST_JUNCTION": str(directory),
+                     "ENGINEERING_TEST_JUNCTION_TARGET": str(outside)},
+                capture_output=True, text=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            message = "Parent junction"
+        else:
+            directory.symlink_to(outside, target_is_directory=True)
+            message = "Parent symlink"
+        with self.assertRaisesRegex(ValueError, message):
             capture(self.repo)
+
+    def test_git_paths_follow_native_filesystem_rules(self):
+        names = ("app.txt ", "app.txt.", "sub /app.txt", "sub\\app.txt", "app.txt:stream", "CON.txt")
+        if os.name != "nt":
+            for name in names:
+                path = self.repo / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b"distinct filename")
+            actual = {file["path"] for file in capture(self.repo)["files"] if file["kind"] == "file"}
+            self.assertEqual(actual, {".gitignore", "app.txt", *names})
+            return
+
+        for name in names:
+            with self.subTest(name=name):
+                command(self.repo, "reset", "--mixed", "HEAD")
+                self.stage_blob(name, b"indexed without a working-tree file")
+                with self.assertRaisesRegex(ValueError, "Unsafe Windows Git path"):
+                    capture(self.repo)
+
+    def test_git_paths_with_different_case_do_not_share_worktree_bytes(self):
+        upper = self.repo / "Case.txt"
+        lower = self.repo / "case.txt"
+        upper.write_bytes(b"upper")
+        command(self.repo, "add", upper.name)
+        self.stage_blob(lower.name, b"lower")
+        if lower.exists():
+            if os.name != "nt":
+                self.skipTest("requires Windows or a case-sensitive filesystem")
+            self.assertTrue(lower.samefile(upper))
+            with self.assertRaisesRegex(ValueError, "Git path uses a Windows alias"):
+                capture(self.repo)
+        else:
+            lower.write_bytes(b"lower")
+            records = {entry["path"]: entry for entry in capture(self.repo)["files"]}
+            self.assertEqual(records[upper.name]["kind"], "file")
+            self.assertEqual(records[lower.name]["kind"], "file")
+            self.assertNotEqual(records[upper.name]["sha256"], records[lower.name]["sha256"])
 
     def test_ignored_outputs_need_separate_identity(self):
         (self.repo / "cache").mkdir()
@@ -204,15 +288,15 @@ class ResolverTests(unittest.TestCase):
         source = self.skill("source/engineering-example")
         installed = self.root / "installed"
         installed.mkdir()
-        (installed / "engineering-example").symlink_to(source, target_is_directory=True)
+        symlink_or_skip(self, installed / "engineering-example", source, target_is_directory=True)
         self.assertEqual(resolve("engineering-example", [installed]), source)
 
     def test_directory_aliases_and_roots_do_not_duplicate_skill(self):
         source = self.skill("source/engineering-example")
         installed = self.root / "installed"
         installed.mkdir()
-        (installed / "first").symlink_to(source, target_is_directory=True)
-        (installed / "second").symlink_to(source, target_is_directory=True)
+        symlink_or_skip(self, installed / "first", source, target_is_directory=True)
+        symlink_or_skip(self, installed / "second", source, target_is_directory=True)
         self.assertEqual(resolve("engineering-example", [installed]), source)
         self.assertEqual(resolve("engineering-example", [installed, source.parent]), source)
 
@@ -221,8 +305,8 @@ class ResolverTests(unittest.TestCase):
         second = self.skill("source/second")
         installed = self.root / "installed"
         installed.mkdir()
-        (installed / "first").symlink_to(first, target_is_directory=True)
-        (installed / "second").symlink_to(second, target_is_directory=True)
+        symlink_or_skip(self, installed / "first", first, target_is_directory=True)
+        symlink_or_skip(self, installed / "second", second, target_is_directory=True)
         with self.assertRaisesRegex(ValueError, "found 2"):
             resolve("engineering-example", [installed])
 
@@ -231,8 +315,8 @@ class ResolverTests(unittest.TestCase):
         installed = self.root / "installed"
         installed.mkdir()
         self.skill("installed/uninstalled/old")
-        (installed / "active").symlink_to(source, target_is_directory=True)
-        (source / "loop").symlink_to(installed, target_is_directory=True)
+        symlink_or_skip(self, installed / "active", source, target_is_directory=True)
+        symlink_or_skip(self, source / "loop", installed, target_is_directory=True)
         self.assertEqual(resolve("engineering-example", [installed]), source)
         with self.assertRaisesRegex(ValueError, "found 2"):
             resolve("engineering-example", [installed], include_disabled=True)
@@ -242,8 +326,8 @@ class ResolverTests(unittest.TestCase):
         installed = self.root / "installed"
         deep = installed.joinpath(*[f"level-{index}" for index in range(7)])
         deep.mkdir(parents=True)
-        (deep / "first").symlink_to(source.parent, target_is_directory=True)
-        (installed / "shallow").symlink_to(source.parent, target_is_directory=True)
+        symlink_or_skip(self, deep / "first", source.parent, target_is_directory=True)
+        symlink_or_skip(self, installed / "shallow", source.parent, target_is_directory=True)
         walk = os.walk
 
         def ordered_walk(*args, **kwargs):
@@ -259,7 +343,7 @@ class ResolverTests(unittest.TestCase):
         installed = self.root / "installed"
         deep = installed.joinpath(*[f"level-{index}" for index in range(8)])
         deep.mkdir(parents=True)
-        (deep / "too-deep").symlink_to(source, target_is_directory=True)
+        symlink_or_skip(self, deep / "too-deep", source, target_is_directory=True)
         with self.assertRaisesRegex(ValueError, "found 0"):
             resolve("engineering-example", [installed])
 
@@ -267,7 +351,7 @@ class ResolverTests(unittest.TestCase):
         source = self.skill("uninstalled/source")
         active = self.root / "shortcut"
         active.mkdir()
-        (active / "SKILL.md").symlink_to(source / "SKILL.md")
+        symlink_or_skip(self, active / "SKILL.md", source / "SKILL.md")
         with self.assertRaisesRegex(ValueError, "found 0"):
             resolve("engineering-example", [self.root])
 

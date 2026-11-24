@@ -71,7 +71,8 @@ and Python 3.9 or newer. The validator and pack tests also require
 PyYAML. The skills use the models, tools, credentials, and delegation capabilities
 already available in the host.
 
-The commands below use a POSIX shell, such as Bash on Linux, macOS, or WSL.
+The numbered setup commands use Bash on Linux, macOS, or WSL.
+For a native Windows installation, use the [PowerShell instructions](#native-windows-powershell).
 
 Clone the repository to get the pack:
 
@@ -204,6 +205,64 @@ skill location. Two copied installations of the same skill are duplicates even
 if their contents match. Validate the source checkout and copied installation
 separately; add multiple roots deliberately when diagnosing duplicates.
 
+### Native Windows (PowerShell)
+
+Open PowerShell in the cloned or extracted pack folder with Git for Windows and
+Python available. Create a validation environment beside the pack and run its
+validator.
+
+```powershell
+$packSource = (Get-Location).Path
+$validationEnv = Join-Path (Split-Path -Parent $packSource) 'engineering-workflows-venv'
+python -m venv $validationEnv
+if ($LASTEXITCODE -ne 0) { throw 'Could not create the validation environment.' }
+$packPython = Join-Path $validationEnv 'Scripts\python.exe'
+& $packPython -m pip install PyYAML
+if ($LASTEXITCODE -ne 0) { throw 'Could not install PyYAML.' }
+& $packPython -B (Join-Path $packSource 'engineering-workflows\scripts\validate_pack.py') --root $packSource
+if ($LASTEXITCODE -ne 0) { throw 'The source pack did not pass validation.' }
+```
+
+The example copies all seven skills to your personal Codex skill directory.
+Set `$skillsDir` to the appropriate project or personal path from the table above
+if you use a different scope or host. Copy mode works without permission to
+create symlinks.
+
+```powershell
+$skillsDir = Join-Path $env:USERPROFILE '.agents\skills'
+$contract = Join-Path $packSource 'engineering-workflows\references\pack-contract.json'
+$skillNames = (Get-Content -LiteralPath $contract -Raw -ErrorAction Stop | ConvertFrom-Json).skills.name
+if (Test-Path -LiteralPath $skillsDir) {
+    $conflicts = Get-ChildItem -LiteralPath $skillsDir -Name -Force -ErrorAction Stop |
+        Where-Object { $_ -in $skillNames }
+    if ($conflicts) { throw "Existing destinations: $($conflicts -join ', '). See Updating and troubleshooting." }
+}
+New-Item -ItemType Directory -Path $skillsDir -Force -ErrorAction Stop | Out-Null
+foreach ($name in $skillNames) {
+    $sourceSkill = Join-Path $packSource $name
+    $targetSkill = Join-Path $skillsDir $name
+    Copy-Item -LiteralPath $sourceSkill -Destination $targetSkill -Recurse -Force -ErrorAction Stop
+}
+```
+
+Verify the copied installation and then check host discovery.
+
+```powershell
+$scripts = Join-Path $skillsDir 'engineering-workflows\scripts'
+& $packPython -B (Join-Path $scripts 'resolve_skill.py') engineering-workflows --root $skillsDir
+if ($LASTEXITCODE -ne 0) { throw 'Could not resolve the installed skill.' }
+& $packPython -B (Join-Path $scripts 'validate_pack.py') --root $skillsDir
+if ($LASTEXITCODE -ne 0) { throw 'The installed pack did not pass validation.' }
+$previousTestRoot = $env:ENGINEERING_PACK_TEST_ROOT
+try {
+    $env:ENGINEERING_PACK_TEST_ROOT = $skillsDir
+    & $packPython -B -m unittest discover -s $scripts -p 'test_*.py' -v
+    if ($LASTEXITCODE -ne 0) { throw 'The installed pack tests failed.' }
+} finally {
+    $env:ENGINEERING_PACK_TEST_ROOT = $previousTestRoot
+}
+```
+
 ### 5. Check discovery and try a small task
 
 Open the project in your host and check that all seven skills appear in its
@@ -252,12 +311,23 @@ prepares isolated tasks and checks their results. Keep evaluator expectations
 out of the runner workspace. The kit stays at repository level and is not part
 of the seven installed skill folders.
 
+The [Git snapshot helper](engineering-workflows/scripts/snapshot.py) records
+working-tree executable bits on POSIX filesystems. On native Windows,
+`files[].executable` is `false` and the index hash still records a mode staged with
+`git update-index --chmod=+x -- path`. The helper rejects Git entries with
+Win32-reserved path components, including components ending in ASCII space or
+period. It also rejects a Git path that would open a differently spelled
+directory entry, such as a case collision on case-insensitive NTFS. The helper
+refuses to traverse parent symlinks and NTFS junctions.
+See the [Windows naming rules](https://learn.microsoft.com/windows/win32/fileio/naming-a-file).
+
 [The Validate workflow](.github/workflows/validate.yml) runs these three commands
-on pushes and pull requests with Python 3.12, a read-only token and action
-versions pinned to commits. Its unittest steps use a temporary directory outside
-the checkout. The workflow checks pack structure and evaluation helpers; agent
-behavior and scope transitions still need separately recorded trials. Inspect
-the run attached to the current revision before relying on its result.
+on Linux and Windows for pushes and pull requests. It uses Python 3.12, a
+read-only token, pinned action versions and a temporary directory outside the
+checkout. On Windows, tests that need symlinks report a skip if the account lacks
+permission to create them. The workflow checks pack structure and evaluation
+helpers. Agent behavior and scope transitions need separately recorded trials.
+Inspect the run attached to the current revision before relying on its result.
 
 If you install the pack into this checkout's own host directory, use links.
 Copied skills nested inside the source tree create duplicate active skill names
@@ -271,10 +341,12 @@ local edits immediately, so use a stable copy for everyday work. If the source
 is a Git checkout, keep local changes safe when updating it. If you move or
 delete the source folder, recreate the links at the new location.
 
-For a copied installation, keep a backup outside all active skill roots, replace
-only this pack's seven folders with complete copies, and rerun validation and
-the host discovery check. The install snippet deliberately stops on existing
-destinations instead of merging versions.
+For a copied installation, update and validate the source first. Back up the
+seven installed skill folders outside all active skill roots, replace them with
+complete copies, and rerun validation and host discovery. On Windows, move the
+seven previous folders out of the skill directory, then rerun the PowerShell
+copy and verification steps. The install commands stop when a destination
+already exists.
 
 | Symptom | Check |
 | --- | --- |
