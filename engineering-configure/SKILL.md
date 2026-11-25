@@ -19,11 +19,13 @@ missing guidance and continue useful work within the agreed scope.
    available, configured and successfully exercised capabilities. For model-role
    changes, read [capabilities.md](references/capabilities.md). Do not guess model
    identities, probe credentials or alter accounts to force availability.
-3. Edit the requested source and preserve unrelated work. For installation or
-   persistent personal-skill changes, follow the host's official skill-authoring
-   process and supported locations. Do not edit bundled/system skills or claim
-   installation from a draft. If saving is unavailable, retain the candidate and
-   explain the limit.
+3. Edit the requested source and preserve unrelated work. Before installation
+   or persistent personal-skill changes, check the active session's effective
+   write access to each required destination, including the checkout and
+   installed skill directory when both are involved. Follow the host's official
+   skill-authoring process and supported locations. Do not edit bundled/system
+   skills or claim installation from a draft. If saving is blocked, retain the
+   candidate and report the affected path and observed blocker.
 4. For evaluation or saving, read
    [evaluate-and-promote.md](references/evaluate-and-promote.md). Use
    [routing cases](references/routing-cases.md) when selection or scope changes.
